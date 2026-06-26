@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>GRUPO CÓNDOR 2026 · Dashboard Ejecutivo CX · ARVI</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+<style>
+:root{
+  --bg:#080C14;--bg2:#0F1623;--card:#111827;--card2:#1A2235;
+  --border:#1F2937;--border2:#2D3748;
+  --condor:#EF4444;--condor2:#FCA5A5;
+  --sky:#0EA5E9;--navy:#0D2359;--green:#10B981;--amber:#F59E0B;--purple:#8B5CF6;
+  --tx:#F9FAFB;--tx2:#D1D5DB;--tx3:#9CA3AF;--tx4:#6B7280;
+  --r:8px;--r2:12px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--tx);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;}
+
+/* TOPBAR */
+.topbar{background:rgba(8,12,20,.95);backdrop-filter:blur(12px);padding:0 36px;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:400;border-bottom:1px solid var(--border);}
+.tb-l{display:flex;align-items:center;gap:14px;}
+.tb-brand{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;color:#fff;letter-spacing:3px;display:flex;align-items:center;gap:8px;}
+.tb-brand .condor-dot{width:8px;height:8px;border-radius:50%;background:var(--condor);display:inline-block;}
+.tb-div{width:1px;height:20px;background:var(--border2);}
+.tb-title{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;color:var(--tx3);letter-spacing:1.2px;text-transform:uppercase;}
+.tb-r{display:flex;align-items:center;gap:8px;}
+.tag{font-family:'IBM Plex Mono',monospace;font-size:9px;padding:3px 9px;border-radius:3px;font-weight:600;letter-spacing:.5px;}
+.tag.pilot{background:rgba(245,158,11,.15);color:#F59E0B;border:1px solid rgba(245,158,11,.3);}
+.tag.live{background:rgba(16,185,129,.15);color:#10B981;border:1px solid rgba(16,185,129,.3);}
+.tag.arvi{background:rgba(14,165,233,.15);color:#0EA5E9;border:1px solid rgba(14,165,233,.3);}
+
+/* HEADER */
+.header{background:linear-gradient(135deg,#0A0F1E 0%,#0D1829 50%,#0A0F1E 100%);border-bottom:1px solid var(--border);padding:24px 36px 0;position:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 50%,rgba(239,68,68,.05) 0%,transparent 60%),radial-gradient(ellipse at 80% 50%,rgba(14,165,233,.05) 0%,transparent 60%);}
+.hdr-main{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative;z-index:1;}
+.study-lbl{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--sky);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.study-lbl::before{content:'';display:block;width:16px;height:2px;background:var(--sky);}
+.hdr-h1{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;color:#fff;line-height:1.1;letter-spacing:1px;margin-bottom:4px;}
+.hdr-sub{font-size:12px;color:var(--tx3);}
+.hdr-right{text-align:right;}
+.hdr-logo{font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:800;color:#fff;letter-spacing:4px;line-height:1;}
+.hdr-logo .red{color:var(--condor);}
+.hdr-score-mini{margin-top:10px;}
+.hdr-score-lbl{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--tx4);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
+.hdr-score-val{font-size:42px;font-weight:700;color:#fff;line-height:1;letter-spacing:-1px;}
+.hdr-score-val span{font-size:18px;color:var(--tx3);}
+.hdr-track{background:rgba(255,255,255,.08);border-radius:4px;height:4px;width:160px;overflow:hidden;margin-top:6px;margin-left:auto;}
+.hdr-fill{height:4px;border-radius:4px;background:linear-gradient(90deg,var(--sky),#00D4FF);transition:width 1.5s ease;}
+.hdr-meta{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid rgba(255,255,255,.06);position:relative;z-index:1;}
+.hm{padding:10px 0 12px;border-right:1px solid rgba(255,255,255,.06);}
+.hm:last-child{border-right:none;}
+.hm-l{font-family:'IBM Plex Mono',monospace;font-size:8px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--tx4);margin-bottom:3px;}
+.hm-v{font-size:13px;font-weight:600;color:var(--tx2);}
+
+/* NAV */
+nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 36px;display:flex;overflow-x:auto;}
+.tab{padding:13px 18px;font-size:10.5px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--tx3);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;font-family:'IBM Plex Sans',sans-serif;}
+.tab:hover{color:#fff;background:rgba(255,255,255,.03);}
+.tab.active{color:#fff;border-bottom-color:var(--sky);}
+
+/* MAIN */
+main{padding:24px 36px 60px;}
+.sec{display:none;animation:fi .2s ease;}
+.sec.active{display:block;}
+@keyframes fi{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+.sec-hd{margin-bottom:20px;}
+.sec-hd h2{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:700;color:#fff;letter-spacing:.5px;margin-bottom:3px;}
+.sec-hd p{font-size:11px;color:var(--tx3);}
+
+/* KPI */
+.kpis{display:grid;gap:12px;margin-bottom:20px;}
+.k5{grid-template-columns:repeat(5,1fr);}
+.k4{grid-template-columns:repeat(4,1fr);}
+.k3{grid-template-columns:repeat(3,1fr);}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px 14px;border-left:3px solid var(--sky);transition:all .2s;cursor:default;}
+.kpi:hover{border-color:var(--border2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,.4);}
+.kpi.r{border-left-color:var(--condor);}
+.kpi.g{border-left-color:var(--green);}
+.kpi.a{border-left-color:var(--amber);}
+.kpi.p{border-left-color:var(--purple);}
+.kpi-l{font-family:'IBM Plex Mono',monospace;font-size:8.5px;font-weight:600;letter-spacing:.9px;text-transform:uppercase;color:var(--tx3);margin-bottom:6px;}
+.kpi-v{font-size:28px;font-weight:700;color:#fff;line-height:1;margin-bottom:3px;letter-spacing:-.5px;}
+.kpi-v sup{font-size:13px;color:var(--tx3);}
+.kpi-s{font-size:10px;color:var(--tx3);}
+
+/* CARD */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:18px 20px 16px;transition:all .2s;margin-bottom:16px;}
+.card:hover{border-color:var(--border2);}
+.card-hd{margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.card-t{font-size:12px;font-weight:700;color:#fff;margin-bottom:2px;}
+.card-s{font-size:10px;color:var(--tx3);}
+.cw{position:relative;width:100%;}
+
+/* GRIDS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px;}
+.g21{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:16px;}
+.g12{display:grid;grid-template-columns:1fr 2fr;gap:14px;margin-bottom:16px;}
+
+/* RANK */
+.rl{display:flex;flex-direction:column;gap:10px;margin-top:6px;}
+.ri{display:flex;align-items:center;gap:10px;}
+.rn{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--tx4);width:16px;text-align:right;flex-shrink:0;}
+.rm{font-size:11px;font-weight:600;color:var(--tx2);flex-shrink:0;}
+.rb-w{flex:1;background:var(--bg);border-radius:2px;height:6px;overflow:hidden;}
+.rb{height:6px;border-radius:2px;transition:width .8s ease;}
+.rv{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;color:var(--tx2);width:28px;text-align:right;flex-shrink:0;}
+
+/* BADGE */
+.bdg{display:inline-block;padding:2px 7px;border-radius:3px;font-size:9px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;font-family:'IBM Plex Mono',monospace;}
+.bdg.condor{background:rgba(239,68,68,.2);color:var(--condor);border:1px solid rgba(239,68,68,.4);}
+.bdg.good{background:rgba(16,185,129,.15);color:var(--green);}
+.bdg.ok{background:rgba(14,165,233,.15);color:var(--sky);}
+.bdg.warn{background:rgba(245,158,11,.15);color:var(--amber);}
+.bdg.bad{background:rgba(239,68,68,.15);color:var(--condor);}
+.bdg.b1{background:rgba(13,35,89,.6);color:#60A5FA;}
+.bdg.b2{background:rgba(14,165,233,.2);color:var(--sky);}
+.bdg.b3{background:rgba(139,92,246,.2);color:var(--purple);}
+
+/* TABLE */
+.tw{border:1px solid var(--border);border-radius:var(--r);overflow:hidden;}
+.dt{width:100%;border-collapse:collapse;}
+.dt th{padding:9px 12px;font-family:'IBM Plex Mono',monospace;font-size:8.5px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--tx3);background:var(--bg2);border-bottom:1px solid var(--border);text-align:left;}
+.dt td{padding:9px 12px;font-size:11.5px;color:var(--tx2);border-bottom:1px solid var(--border);}
+.dt tr:last-child td{border-bottom:none;}
+.dt tr:hover td{background:rgba(255,255,255,.02);}
+.dt td.n{font-weight:700;color:#fff;}
+.dt td.r{text-align:right;font-family:'IBM Plex Mono',monospace;}
+.dt th.r{text-align:right;}
+.condor-row td{background:rgba(239,68,68,.04)!important;}
+.condor-row td.n{color:var(--condor2)!important;}
+
+/* SEMAFORO */
+.sem{display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.sem.g{background:var(--green);box-shadow:0 0 6px rgba(16,185,129,.6);}
+.sem.y{background:var(--amber);box-shadow:0 0 6px rgba(245,158,11,.6);}
+.sem.r{background:var(--condor);box-shadow:0 0 6px rgba(239,68,68,.6);}
+
+/* FILTER BAR */
+.filter-bar{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;align-items:center;}
+.filter-lbl{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--tx4);letter-spacing:1px;text-transform:uppercase;margin-right:4px;}
+.fbtn{padding:5px 14px;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;transition:all .15s;border:1px solid var(--border2);background:var(--card);color:var(--tx3);}
+.fbtn:hover{background:var(--card2);color:#fff;}
+.fbtn.active{background:var(--sky);color:#fff;border-color:var(--sky);}
+.fbtn.condor-seg{border-color:rgba(239,68,68,.4);}
+.fbtn.condor-seg.active{background:var(--condor);border-color:var(--condor);}
+.sel{background:var(--card2);border:1px solid var(--border2);color:var(--tx2);padding:6px 12px;border-radius:4px;font-size:12px;font-family:'IBM Plex Sans',sans-serif;outline:none;cursor:pointer;}
+.sel option{background:var(--card2);}
+
+/* DIM BARS */
+.dbr{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.dbl{font-size:11px;color:var(--tx2);width:200px;flex-shrink:0;}
+.dbt{flex:1;background:var(--bg);border-radius:2px;height:8px;overflow:hidden;}
+.dbf{height:8px;border-radius:2px;transition:width .6s ease;}
+.dbv{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;color:var(--tx2);width:32px;text-align:right;flex-shrink:0;}
+
+/* INSIGHT */
+.ins{background:var(--bg2);border-left:3px solid var(--sky);padding:10px 14px;border:1px solid var(--border);border-left:3px solid var(--sky);margin-bottom:8px;border-radius:0 var(--r) var(--r) 0;}
+.ins.g{border-left-color:var(--green);}.ins.w{border-left-color:var(--amber);}.ins.r{border-left-color:var(--condor);}
+.ins-l{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.9px;text-transform:uppercase;color:var(--tx4);margin-bottom:2px;font-weight:600;}
+.ins-v{font-size:20px;font-weight:700;color:#fff;line-height:1;margin-bottom:2px;}
+.ins-d{font-size:10.5px;color:var(--tx2);line-height:1.4;}
+
+/* AI PANEL */
+.ai-panel{background:linear-gradient(135deg,rgba(14,165,233,.08),rgba(139,92,246,.08));border:1px solid rgba(14,165,233,.2);border-radius:var(--r2);padding:16px 20px;margin-top:20px;display:flex;gap:14px;align-items:flex-start;}
+.ai-icon{font-size:24px;flex-shrink:0;margin-top:2px;}
+.ai-content .ai-title{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--sky);margin-bottom:8px;}
+.ai-text{font-size:12px;color:var(--tx2);line-height:1.7;}
+.ai-text strong{color:#fff;}
+
+/* FICHA POR MARCA */
+.ficha-header{background:var(--card2);border:1px solid var(--border);border-radius:var(--r2);padding:20px 24px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;}
+.ficha-nombre{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;color:#fff;letter-spacing:1px;}
+.ficha-conc{font-size:12px;color:var(--tx3);margin-top:2px;}
+.ficha-score{text-align:right;}
+.ficha-score-v{font-family:'Barlow Condensed',sans-serif;font-size:48px;font-weight:800;color:#fff;line-height:1;}
+.ficha-score-l{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--tx4);letter-spacing:1px;text-transform:uppercase;margin-top:3px;}
+
+/* CHECK TABLE */
+.check-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.check-dim{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;}
+.check-dim-title{font-size:11px;font-weight:700;color:#fff;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
+.check-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:11px;color:var(--tx2);border-bottom:1px solid rgba(255,255,255,.04);}
+.check-item:last-child{border-bottom:none;}
+.ck{font-size:13px;flex-shrink:0;}
+
+/* SCORE BAND */
+.score-band{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:12px;font-size:10px;font-weight:600;}
+.score-band.alto{background:rgba(16,185,129,.15);color:var(--green);}
+.score-band.medio{background:rgba(245,158,11,.15);color:var(--amber);}
+.score-band.bajo{background:rgba(239,68,68,.15);color:var(--condor);}
+
+/* QUADRANT */
+.quadrant-label{position:absolute;font-size:9px;font-family:'IBM Plex Mono',monospace;color:var(--tx4);letter-spacing:.5px;text-transform:uppercase;pointer-events:none;}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:12px 36px;display:flex;align-items:center;justify-content:space-between;margin-top:20px;}
+.ft-l{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--tx4);}
+.ft-r{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--tx4);}
+
+/* RESPONSIVE */
+@media(max-width:1100px){.k5{grid-template-columns:repeat(3,1fr);}.g3{grid-template-columns:1fr 1fr;}}
+@media(max-width:800px){.topbar,.header,nav,main,footer{padding-left:14px;padding-right:14px;}.k5,.k4{grid-template-columns:1fr 1fr;}.g2,.g21,.g12,.g3{grid-template-columns:1fr;}.hdr-main{flex-direction:column;gap:16px;}.check-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<script>
+// AUTH
+const U="condor2026",P="arvi2026";
+const u=prompt("Usuario — Grupo Cóndor 2026:"),p=prompt("Contraseña:");
+if(u!==U||p!==P){document.body.innerHTML='<div style="height:100vh;display:flex;align-items:center;justify-content:center;background:#080C14;font-family:sans-serif"><div style="background:#111827;padding:48px 56px;border-radius:12px;text-align:center;border:1px solid #1F2937"><div style="font-size:40px;margin-bottom:16px">🔒</div><h2 style="color:#fff;margin-bottom:8px;font-size:20px">Acceso denegado</h2><p style="color:#6B7280;font-size:13px">Credenciales incorrectas. Contacte a ARVI Company.</p></div></div>';throw new Error("AUTH");}
+</script>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="tb-l">
+    <div class="tb-brand"><span class="condor-dot"></span>CÓNDOR</div>
+    <div class="tb-div"></div>
+    <div class="tb-title">Dashboard Ejecutivo CX · G-SERVQUAL · Mystery Shopper 2026</div>
+  </div>
+  <div class="tb-r">
+    <span class="tag pilot">⚠ Fase Piloto · Datos Simulados</span>
+    <span class="tag arvi">ARVI Company</span>
+    <span class="tag live" id="ts">26/06/2026</span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="hdr-main">
+    <div>
+      <div class="study-lbl">Proyecto Cóndor 2026 · G-SERVQUAL · Mystery Shopper · Benchmark</div>
+      <h1 class="hdr-h1">DASHBOARD EJECUTIVO<br/>EXPERIENCIA DEL CLIENTE</h1>
+      <div class="hdr-sub">Mystery Shopper Presencial + Digital · Encuesta G-SERVQUAL · Benchmark por Segmento · 14 marcas activas</div>
+    </div>
+    <div class="hdr-right">
+      <div class="hdr-logo">GRUPO <span class="red">CÓNDOR</span></div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#4B5563;margin-top:4px;text-align:right;">80 AÑOS · PARAGUAY · ELABORADO POR ARVI COMPANY</div>
+      <div class="hdr-score-mini">
+        <div class="hdr-score-lbl">Score Cóndor General</div>
+        <div class="hdr-score-val">72<span>/100</span></div>
+        <div class="hdr-track"><div class="hdr-fill" id="hdrFill" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="hdr-meta">
+    <div class="hm" style="padding-left:0"><div class="hm-l">Cliente</div><div class="hm-v">Grupo Cóndor S.A.</div></div>
+    <div class="hm" style="padding-left:16px"><div class="hm-l">Marcas activas</div><div class="hm-v">14 marcas · 5 segmentos</div></div>
+    <div class="hm" style="padding-left:16px"><div class="hm-l">Instrumentos</div><div class="hm-v">I1 · I2 · I3-WA · I3-RRSS · I4</div></div>
+    <div class="hm" style="padding-left:16px"><div class="hm-l">Metodología</div><div class="hm-v">G-SERVQUAL · Mystery Shopper</div></div>
+    <div class="hm" style="padding-left:16px"><div class="hm-l">Período</div><div class="hm-v">2026 · Fase Piloto</div></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="tab active" onclick="ST('panorama',this)">Panorama General</div>
+  <div class="tab" onclick="ST('mystery',this)">I. Mystery Shopper</div>
+  <div class="tab" onclick="ST('gservqual',this)">II. G-SERVQUAL</div>
+  <div class="tab" onclick="ST('benchmark',this)">III. Benchmark</div>
+  <div class="tab" onclick="ST('marca',this)">IV. Por Marca</div>
+  <div class="tab" onclick="ST('produccion',this)">Producción</div>
+</nav>
+
+<main>
+
+<!-- ═══ PANORAMA ═══ -->
+<section class="sec active" id="sec-panorama">
+  <div class="sec-hd"><h2>Panorama General</h2><p>Indicadores clave del proyecto · 14 marcas activas · FAW excluido · Datos simulados fase piloto</p></div>
+  <div class="kpis k5">
+    <div class="kpi r"><div class="kpi-l">Score Cóndor General</div><div class="kpi-v">72</div><div class="kpi-s">Mystery 40% · G-SERVQUAL 60%</div></div>
+    <div class="kpi"><div class="kpi-l">Entrevistas Clientes (I1)</div><div class="kpi-v">60</div><div class="kpi-s">14 marcas · ~4 casos c/u</div></div>
+    <div class="kpi"><div class="kpi-l">MS Presencial (I2)</div><div class="kpi-v">14</div><div class="kpi-s">Visitas incógnitas</div></div>
+    <div class="kpi p"><div class="kpi-l">MS Digital (I3)</div><div class="kpi-v">20</div><div class="kpi-s">WA + RRSS por canal</div></div>
+    <div class="kpi g"><div class="kpi-l">Sat. Prom. G-SERVQUAL</div><div class="kpi-v">3.6<sup>/5</sup></div><div class="kpi-s">Promedio 5 dimensiones</div></div>
+  </div>
+  <div class="g2">
+    <div class="card"><div class="card-hd"><div class="card-t">Score Cóndor por Segmento</div><div class="card-s">Promedio compuesto (Mystery 40% + G-SERVQUAL 60%) por grupo de competencia</div></div><div class="cw" style="height:260px"><canvas id="cSeg"></canvas></div></div>
+    <div class="card"><div class="card-hd"><div class="card-t">Radar G-SERVQUAL vs Mystery Shopper</div><div class="card-s">5 dimensiones · Promedio general · Escala 1–5</div></div><div class="cw" style="height:260px"><canvas id="cRadarGral"></canvas></div></div>
+  </div>
+  <div class="g3">
+    <div class="card"><div class="card-hd"><div class="card-t">Pesos Score Cóndor</div><div class="card-s">Composición del índice compuesto</div></div><div class="cw" style="height:200px"><canvas id="cPesos"></canvas></div></div>
+    <div class="card"><div class="card-hd"><div class="card-t">Top 5 Marcas</div><div class="card-s">Mayor Score Cóndor</div></div><div class="rl" id="top5"></div></div>
+    <div class="card"><div class="card-hd"><div class="card-t">Bottom 5 Marcas</div><div class="card-s">Menor Score Cóndor · Oportunidades</div></div><div class="rl" id="bot5"></div></div>
+  </div>
+  <div class="card"><div class="card-hd"><div class="card-t">Mapa de Calor — Dimensiones × Marcas</div><div class="card-s">G-SERVQUAL · Colores semáforo · Escala 1–5</div></div><div class="tw" style="margin-top:12px"><table class="dt" id="heatTable"></table></div></div>
+  <div class="ai-panel"><div class="ai-icon">🤖</div><div class="ai-content"><div class="ai-title">Análisis Automático ARVI IA — Panorama</div><div class="ai-text" id="aiPanorama"></div></div></div>
+</section>
+
+<!-- ═══ MYSTERY ═══ -->
+<section class="sec" id="sec-mystery">
+  <div class="sec-hd"><h2>I. Mystery Shopper</h2><p>Evaluación incógnita presencial (I2) y digital (I3) · Escala 1–5 · 14 marcas activas</p></div>
+  <div class="filter-bar"><span class="filter-lbl">Segmento:</span>
+    <button class="fbtn active" onclick="filterMS('all',this)">Todos</button>
+    <button class="fbtn condor-seg" onclick="filterMS('A',this)">A · SUV/Sedán</button>
+    <button class="fbtn condor-seg" onclick="filterMS('B',this)">B · Comerciales</button>
+    <button class="fbtn condor-seg" onclick="filterMS('C',this)">C · Pesados</button>
+    <button class="fbtn condor-seg" onclick="filterMS('D',this)">D · Premium MB</button>
+  </div>
+  <div class="kpis k4">
+    <div class="kpi"><div class="kpi-l">Score MS Presencial</div><div class="kpi-v">74</div><div class="kpi-s">Promedio general /100</div></div>
+    <div class="kpi p"><div class="kpi-l">Score WA</div><div class="kpi-v">70</div><div class="kpi-s">WhatsApp /100</div></div>
+    <div class="kpi"><div class="kpi-l">Score RRSS</div><div class="kpi-v">67</div><div class="kpi-s">Facebook/Instagram /100</div></div>
+    <div class="kpi a"><div class="kpi-l">T. Resp. WA Prom.</div><div class="kpi-v">42<sup>min</sup></div><div class="kpi-s">Primera respuesta</div></div>
+  </div>
+  <div class="g2">
+    <div class="card"><div class="card-hd"><div class="card-t">MS Presencial por Dimensión</div><div class="card-s">Promedio 1–5 · I2</div></div><div class="cw" style="height:260px"><canvas id="cMSPDim"></canvas></div></div>
+    <div class="card"><div class="card-hd"><div class="card-t">WhatsApp vs RRSS</div><div class="card-s">6 variables · I3</div></div><div class="cw" style="height:260px"><canvas id="cMSDig"></canvas></div></div>
+  </div>
+  <div class="card"><div class="card-hd"><div class="card-t">Score Mystery Shopper por Marca</div><div class="card-s">Presencial (I2) y Digital (I3) · Marcas Cóndor en rojo</div></div><div class="cw" style="height:300px"><canvas id="cMSMarcas"></canvas></div></div>
+  <div class="g2">
+    <div class="card">
+      <div class="card-hd"><div class="card-t">Top 3 Mystery Shopper</div></div>
+      <div class="ins g"><div class="ins-l">🏆 #1</div><div class="ins-v">MB-Camiones · 85</div><div class="ins-d">Grupo Cóndor · Líder absoluto en Seguridad y Tangibles</div></div>
+      <div class="ins g"><div class="ins-l">🥈 #2</div><div class="ins-v">MB-Automóviles · 83</div><div class="ins-d">Grupo Cóndor · Excelencia en atención personalizada</div></div>
+      <div class="ins g"><div class="ins-l">🥉 #3</div><div class="ins-v">Kia · 82</div><div class="ins-d">Garden · Mayor score entre competidores</div></div>
+    </div>
+    <div class="card">
+      <div class="card-hd"><div class="card-t">Bottom 3 — Oportunidades</div></div>
+      <div class="ins r"><div class="ins-l">⚠ Prioridad Alta</div><div class="ins-v">JMC · 62</div><div class="ins-d">Chacomer · Fiabilidad y Cap. Respuesta por debajo del promedio</div></div>
+      <div class="ins w"><div class="ins-l">⚠ Prioridad Media</div><div class="ins-v">Jetour · 63</div><div class="ins-d">Santa Rosa Py · Tiempos de atención elevados</div></div>
+      <div class="ins w"><div class="ins-l">⚠ Prioridad Media</div><div class="ins-v">Chery · 68</div><div class="ins-d">Garden · Mejorar atención digital</div></div>
+    </div>
+  </div>
+  <div class="ai-panel"><div class="ai-icon">🤖</div><div class="ai-content"><div class="ai-title">Análisis Automático ARVI IA — Mystery Shopper</div><div class="ai-text" id="aiMystery"></div></div></div>
+</section>
+
+<!-- ═══ G-SERVQUAL ═══ -->
+<section class="sec" id="sec-gservqual">
+  <div class="sec-hd"><h2>II. G-SERVQUAL</h2><p>Encuesta a clientes reales · I1 · N=60 · 5 dimensiones · 14 sub-bloques · Escala 1–5</p></div>
+  <div class="kpis k5">
+    <div class="kpi"><div class="kpi-l"><span style="margin-right:4px">🏢</span>Tangibles</div><div class="kpi-v">3.7</div><div class="kpi-s">Showroom · Vehículos · Personal</div></div>
+    <div class="kpi p"><div class="kpi-l"><span style="margin-right:4px">✅</span>Fiabilidad</div><div class="kpi-v">3.5</div><div class="kpi-s">Cumplimiento · Procesos</div></div>
+    <div class="kpi a"><div class="kpi-l"><span style="margin-right:4px">⚡</span>Cap. Respuesta</div><div class="kpi-v">3.4</div><div class="kpi-s">Atención · Digital · Reclamos</div></div>
+    <div class="kpi g"><div class="kpi-l"><span style="margin-right:4px">🛡</span>Seguridad</div><div class="kpi-v">3.8</div><div class="kpi-s">Conocimiento · Finanzas</div></div>
+    <div class="kpi r"><div class="kpi-l"><span style="margin-right:4px">🤝</span>Empatía</div><div class="kpi-v">3.6</div><div class="kpi-s">Personalización · Seguimiento</div></div>
+  </div>
+  <div class="g12">
+    <div class="card"><div class="card-hd"><div class="card-t">Radar G-SERVQUAL por Marca</div><div class="card-s">Seleccioná una marca para ver su perfil</div></div>
+      <select class="sel" id="selRadarMarca" onchange="updateRadarMarca()" style="margin-bottom:12px;width:100%;"></select>
+      <div class="cw" style="height:280px"><canvas id="cRadarMarca"></canvas></div>
+    </div>
+    <div class="card"><div class="card-hd"><div class="card-t">Sub-items B1–B14 (mayor→menor)</div><div class="card-s">Promedio general · Semáforo de rendimiento</div></div><div id="dimBars" style="margin-top:6px;"></div></div>
+  </div>
+  <div class="g2">
+    <div class="card"><div class="card-hd"><div class="card-t">Top 3 Fortalezas</div><div class="card-s">Ítems con mayor puntaje promedio</div></div>
+      <div class="ins g"><div class="ins-l">✅ Fortaleza #1</div><div class="ins-v">3.9</div><div class="ins-d">B10 – Conocimiento técnico del asesor</div></div>
+      <div class="ins g"><div class="ins-l">✅ Fortaleza #2</div><div class="ins-v">3.85</div><div class="ins-d">B12 – Amabilidad y atención personalizada</div></div>
+      <div class="ins g"><div class="ins-l">✅ Fortaleza #3</div><div class="ins-v">3.8</div><div class="ins-d">B1 – Limpieza e imagen del showroom</div></div>
+    </div>
+    <div class="card"><div class="card-hd"><div class="card-t">Top 3 Oportunidades</div><div class="card-s">Ítems con menor puntaje — mayor potencial de mejora</div></div>
+      <div class="ins w"><div class="ins-l">⚠ Oportunidad #1</div><div class="ins-v">3.2</div><div class="ins-d">B8 – Tiempo de respuesta digital (WhatsApp/RRSS)</div></div>
+      <div class="ins w"><div class="ins-l">⚠ Oportunidad #2</div><div class="ins-v">3.3</div><div class="ins-d">B9 – Seguimiento posterior a reclamos</div></div>
+      <div class="ins w"><div class="ins-l">⚠ Oportunidad #3</div><div class="ins-v">3.4</div><div class="ins-d">B6 – Disponibilidad de repuestos y turnos</div></div>
+    </div>
+  </div>
+  <div class="ai-panel"><div class="ai-icon">🤖</div><div class="ai-content"><div class="ai-title">Análisis Automático ARVI IA — G-SERVQUAL</div><div class="ai-text" id="aiGS"></div></div></div>
+</section>
+
+<!-- ═══ BENCHMARK ═══ -->
+<section class="sec" id="sec-benchmark">
+  <div class="sec-hd"><h2>III. Benchmark Integrado</h2><p>Comparativo por segmento · Marcas Cóndor (rojo) vs competidores · Score Cóndor = Mystery 40% + G-SERVQUAL 60%</p></div>
+  <div class="filter-bar"><span class="filter-lbl">Segmento:</span>
+    <button class="fbtn active" onclick="filterBench('all',this)">Todos</button>
+    <button class="fbtn" onclick="filterBench('A',this)">A · MG vs Geely, Chery, Jetour, Kia</button>
+    <button class="fbtn" onclick="filterBench('B',this)">B · MAXUS vs Chevrolet, Ford, VW, GWM</button>
+    <button class="fbtn" onclick="filterBench('C',this)">C · FUSO vs Isuzu, Hino, JMC</button>
+    <button class="fbtn" onclick="filterBench('D',this)">D · MB-Camiones vs MB-Automóviles</button>
+  </div>
+  <div class="card"><div class="card-hd"><div class="card-t">Mystery Shopper vs G-SERVQUAL por Marca</div><div class="card-s">Barras agrupadas · Marcas Cóndor en rojo · Filtrar por segmento arriba</div></div><div class="cw" style="height:320px"><canvas id="cBenchBar"></canvas></div></div>
+  <div class="g21">
+    <div class="card"><div class="card-hd"><div class="card-t">Ranking Score Cóndor</div><div class="card-s">Índice compuesto 0–100 · <span style="color:var(--condor)">■</span> Marcas Cóndor</div></div><div class="rl" id="rankBench"></div></div>
+    <div class="card"><div class="card-hd"><div class="card-t">Posicionamiento</div><div class="card-s">Mystery (X) vs G-SERVQUAL (Y)</div></div><div class="cw" style="height:280px"><canvas id="cScatter"></canvas></div></div>
+  </div>
+  <div class="card">
+    <div class="card-hd"><div class="card-t">Tabla de Brechas · Mystery − G-SERVQUAL</div><div class="card-s">🟢 Mystery &gt; G-SERVQUAL · 🔴 Mystery &lt; G-SERVQUAL · Marcas Cóndor destacadas</div></div>
+    <div class="tw" style="margin-top:12px">
+      <table class="dt"><thead><tr><th>Marca</th><th>Segmento</th><th class="r">Mystery</th><th class="r">G-SERVQUAL</th><th class="r">Brecha</th><th class="r">Score Cóndor</th><th>Nivel</th><th>Estado</th></tr></thead>
+      <tbody id="tablaBench"></tbody></table>
+    </div>
+  </div>
+  <div class="ai-panel"><div class="ai-icon">🤖</div><div class="ai-content"><div class="ai-title">Análisis Automático ARVI IA — Benchmark</div><div class="ai-text" id="aiBench"></div></div></div>
+</section>
+
+<!-- ═══ POR MARCA ═══ -->
+<section class="sec" id="sec-marca">
+  <div class="sec-hd"><h2>IV. Vista por Marca</h2><p>Ficha individual · Radar + sub-items + posición en segmento · Seleccioná una marca</p></div>
+  <div class="filter-bar">
+    <span class="filter-lbl">Marca:</span>
+    <select class="sel" id="selMarca" onchange="renderFicha()"></select>
+  </div>
+  <div id="fichaContent"></div>
+</section>
+
+<!-- ═══ PRODUCCION ═══ -->
+<section class="sec" id="sec-produccion">
+  <div class="sec-hd"><h2>Producción por Encuestador</h2><p>Casos completados · I1+I2+I3+I4 · Total: 117 registros</p></div>
+  <div class="kpis k4">
+    <div class="kpi"><div class="kpi-l">Total Registros</div><div class="kpi-v">117</div><div class="kpi-s">I1+I2+I3+I4</div></div>
+    <div class="kpi p"><div class="kpi-l">Encuestadores</div><div class="kpi-v">5</div><div class="kpi-s">Equipo de campo</div></div>
+    <div class="kpi g"><div class="kpi-l">Prom. por Encuestador</div><div class="kpi-v">23.4</div><div class="kpi-s">Casos totales</div></div>
+    <div class="kpi a"><div class="kpi-l">Avance General</div><div class="kpi-v">78%</div><div class="kpi-s">Fase piloto</div></div>
+  </div>
+  <div class="card">
+    <div class="card-hd"><div class="card-t">Detalle por Encuestador y Formulario</div></div>
+    <div class="tw" style="margin-top:12px">
+      <table class="dt"><thead><tr><th>Encuestador</th><th class="r"><span class="bdg b1">I1</span> Clientes</th><th class="r"><span class="bdg b2">I2</span> MS Presencial</th><th class="r"><span class="bdg b3">I3</span> MS Digital</th><th class="r">I4 Cualit.</th><th class="r">Total</th><th>Estado</th></tr></thead>
+      <tbody id="tablaProd"></tbody></table>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card"><div class="card-hd"><div class="card-t">Barras Apiladas por Encuestador</div></div><div class="cw" style="height:260px"><canvas id="cProd"></canvas></div></div>
+    <div class="card"><div class="card-hd"><div class="card-t">Distribución de Carga</div><div class="card-s">% del total por encuestador</div></div><div class="cw" style="height:260px"><canvas id="cProdD"></canvas></div></div>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="ft-l">ARVI COMPANY · Proyecto Cóndor 2026 · Dashboard CX · G-SERVQUAL · Mystery Shopper</div>
+  <div class="ft-r">⚠ Datos simulados — Fase piloto · Actualizar con CSV de KoboToolbox</div>
+</footer>
+
+<script>
+Chart.register(ChartDataLabels);
+
+// ── DATOS ─────────────────────────────────────────────────────
+const MARCAS=[
+  {cod:10,m:'MG Motors',c:'G. Cóndor',seg:'A',condor:true,
+   ms:78,gs:74,sc:76,tang:3.9,fiab:3.7,cap:3.6,seg_d:4.0,emp:3.8,
+   ms_t:80,ms_f:76,ms_c:78,ms_s:82,ms_e:79,wa:72,rrss:68,t_r:2.1,t_a:3.2},
+  {cod:11,m:'Geely',c:'Automotor',seg:'A',condor:false,
+   ms:70,gs:67,sc:68,tang:3.6,fiab:3.4,cap:3.3,seg_d:3.7,emp:3.5,
+   ms_t:72,ms_f:68,ms_c:71,ms_s:73,ms_e:70,wa:65,rrss:61,t_r:3.2,t_a:4.5},
+  {cod:12,m:'Chery',c:'Garden',seg:'A',condor:false,
+   ms:68,gs:66,sc:67,tang:3.5,fiab:3.3,cap:3.2,seg_d:3.6,emp:3.4,
+   ms_t:70,ms_f:66,ms_c:69,ms_s:71,ms_e:68,wa:63,rrss:60,t_r:3.5,t_a:4.8},
+  {cod:13,m:'Jetour',c:'Santa Rosa Py',seg:'A',condor:false,
+   ms:63,gs:62,sc:63,tang:3.3,fiab:3.1,cap:3.0,seg_d:3.4,emp:3.2,
+   ms_t:65,ms_f:61,ms_c:64,ms_s:66,ms_e:63,wa:60,rrss:58,t_r:4.0,t_a:5.5},
+  {cod:14,m:'Kia',c:'Garden',seg:'A',condor:false,
+   ms:82,gs:76,sc:78,tang:4.1,fiab:3.9,cap:3.8,seg_d:4.2,emp:4.0,
+   ms_t:84,ms_f:80,ms_c:82,ms_s:86,ms_e:83,wa:0,rrss:74,t_r:1.5,t_a:2.5},
+  {cod:20,m:'MAXUS',c:'G. Cóndor',seg:'B',condor:true,
+   ms:76,gs:72,sc:74,tang:3.8,fiab:3.6,cap:3.5,seg_d:3.9,emp:3.7,
+   ms_t:78,ms_f:74,ms_c:76,ms_s:80,ms_e:77,wa:71,rrss:68,t_r:2.3,t_a:3.5},
+  {cod:21,m:'Chevrolet',c:'TEMA',seg:'B',condor:false,
+   ms:76,gs:72,sc:74,tang:3.8,fiab:3.6,cap:3.5,seg_d:3.9,emp:3.7,
+   ms_t:77,ms_f:73,ms_c:75,ms_s:79,ms_e:76,wa:0,rrss:70,t_r:2.5,t_a:3.8},
+  {cod:22,m:'Ford',c:'Tape Ruvicha',seg:'B',condor:false,
+   ms:74,gs:71,sc:72,tang:3.7,fiab:3.5,cap:3.4,seg_d:3.8,emp:3.6,
+   ms_t:75,ms_f:71,ms_c:74,ms_s:77,ms_e:74,wa:0,rrss:68,t_r:2.8,t_a:4.0},
+  {cod:23,m:'VW',c:'Diesa',seg:'B',condor:false,
+   ms:73,gs:70,sc:71,tang:3.7,fiab:3.5,cap:3.4,seg_d:3.8,emp:3.6,
+   ms_t:74,ms_f:70,ms_c:73,ms_s:76,ms_e:73,wa:0,rrss:67,t_r:3.0,t_a:4.2},
+  {cod:24,m:'GWM',c:'Santa Rosa Py',seg:'B',condor:false,
+   ms:72,gs:68,sc:70,tang:3.6,fiab:3.4,cap:3.3,seg_d:3.7,emp:3.5,
+   ms_t:73,ms_f:69,ms_c:72,ms_s:75,ms_e:72,wa:0,rrss:65,t_r:3.2,t_a:4.5},
+  {cod:30,m:'FUSO',c:'G. Cóndor',seg:'C',condor:true,
+   ms:74,gs:70,sc:72,tang:3.7,fiab:3.5,cap:3.5,seg_d:3.8,emp:3.6,
+   ms_t:75,ms_f:72,ms_c:74,ms_s:78,ms_e:75,wa:70,rrss:67,t_r:2.5,t_a:3.8},
+  {cod:32,m:'Isuzu',c:'Automotor',seg:'C',condor:false,
+   ms:66,gs:65,sc:65,tang:3.4,fiab:3.2,cap:3.2,seg_d:3.5,emp:3.3,
+   ms_t:67,ms_f:64,ms_c:66,ms_s:69,ms_e:66,wa:63,rrss:0,t_r:3.5,t_a:4.8},
+  {cod:33,m:'Hino',c:'Toyotoshi',seg:'C',condor:false,
+   ms:80,gs:75,sc:77,tang:4.0,fiab:3.8,cap:3.7,seg_d:4.1,emp:3.9,
+   ms_t:81,ms_f:77,ms_c:80,ms_s:83,ms_e:80,wa:75,rrss:72,t_r:1.8,t_a:2.9},
+  {cod:34,m:'JMC',c:'Chacomer',seg:'C',condor:false,
+   ms:62,gs:61,sc:62,tang:3.2,fiab:3.0,cap:3.0,seg_d:3.3,emp:3.1,
+   ms_t:63,ms_f:60,ms_c:62,ms_s:65,ms_e:62,wa:59,rrss:57,t_r:4.2,t_a:5.8},
+  {cod:40,m:'MB-Camiones',c:'G. Cóndor',seg:'D',condor:true,
+   ms:85,gs:0,sc:85,tang:4.3,fiab:4.1,cap:4.0,seg_d:4.4,emp:4.2,
+   ms_t:87,ms_f:83,ms_c:85,ms_s:89,ms_e:86,wa:80,rrss:78,t_r:1.2,t_a:2.0},
+  {cod:50,m:'MB-Automóviles',c:'G. Cóndor',seg:'D',condor:true,
+   ms:83,gs:0,sc:83,tang:4.2,fiab:4.0,cap:3.9,seg_d:4.3,emp:4.1,
+   ms_t:85,ms_f:81,ms_c:83,ms_s:87,ms_e:84,wa:78,rrss:76,t_r:1.4,t_a:2.2},
+];
+
+const SEGS={
+  A:{lbl:'Seg. A · SUV/Sedán',marcas:['MG Motors','Geely','Chery','Jetour','Kia']},
+  B:{lbl:'Seg. B · Comerciales',marcas:['MAXUS','Chevrolet','Ford','VW','GWM']},
+  C:{lbl:'Seg. C · Pesados',marcas:['FUSO','Isuzu','Hino','JMC']},
+  D:{lbl:'Seg. D · Premium MB',marcas:['MB-Camiones','MB-Automóviles']},
+};
+
+const SUBITEMS=[
+  {id:'B10',dim:'Seguridad',lbl:'Conocimiento técnico del asesor',v:3.9},
+  {id:'B3',dim:'Tangibles',lbl:'Presentación personal de asesores',v:3.9},
+  {id:'B12',dim:'Empatía',lbl:'Atención personalizada y amabilidad',v:3.85},
+  {id:'B1',dim:'Tangibles',lbl:'Instalaciones físicas del showroom',v:3.8},
+  {id:'B11',dim:'Seguridad',lbl:'Claridad de cuotas y financiamiento',v:3.7},
+  {id:'B13',dim:'Empatía',lbl:'Experiencia de bienvenida y recepción',v:3.7},
+  {id:'B2',dim:'Tangibles',lbl:'Vehículos en exhibición',v:3.7},
+  {id:'B4',dim:'Fiabilidad',lbl:'Cumplimiento de promesas y confianza',v:3.6},
+  {id:'B7',dim:'Cap. Respuesta',lbl:'Rapidez de atención al llegar',v:3.6},
+  {id:'B14',dim:'Empatía',lbl:'Seguimiento posterior a la compra',v:3.5},
+  {id:'B5',dim:'Fiabilidad',lbl:'Procesos administrativos y trámites',v:3.5},
+  {id:'B6',dim:'Fiabilidad',lbl:'Taller y disponibilidad de repuestos',v:3.4},
+  {id:'B9',dim:'Cap. Respuesta',lbl:'Gestión y seguimiento de reclamos',v:3.3},
+  {id:'B8',dim:'Cap. Respuesta',lbl:'Atención digital (WA/RRSS)',v:3.2},
+];
+
+const EQUIPO=[
+  {n:'Ever',i1:18,i2:5,i3:4,i4:5},
+  {n:'Rafa',i1:15,i2:6,i3:5,i4:4},
+  {n:'Héctor',i1:12,i2:4,i3:4,i4:3},
+  {n:'Sandra',i1:10,i2:3,i3:4,i4:3},
+  {n:'Juan',i1:5,i2:2,i3:3,i4:2},
+];
+
+// ── COLORES ───────────────────────────────────────────────────
+const CC={sky:'#0EA5E9',navy:'#1D4ED8',green:'#10B981',amber:'#F59E0B',purple:'#8B5CF6',condor:'#EF4444',teal:'#14B8A6',indigo:'#6366F1'};
+const PAL=[CC.sky,CC.navy,CC.green,CC.amber,CC.purple,CC.condor,CC.teal,CC.indigo,'#EC4899','#F97316','#A855F7','#06B6D4','#84CC16','#F43F5E','#22D3EE'];
+const segColor={'A':CC.sky,'B':CC.green,'C':CC.amber,'D':CC.purple};
+
+function mColor(m){return m.condor?CC.condor:CC.sky;}
+function mColorBG(m){return m.condor?'rgba(239,68,68,.25)':'rgba(14,165,233,.25)';}
+function nivel(s){return s>=75?['good','Alto']:s>=65?['ok','Medio']:['bad','En desarrollo'];}
+
+// ── CHART BASE ────────────────────────────────────────────────
+const bO=()=>({responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{display:false},datalabels:{display:false},
+    tooltip:{backgroundColor:'#1A2235',titleColor:'#fff',bodyColor:'#D1D5DB',borderColor:'#2D3748',borderWidth:1,padding:10,cornerRadius:6,callbacks:{}}},
+  scales:{x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#6B7280',font:{size:10}}},
+          y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#6B7280',font:{size:10}}}}
+});
+const DL={display:true,anchor:'end',align:'top',color:'#9CA3AF',font:{size:9,weight:'600'},formatter:v=>v!=null&&v>0?v.toFixed(1):'—'};
+const PIE={responsive:true,maintainAspectRatio:false,plugins:{
+  legend:{position:'bottom',labels:{color:'#9CA3AF',font:{size:10},padding:10}},
+  datalabels:{color:'#fff',font:{size:10,weight:'700'},formatter:v=>v+'%'}}};
+
+let charts={};
+function destroyChart(id){if(charts[id]){charts[id].destroy();delete charts[id];}}
+function mkChart(id,cfg){destroyChart(id);charts[id]=new Chart(document.getElementById(id),cfg);return charts[id];}
+
+// ── NAV ───────────────────────────────────────────────────────
+function ST(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  el.classList.add('active');
+}
+
+// ── FILTER STATE ──────────────────────────────────────────────
+let msFilter='all', benchFilter='all';
+
+function filterMS(seg,el){
+  msFilter=seg;
+  document.querySelectorAll('#sec-mystery .fbtn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  buildMSCharts();
+}
+function filterBench(seg,el){
+  benchFilter=seg;
+  document.querySelectorAll('#sec-benchmark .fbtn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  buildBenchmark();
+}
+
+function filteredMarcas(seg){
+  if(seg==='all') return MARCAS;
+  return MARCAS.filter(m=>m.seg===seg);
+}
+
+// ── PANORAMA ──────────────────────────────────────────────────
+function buildPanorama(){
+  // Score por segmento
+  const segLabels=['Seg. A\nSUV/Sedán','Seg. B\nComerciales','Seg. C\nPesados','Seg. D\nPremium MB'];
+  const segScores=['A','B','C','D'].map(s=>{
+    const ms=MARCAS.filter(m=>m.seg===s);
+    return ms.length?Math.round(ms.reduce((a,m)=>a+m.sc,0)/ms.length):0;
+  });
+  const segColors=['A','B','C','D'].map(s=>MARCAS.find(m=>m.seg===s)?.condor?'rgba(239,68,68,.7)':'rgba(14,165,233,.7)');
+  mkChart('cSeg',{type:'bar',
+    data:{labels:['A · SUV/Sedán','B · Comerciales','C · Pesados','D · Premium MB'],
+      datasets:[{data:segScores,backgroundColor:[CC.sky+'99',CC.green+'99',CC.amber+'99',CC.purple+'99'],borderColor:[CC.sky,CC.green,CC.amber,CC.purple],borderWidth:1,borderRadius:6}]},
+    options:{...bO(),plugins:{...bO().plugins,datalabels:{display:true,anchor:'end',align:'top',color:'#D1D5DB',font:{size:11,weight:'700'},formatter:v=>v}},
+      scales:{x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#6B7280',font:{size:10}}},y:{min:50,max:100,ticks:{color:'#6B7280',font:{size:10}}}}}
+  });
+
+  // Radar general
+  mkChart('cRadarGral',{type:'radar',
+    data:{labels:['Tangibles','Fiabilidad','Cap. Respuesta','Seguridad','Empatía'],
+      datasets:[
+        {label:'G-SERVQUAL (I1)',data:[3.7,3.5,3.4,3.8,3.6],borderColor:CC.sky,backgroundColor:CC.sky+'22',pointBackgroundColor:CC.sky,borderWidth:2},
+        {label:'Mystery (I2)',data:[3.8,3.6,3.7,3.9,3.7],borderColor:CC.condor,backgroundColor:CC.condor+'22',pointBackgroundColor:CC.condor,borderWidth:2}
+      ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:true,position:'bottom',labels:{color:'#9CA3AF',font:{size:10}}},datalabels:{display:false}},
+      scales:{r:{min:1,max:5,ticks:{stepSize:1,font:{size:9},color:'#4B5563',backdropColor:'transparent'},pointLabels:{font:{size:10,weight:'600'},color:'#D1D5DB'},grid:{color:'rgba(255,255,255,.06)'},angleLines:{color:'rgba(255,255,255,.06)'}}}}
+  });
+
+  // Pesos
+  mkChart('cPesos',{type:'doughnut',
+    data:{labels:['G-SERVQUAL 60%','Mystery Shopper 40%'],
+      datasets:[{data:[60,40],backgroundColor:[CC.sky,CC.condor],borderWidth:0,hoverOffset:8}]},
+    options:PIE
+  });
+
+  // Top5 / Bot5
+  const sorted=[...MARCAS].sort((a,b)=>b.sc-a.sc);
+  const top5=sorted.slice(0,5), bot5=sorted.slice(-5).reverse();
+  const rl=document.getElementById('top5');
+  rl.innerHTML='';
+  top5.forEach((m,i)=>{
+    const col=m.condor?CC.condor:PAL[i];
+    rl.innerHTML+=`<div class="ri"><span class="rn">${i+1}</span><span class="rm" style="width:110px;color:${m.condor?'#FCA5A5':'#D1D5DB'}">${m.m}</span><div class="rb-w"><div class="rb" style="width:${m.sc}%;background:${col};"></div></div><span class="rv">${m.sc}</span></div>`;
+  });
+  const bl=document.getElementById('bot5');
+  bl.innerHTML='';
+  bot5.forEach((m,i)=>{
+    rl.innerHTML;
+    bl.innerHTML+=`<div class="ri"><span class="rn">${i+1}</span><span class="rm" style="width:110px;">${m.m}</span><div class="rb-w"><div class="rb" style="width:${m.sc}%;background:${CC.amber};"></div></div><span class="rv" style="color:${CC.amber}">${m.sc}</span></div>`;
+  });
+
+  // Heatmap
+  const th=document.getElementById('heatTable');
+  const dims=['tang','fiab','cap','seg_d','emp'];
+  const dlbls=['Tangibles','Fiabilidad','Cap. Resp.','Seguridad','Empatía'];
+  let html='<thead><tr><th>Marca</th><th>Seg.</th>';
+  dlbls.forEach(d=>html+=`<th class="r">${d}</th>`);
+  html+='<th class="r">Score</th></tr></thead><tbody>';
+  MARCAS.forEach(m=>{
+    const rc=m.condor?' condor-row':'';
+    html+=`<tr class="${rc}"><td class="n">${m.condor?'🔴 ':''} ${m.m}</td><td><span class="bdg ok">${m.seg}</span></td>`;
+    dims.forEach(d=>{
+      const v=m[d];
+      const col=v>=4.0?'color:#10B981':v>=3.5?'color:#60A5FA':v>=3.0?'color:#F59E0B':'color:#EF4444';
+      html+=`<td class="r" style="${col};font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600">${v.toFixed(1)}</td>`;
+    });
+    const [cls]=nivel(m.sc);
+    html+=`<td class="r"><span class="bdg ${cls}">${m.sc}</span></td></tr>`;
+  });
+  th.innerHTML=html+'</tbody>';
+
+  // AI
+  const topM=sorted[0], botM=sorted[sorted.length-1];
+  const condorAvg=Math.round(MARCAS.filter(m=>m.condor).reduce((a,m)=>a+m.sc,0)/MARCAS.filter(m=>m.condor).length);
+  const compAvg=Math.round(MARCAS.filter(m=>!m.condor).reduce((a,m)=>a+m.sc,0)/MARCAS.filter(m=>!m.condor).length);
+  document.getElementById('aiPanorama').innerHTML=`La marca con <strong>mayor Score Cóndor</strong> es <strong>${topM.m}</strong> (${topM.sc}/100, ${topM.c}). La marca con menor score es <strong>${botM.m}</strong> (${botM.sc}/100), representando la mayor oportunidad de mejora del proyecto. Las <strong>marcas propias del Grupo Cóndor</strong> promedian <strong>${condorAvg} puntos</strong> vs los competidores con ${compAvg} puntos — una brecha de <strong>${condorAvg-compAvg>0?'+':''}${condorAvg-compAvg} puntos</strong> a favor de Cóndor. La dimensión más débil en G-SERVQUAL es <strong>Capacidad de Respuesta (3.4)</strong>, especialmente en atención digital (B8=3.2).`;
+}
+
+// ── MYSTERY ───────────────────────────────────────────────────
+function buildMSCharts(){
+  const ms=filteredMarcas(msFilter);
+
+  mkChart('cMSPDim',{type:'bar',
+    data:{labels:['Tangibles','Fiabilidad','Cap. Resp.','Seguridad','Empatía'],
+      datasets:[{data:[3.8,3.6,3.7,3.9,3.7],
+        backgroundColor:[CC.sky,CC.navy,CC.amber,CC.green,CC.purple].map(c=>c+'BB'),
+        borderColor:[CC.sky,CC.navy,CC.amber,CC.green,CC.purple],borderWidth:1,borderRadius:4}]},
+    options:{...bO(),plugins:{...bO().plugins,datalabels:DL},
+      scales:{x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#6B7280'}},y:{min:1,max:5,ticks:{color:'#6B7280'}}}}
+  });
+
+  mkChart('cMSDig',{type:'bar',
+    data:{labels:['T. respuesta','Calidad redac.','Personaliz.','Cordialidad','Cap. venta','Seguimiento'],
+      datasets:[
+        {label:'WhatsApp',data:[3.2,3.6,3.4,3.7,3.3,3.1],backgroundColor:CC.green+'BB',borderColor:CC.green,borderWidth:1,borderRadius:4},
+        {label:'RRSS',data:[2.9,3.4,3.2,3.5,3.1,2.8],backgroundColor:CC.purple+'BB',borderColor:CC.purple,borderWidth:1,borderRadius:4}
+      ]},
+    options:{...bO(),plugins:{...bO().plugins,legend:{display:true,position:'bottom',labels:{color:'#9CA3AF',font:{size:10}}},datalabels:{display:false}},
+      scales:{x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#6B7280',font:{size:9}}},y:{min:1,max:5,ticks:{color:'#6B7280'}}}}
+  });
+
+  mkChart('cMSMarcas',{type:'bar',
+    data:{labels:ms.map(m=>m.m),
+      datasets:[
+        {label:'MS Presencial',data:ms.map(m=>m.ms),
+          backgroundColor:ms.map(m=>m.condor?CC.condor+'BB':CC.sky+'BB'),
+          borderColor:ms.map(m=>m.condor?CC.condor:CC.sky),borderWidth:1,borderRadius:4},
+        {label:'MS Digital',data:ms.map(m=>m.wa>0&&m.rrss>0?Math.round((m.wa+m.rrss)/2):m.wa||m.rrss||null),
+          backgroundColor:ms.map(m=>m.condor?'rgba(239,68,68,.35)':'rgba(14,165,233,.35)'),
+          borderColor:ms.map(m=>m.condor?CC.condor:CC.sky),borderWidth:1,borderRadius:4,borderDash:[]}
+      ]},
+    options:{...bO(),plugins:{...bO().plugins,legend:{display:true,position:'bottom',labels:{color:'#9CA3AF',font:{size:10}}},datalabels:{display:false}},
+      scales:{x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#6B7280',font:{size:9}}},y:{min:50,max:100,ticks:{color:'#6B7280'}}}}
+  });
+
+  const condorMS=MARCAS.filter(m=>m.condor).map(m=>m.ms);
+  const avgCondorMS=Math.round(condorMS.reduce((a,b)=>a+b,0)/condorMS.length);
+  const topMS=[...ms].sort((a,b)=>b.ms-a.ms)[0];
+  document.getElementById('aiMystery').innerHTML=`En Mystery Shopper, <strong>MB-Camiones y MB-Automóviles</strong> lideran con scores de 85 y 83, confirmando la excelencia operativa de las marcas premium de Cóndor. Las marcas propias promedian <strong>${avgCondorMS}/100</strong> en MS presencial. La mayor brecha entre canales se observa en <strong>atención digital</strong> — RRSS promedia 3.1 vs 3.7 en WA. El tiempo de respuesta digital promedio es <strong>42 minutos</strong>, representando la oportunidad de mejora más urgente. ${topMS.condor?`<strong>${topMS.m}</strong> (Grupo Cóndor) es la mejor marca evaluada en su segmento con ${topMS.ms} puntos.`:`<strong>${topMS.m}</strong> (${topMS.c}) lidera en su segmento con ${topMS.ms} puntos.`}`;
+}
+
+// ── G-SERVQUAL ────────────────────────────────────────────────
+function buildGS(){
+  // Dim bars
+  const db=document.getElementById('dimBars');
+  db.innerHTML='';
+  SUBITEMS.forEach(d=>{
+    const pct=((d.v-1)/4)*100;
+    const col=d.v>=3.8?CC.green:d.v>=3.5?CC.sky:d.v>=3.2?CC.amber:CC.condor;
+    db.innerHTML+=`<div class="dbr"><div class="dbl" style="font-size:10.5px">${d.id} – ${d.lbl}</div><div class="dbt"><div class="dbf" style="width:${pct}%;background:${col};"></div></div><div class="dbv" style="color:${col}">${d.v.toFixed(2)}</div></div>`;
+  });
+
+  // Selector de marcas
+  const sel=document.getElementById('selRadarMarca');
+  sel.innerHTML='';
+  MARCAS.forEach(m=>{
+    const opt=document.createElement('option');
+    opt.value=m.m; opt.textContent=(m.condor?'🔴 ':'')+m.m+' ('+m.c+')';
+    sel.appendChild(opt);
+  });
+  updateRadarMarca();
+
+  document.getElementById('aiGS').innerHTML=`El análisis G-SERVQUAL revela que <strong>Seguridad</strong> es la dimensión más fortalecida (3.8 promedio), impulsada por el conocimiento técnico de los asesores (B10=3.9). <strong>Capacidad de Respuesta</strong> es la dimensión más débil (3.4), especialmente en <strong>atención digital B8 (3.2)</strong>, que representa la brecha más crítica del estudio. Las marcas del Grupo Cóndor muestran puntajes consistentemente superiores en Tangibles y Seguridad. La dimensión de <strong>Empatía</strong> muestra alta variabilidad entre marcas, siendo una oportunidad de estandarización.`;
+}
+
+function updateRadarMarca(){
+  const sel=document.getElementById('selRadarMarca');
+  const m=MARCAS.find(x=>x.m===sel.value)||MARCAS[0];
+  const avgTang=MARCAS.reduce((a,x)=>a+x.tang,0)/MARCAS.length;
+  const avgFiab=MARCAS.reduce((a,x)=>a+x.fiab,0)/MARCAS.length;
+  const avgCap=MARCAS.reduce((a,x)=>a+x.cap,0)/MARCAS.length;
+  const avgSeg=MARCAS.reduce((a,x)=>a+x.seg_d,0)/MARCAS.length;
+  const avgEmp=MARCAS.reduce((a,x)=>a+x.emp,0)/MARCAS.length;
+
+  mkChart('cRadarMarca',{type:'radar',
+    data:{labels:['Tangibles','Fiabilidad','Cap. Respuesta','Seguridad','Empatía'],
+      datasets:[
+        {label:m.m,data:[m.tang,m.fiab,m.cap,m.seg_d,m.emp],
+          borderColor:m.condor?CC.condor:CC.sky,backgroundColor:(m.condor?CC.condor:CC.sky)+'25',
+          pointBackgroundColor:m.condor?CC.condor:CC.sky,borderWidth:2.5},
+        {label:'Promedio general',data:[avgTang,avgFiab,avgCap,avgSeg,avgEmp].map(v=>+v.toFixed(2)),
+          borderColor:'rgba(255,255,255,.3)',backgroundColor:'rgba(255,255,255,.05)',
+          pointBackgroundColor:'rgba(255,255,255,.4)',borderWidth:1,borderDash:[4,4]}
+      ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:true,position:'bottom',labels:{color:'#9CA3AF',font:{size:10}}},datalabels:{display:false}},
+      scales:{r:{min:1,max:5,ticks:{stepSize:1,font:{size:9},color:'#4B5563',backdropColor:'transparent'},pointLabels:{font:{size:10,weight:'600'},color:'#D1D5DB'},grid:{color:'rgba(255,255,255,.06)'},angleLines:{color:'rgba(255,255,255,.06)'}}}}
+  });
+}
+
+// ── BENCHMARK ────────────────────────────────────────────────
+function buildBenchmark(){
+  const ms=filteredMarcas(benchFilter);
+
+  // Bar agrupada
+  mkChart('cBenchBar',{type:'bar',
+    data:{labels:ms.map(m=>m.m),
+      datasets:[
+        {label:'Mystery Shopper',data:ms.map(m=>m.ms),
+          backgroundColor:ms.map(m=>m.condor?CC.condor+'BB':CC.sky+'BB'),
+          borderColor:ms.map(m=>m.condor?CC.condor:CC.sky),borderWidth:1,borderRadius:4},
+        {label:'G-SERVQUAL',data:ms.map(m=>m.gs||null),
+          backgroundColor:ms.map(m=>m.condor?'rgba(239,68,68,.3)':'rgba(14,165,233,.3)'),
+          borderColor:ms.map(m=>m.condor?CC.condor:CC.sky),borderWidth:1,borderRadius:4,borderDash:[]}
+      ]},
+    options:{...bO(),plugins:{...bO().plugins,legend:{display:true,position:'bottom',labels:{color:'#9CA3AF',font:{size:10}}},datalabels:{display:false}},
+      scales:{x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#6B7280',font:{size:9}}},y:{min:50,max:100,ticks:{color:'#6B7280'}}}}
+  });
+
+  // Ranking
+  const rl=document.getElementById('rankBench');
+  rl.innerHTML='';
+  const sorted=[...ms].sort((a,b)=>b.sc-a.sc);
+  sorted.forEach((m,i)=>{
+    const col=m.condor?CC.condor:PAL[i];
+    rl.innerHTML+=`<div class="ri"><span class="rn">${i+1}</span><span class="rm" style="width:115px;color:${m.condor?'#FCA5A5':'#D1D5DB'}">${m.condor?'🔴 ':''} ${m.m}</span><div class="rb-w"><div class="rb" style="width:${m.sc}%;background:${col};"></div></div><span class="rv">${m.sc}</span></div>`;
+  });
+
+  // Scatter
+  mkChart('cScatter',{type:'scatter',
+    data:{datasets:[
+      {label:'Marcas Cóndor',data:MARCAS.filter(m=>m.condor&&(benchFilter==='all'||m.seg===benchFilter)&&m.gs>0).map(m=>({x:m.ms,y:m.gs,marca:m.m})),
+        backgroundColor:CC.condor,pointRadius:9,pointHoverRadius:11},
+      {label:'Competidores',data:MARCAS.filter(m=>!m.condor&&(benchFilter==='all'||m.seg===benchFilter)&&m.gs>0).map(m=>({x:m.ms,y:m.gs,marca:m.m})),
+        backgroundColor:CC.sky,pointRadius:7,pointHoverRadius:9}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:true,position:'bottom',labels:{color:'#9CA3AF',font:{size:10}}},
+        datalabels:{display:true,formatter:(v,ctx)=>ctx.dataset.data[ctx.dataIndex].marca?.substring(0,5),color:'#9CA3AF',font:{size:8},anchor:'top',align:'top'},
+        tooltip:{backgroundColor:'#1A2235',titleColor:'#fff',bodyColor:'#D1D5DB',borderColor:'#2D3748',borderWidth:1,padding:10,cornerRadius:6,callbacks:{label:ctx=>`${ctx.raw.marca}: MS=${ctx.raw.x} | GS=${ctx.raw.y}`}}},
+      scales:{x:{title:{display:true,text:'Mystery Shopper',color:'#6B7280',font:{size:10}},min:55,max:90,ticks:{color:'#6B7280',font:{size:9}},grid:{color:'rgba(255,255,255,.04)'}},
+              y:{title:{display:true,text:'G-SERVQUAL',color:'#6B7280',font:{size:10}},min:55,max:80,ticks:{color:'#6B7280',font:{size:9}},grid:{color:'rgba(255,255,255,.04)'}}}}
+  });
+
+  // Tabla brechas
+  const tb=document.getElementById('tablaBench');
+  tb.innerHTML='';
+  sorted.forEach(m=>{
+    const brecha=m.gs>0?m.ms-m.gs:null;
+    const semCls=brecha===null?'y':brecha>2?'g':brecha>-2?'y':'r';
+    const breachTxt=brecha!==null?(brecha>=0?'+':'')+brecha:'N/A';
+    const [cls,lbl]=nivel(m.sc);
+    const rc=m.condor?' condor-row':'';
+    tb.innerHTML+=`<tr class="${rc}">
+      <td class="n">${m.condor?'<span class="bdg condor">CÓNDOR</span> ':''} ${m.m}</td>
+      <td><span class="bdg ok">${m.seg}</span></td>
+      <td class="r">${m.ms}</td>
+      <td class="r">${m.gs||'—'}</td>
+      <td class="r" style="display:flex;align-items:center;justify-content:flex-end;gap:6px;"><span class="sem ${semCls}"></span>${breachTxt}</td>
+      <td class="r"><strong>${m.sc}</strong></td>
+      <td><span class="bdg ${cls}">${lbl}</span></td>
+      <td>${m.c}</td>
+    </tr>`;
+  });
+
+  // AI
+  const condorMarcas=ms.filter(m=>m.condor);
+  const condorPositions=condorMarcas.map(m=>{const pos=sorted.findIndex(x=>x.m===m.m)+1;return`${m.m} (#${pos} de ${sorted.length})`;});
+  const avgSeg=Math.round(ms.reduce((a,m)=>a+m.sc,0)/ms.length);
+  document.getElementById('aiBench').innerHTML=`En el segmento seleccionado (<strong>${benchFilter==='all'?'todos los segmentos':'Segmento '+benchFilter}</strong>), el promedio Score Cóndor es <strong>${avgSeg}/100</strong>. ${condorPositions.length?`Las marcas Cóndor se posicionan: <strong>${condorPositions.join(', ')}</strong>.`:''} La brecha promedio Mystery vs G-SERVQUAL es <strong>+${Math.round(ms.filter(m=>m.gs>0).reduce((a,m)=>a+(m.ms-m.gs),0)/ms.filter(m=>m.gs>0).length)} puntos</strong> — indicando que la experiencia objetiva (Mystery) supera la percepción del cliente (G-SERVQUAL), lo que puede reflejar expectativas altas o procesos de seguimiento post-venta a fortalecer.`;
+}
+
+// ── POR MARCA ─────────────────────────────────────────────────
+function initSelMarca(){
+  const sel=document.getElementById('selMarca');
+  MARCAS.forEach(m=>{
+    const opt=document.createElement('option');
+    opt.value=m.m; opt.textContent=(m.condor?'🔴 ':'')+m.m+' · '+m.c+' (Seg. '+m.seg+')';
+    sel.appendChild(opt);
+  });
+  renderFicha();
+}
+
+function renderFicha(){
+  const sel=document.getElementById('selMarca');
+  const m=MARCAS.find(x=>x.m===sel.value)||MARCAS[0];
+  const [cls,lbl]=nivel(m.sc);
+  const segMarcas=[...MARCAS.filter(x=>x.seg===m.seg)].sort((a,b)=>b.sc-a.sc);
+  const pos=segMarcas.findIndex(x=>x.m===m.m)+1;
+  const segAvg=(segMarcas.reduce((a,x)=>a+x.sc,0)/segMarcas.length).toFixed(1);
+
+  // Check items por dimensión
+  const checkDims=[
+    {dim:'Tangibles',col:CC.sky,icon:'🏢',items:[
+      {l:'Limpieza del showroom',v:m.tang>=3.8},{l:'Iluminación y climatización',v:m.tang>=3.7},
+      {l:'Vehículos en exhibición',v:m.tang>=3.6},{l:'Presentación del personal',v:m.tang>=3.9},{l:'Señalética y organización',v:m.tang>=3.5}]},
+    {dim:'Fiabilidad',col:CC.purple,icon:'✅',items:[
+      {l:'Cumplimiento de promesas',v:m.fiab>=3.7},{l:'Claridad de información',v:m.fiab>=3.6},
+      {l:'Procesos administrativos',v:m.fiab>=3.5},{l:'Taller y posventa',v:m.fiab>=3.4},{l:'Transparencia comercial',v:m.fiab>=3.6}]},
+    {dim:'Cap. Respuesta',col:CC.amber,icon:'⚡',items:[
+      {l:'Rapidez de atención al llegar',v:m.cap>=3.6},{l:'Respuesta a consultas',v:m.cap>=3.5},
+      {l:'Atención digital (WA/RRSS)',v:m.cap>=3.3},{l:'Gestión de reclamos',v:m.cap>=3.4},{l:'Seguimiento comercial',v:m.cap>=3.5}]},
+    {dim:'Seguridad',col:CC.green,icon:'🛡',items:[
+      {l:'Conocimiento técnico',v:m.seg_d>=3.9},{l:'Explicación de características',v:m.seg_d>=3.8},
+      {l:'Claridad financiera',v:m.seg_d>=3.7},{l:'Confianza transmitida',v:m.seg_d>=3.8},{l:'Manejo de objeciones',v:m.seg_d>=3.7}]},
+    {dim:'Empatía',col:CC.condor,icon:'🤝',items:[
+      {l:'Amabilidad y cordialidad',v:m.emp>=3.8},{l:'Escucha activa',v:m.emp>=3.7},
+      {l:'Uso del nombre del cliente',v:m.emp>=3.5},{l:'Seguimiento post-compra',v:m.emp>=3.5},{l:'Atención personalizada',v:m.emp>=3.8}]},
+  ];
+
+  let checkHtml='<div class="check-grid">';
+  checkDims.forEach(cd=>{
+    checkHtml+=`<div class="check-dim"><div class="check-dim-title" style="color:${cd.col}">${cd.icon} ${cd.dim}</div>`;
+    cd.items.forEach(it=>{
+      const ck=it.v?'✅':'❌';
+      checkHtml+=`<div class="check-item"><span class="ck">${ck}</span><span>${it.l}</span></div>`;
+    });
+    checkHtml+='</div>';
+  });
+  checkHtml+='</div>';
+
+  // Tabla % por dimensión
+  const dimData=[
+    {d:'Tangibles',pct:Math.round(((m.tang-1)/4)*100)},
+    {d:'Fiabilidad',pct:Math.round(((m.fiab-1)/4)*100)},
+    {d:'Cap. Respuesta',pct:Math.round(((m.cap-1)/4)*100)},
+    {d:'Seguridad',pct:Math.round(((m.seg_d-1)/4)*100)},
+    {d:'Empatía',pct:Math.round(((m.emp-1)/4)*100)},
+  ];
+
+  const fichaHTML=`
+    <div class="ficha-header" style="border-left:4px solid ${m.condor?CC.condor:CC.sky}">
+      <div>
+        ${m.condor?'<span class="bdg condor" style="font-size:10px;margin-bottom:8px;display:inline-block">MARCA GRUPO CÓNDOR</span><br>':''}
+        <div class="ficha-nombre">${m.m}</div>
+        <div class="ficha-conc">${m.c} · Segmento ${m.seg} · Posición ${pos}° de ${segMarcas.length} en su segmento</div>
+        <div style="margin-top:10px;display:flex;gap:10px;align-items:center">
+          <span class="score-band ${m.sc>=75?'alto':m.sc>=65?'medio':'bajo'}">● ${lbl}</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6B7280">Promedio Seg. ${m.seg}: ${segAvg}</span>
+        </div>
+      </div>
+      <div class="ficha-score">
+        <div class="ficha-score-v" style="color:${m.condor?CC.condor:CC.sky}">${m.sc}</div>
+        <div class="ficha-score-l">Score Cóndor /100</div>
+        <div style="margin-top:8px;display:flex;gap:6px;justify-content:flex-end">
+          ${m.ms?`<span class="bdg ok">MS: ${m.ms}</span>`:''}
+          ${m.gs?`<span class="bdg ok">GS: ${m.gs}</span>`:''}
+          ${m.wa?`<span class="bdg b3">WA: ${m.wa}</span>`:''}
+          ${m.rrss?`<span class="bdg b3">RRSS: ${m.rrss}</span>`:''}
+        </div>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="card-hd"><div class="card-t">Radar por Dimensión G-SERVQUAL</div><div class="card-s">${m.m} vs promedio del segmento ${m.seg}</div></div>
+        <div class="cw" style="height:280px"><canvas id="cFichaRadar"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-hd"><div class="card-t">% Cumplimiento por Dimensión</div><div class="card-s">Escala 1–5 convertida a índice 0–100%</div></div>
+        ${dimData.map(d=>`<div class="dbr"><div class="dbl">${d.d}</div><div class="dbt"><div class="dbf" style="width:${d.pct}%;background:${d.pct>=75?CC.green:d.pct>=62?CC.sky:d.pct>=50?CC.amber:CC.condor};"></div></div><div class="dbv">${d.pct}%</div></div>`).join('')}
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd"><div class="card-t">Evaluación por Ítem — ${m.m}</div><div class="card-s">✅ Cumple (≥ umbral) · ❌ Por mejorar</div></div>
+      ${checkHtml}
+    </div>
+
+    <div class="card">
+      <div class="card-hd"><div class="card-t">Comparativo vs Segmento ${m.seg}</div><div class="card-s">${m.m} (color) vs promedio del grupo · Escala 1–5</div></div>
+      <div class="cw" style="height:250px"><canvas id="cFichaBar"></canvas></div>
+    </div>
+  `;
+
+  document.getElementById('fichaContent').innerHTML=fichaHTML;
+
+  // Radar ficha
+  const segMsProm=[
+    segMarcas.reduce((a,x)=>a+x.ms_t,0)/segMarcas.length,
+    segMarcas.reduce((a,x)=>a+x.ms_f,0)/segMarcas.length,
+    segMarcas.reduce((a,x)=>a+x.ms_c,0)/segMarcas.length,
+    segMarcas.reduce((a,x)=>a+x.ms_s,0)/segMarcas.length,
+    segMarcas.reduce((a,x)=>a+x.ms_e,0)/segMarcas.length,
+  ].map(v=>+v.toFixed(1));
+
+  setTimeout(()=>{
+    mkChart('cFichaRadar',{type:'radar',
+      data:{labels:['Tangibles','Fiabilidad','Cap. Resp.','Seguridad','Empatía'],
+        datasets:[
+          {label:m.m,data:[m.tang,m.fiab,m.cap,m.seg_d,m.emp],borderColor:m.condor?CC.condor:CC.sky,backgroundColor:(m.condor?CC.condor:CC.sky)+'25',pointBackgroundColor:m.condor?CC.condor:CC.sky,borderWidth:2.5},
+          {label:'Prom. Seg. '+m.seg,data:segMsProm.map(v=>v/20),borderColor:'rgba(255,255,255,.3)',backgroundColor:'rgba(255,255,255,.05)',pointBackgroundColor:'rgba(255,255,255,.4)',borderWidth:1,borderDash:[4,4]}
+        ]},
+      options:{responsive:true,maintainAspectRatio:false,
+        plugins:{legend:{display:true,position:'bottom',labels:{color:'#9CA3AF',font:{size:10}}},datalabels:{display:false}},
+        scales:{r:{min:1,max:5,ticks:{stepSize:1,font:{size:9},color:'#4B5563',backdropColor:'transparent'},pointLabels:{font:{size:10,weight:'600'},color:'#D1D5DB'},grid:{color:'rgba(255,255,255,.06)'},angleLines:{color:'rgba(255,255,255,.06)'}}}}
+    });
+
+    const avgTang=segMarcas.reduce((a,x)=>a+x.tang,0)/segMarcas.length;
+    const avgFiab=segMarcas.reduce((a,x)=>a+x.fiab,0)/segMarcas.length;
+    const avgCap=segMarcas.reduce((a,x)=>a+x.cap,0)/segMarcas.length;
+    const avgSeg2=segMarcas.reduce((a,x)=>a+x.seg_d,0)/segMarcas.length;
+    const avgEmp=segMarcas.reduce((a,x)=>a+x.emp,0)/segMarcas.length;
+
+    mkChart('cFichaBar',{type:'bar',
+      data:{labels:['Tangibles','Fiabilidad','Cap. Resp.','Seguridad','Empatía'],
+        datasets:[
+          {label:m.m,data:[m.tang,m.fiab,m.cap,m.seg_d,m.emp],backgroundColor:(m.condor?CC.condor:CC.sky)+'BB',borderColor:m.condor?CC.condor:CC.sky,borderWidth:1,borderRadius:4},
+          {label:'Prom. Segmento '+m.seg,data:[avgTang,avgFiab,avgCap,avgSeg2,avgEmp].map(v=>+v.toFixed(2)),backgroundColor:'rgba(255,255,255,.1)',borderColor:'rgba(255,255,255,.3)',borderWidth:1,borderRadius:4}
+        ]},
+      options:{...bO(),plugins:{...bO().plugins,legend:{display:true,position:'bottom',labels:{color:'#9CA3AF',font:{size:10}}},datalabels:{display:false}},
+        scales:{x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#6B7280'}},y:{min:1,max:5,ticks:{color:'#6B7280'}}}}
+    });
+  },50);
+}
+
+// ── PRODUCCION ────────────────────────────────────────────────
+function buildProd(){
+  const tp=document.getElementById('tablaProd');
+  tp.innerHTML='';
+  EQUIPO.forEach(e=>{
+    const tot=e.i1+e.i2+e.i3+e.i4;
+    const cls=tot>=30?'good':tot>=20?'ok':'warn';
+    const lbl=tot>=30?'Al día':tot>=20?'En proceso':'Iniciando';
+    tp.innerHTML+=`<tr><td class="n">${e.n}</td><td class="r">${e.i1}</td><td class="r">${e.i2}</td><td class="r">${e.i3}</td><td class="r">${e.i4}</td><td class="r"><strong>${tot}</strong></td><td><span class="bdg ${cls}">${lbl}</span></td></tr>`;
+  });
+
+  mkChart('cProd',{type:'bar',
+    data:{labels:EQUIPO.map(e=>e.n),
+      datasets:[
+        {label:'I1',data:EQUIPO.map(e=>e.i1),backgroundColor:CC.sky+'BB',borderColor:CC.sky,borderWidth:1,borderRadius:2},
+        {label:'I2',data:EQUIPO.map(e=>e.i2),backgroundColor:CC.navy+'BB',borderColor:CC.navy,borderWidth:1,borderRadius:2},
+        {label:'I3',data:EQUIPO.map(e=>e.i3),backgroundColor:CC.purple+'BB',borderColor:CC.purple,borderWidth:1,borderRadius:2},
+        {label:'I4',data:EQUIPO.map(e=>e.i4),backgroundColor:CC.amber+'BB',borderColor:CC.amber,borderWidth:1,borderRadius:2}
+      ]},
+    options:{...bO(),plugins:{...bO().plugins,legend:{display:true,position:'bottom',labels:{color:'#9CA3AF',font:{size:10}}},datalabels:{display:false}},
+      scales:{x:{stacked:true,grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#6B7280'}},y:{stacked:true,ticks:{color:'#6B7280'}}}}
+  });
+
+  mkChart('cProdD',{type:'doughnut',
+    data:{labels:EQUIPO.map(e=>e.n),datasets:[{data:EQUIPO.map(e=>e.i1+e.i2+e.i3+e.i4),backgroundColor:PAL,borderWidth:0,hoverOffset:8}]},
+    options:PIE
+  });
+}
+
+// ── INIT ──────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',()=>{
+  setTimeout(()=>{document.getElementById('hdrFill').style.width='72%';},300);
+  document.getElementById('ts').textContent='Act: '+new Date().toLocaleDateString('es-PY');
+  buildPanorama();
+  buildMSCharts();
+  buildGS();
+  buildBenchmark();
+  initSelMarca();
+  buildProd();
+});
+</script>
+</body>
+</html>
