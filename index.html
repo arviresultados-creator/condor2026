@@ -9,234 +9,248 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
 <style>
 :root{
-  --bg:#080C14;--bg2:#0F1623;--card:#111827;--card2:#1A2235;
-  --border:#1F2937;--border2:#2D3748;
+  --bg:#F3F4F6;--card:#fff;--card2:#F9FAFB;
+  --border:#E5E7EB;--border2:#D1D5DB;
   --condor:#EF4444;--sky:#0EA5E9;--navy:#1D4ED8;
   --green:#10B981;--amber:#F59E0B;--purple:#8B5CF6;--teal:#14B8A6;
-  --tx:#F9FAFB;--tx2:#D1D5DB;--tx3:#9CA3AF;--tx4:#6B7280;
+  --tx:#111827;--tx2:#374151;--tx3:#6B7280;--tx4:#9CA3AF;
   --r:8px;--r2:12px;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg2);color:var(--tx);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased;}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--tx);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased;}
 
 /* TOPBAR */
-.topbar{background:#000;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:50px;position:sticky;top:0;z-index:400;border-bottom:1px solid #1a1a1a;}
+.topbar{background:#000;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:48px;position:sticky;top:0;z-index:400;border-bottom:1px solid #222;}
 .tb-l{display:flex;align-items:center;gap:12px;}
-.tb-brand{font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:800;color:#fff;letter-spacing:3px;display:flex;align-items:center;gap:7px;}
-.tb-dot{width:7px;height:7px;border-radius:50%;background:var(--condor);}
-.tb-div{width:1px;height:19px;background:#333;}
-.tb-title{font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:#666;letter-spacing:1.2px;text-transform:uppercase;}
+.tb-brand{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;color:#fff;letter-spacing:3px;}
+.tb-div{width:1px;height:18px;background:#333;}
+.tb-sub{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#666;letter-spacing:1px;text-transform:uppercase;}
 .tb-r{display:flex;align-items:center;gap:7px;}
 .tag{font-family:'IBM Plex Mono',monospace;font-size:8.5px;padding:3px 8px;border-radius:3px;font-weight:600;letter-spacing:.4px;}
-.tag.real{background:rgba(16,185,129,.2);color:#10B981;border:1px solid rgba(16,185,129,.4);}
-.tag.arvi{background:rgba(14,165,233,.15);color:#0EA5E9;border:1px solid rgba(14,165,233,.3);}
-.tag.date{background:rgba(255,255,255,.06);color:#9CA3AF;border:1px solid #333;}
+.tag.fase{background:rgba(14,165,233,.2);color:#0EA5E9;border:1px solid rgba(14,165,233,.4);}
+.tag.arvi{background:rgba(16,185,129,.15);color:#10B981;border:1px solid rgba(16,185,129,.3);}
+.tag.date{background:rgba(255,255,255,.06);color:#888;border:1px solid #333;}
 
 /* HEADER NEGRO */
-.header{background:#000;border-bottom:2px solid var(--sky);padding:20px 32px 0;position:relative;overflow:hidden;}
-.header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--condor),var(--sky),var(--green));}
-.hdr-main{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px;}
-.study-lbl{font-family:'IBM Plex Mono',monospace;font-size:8.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--sky);margin-bottom:7px;display:flex;align-items:center;gap:7px;}
-.study-lbl::before{content:'';display:block;width:14px;height:2px;background:var(--sky);}
-.hdr-h1{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:800;color:#fff;line-height:1.1;letter-spacing:.5px;margin-bottom:3px;}
-.hdr-sub{font-size:11.5px;color:#666;}
-.hdr-logo{font-family:'Barlow Condensed',sans-serif;font-size:34px;font-weight:800;color:#fff;letter-spacing:4px;text-align:right;}
-.hdr-score-mini{margin-top:10px;text-align:right;}
-.hdr-score-lbl{font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:#555;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;}
-.hdr-score-v{font-size:44px;font-weight:700;color:#fff;line-height:1;letter-spacing:-1px;}
-.hdr-score-v span{font-size:18px;color:#444;}
-.hdr-track{background:rgba(255,255,255,.08);border-radius:3px;height:3px;width:150px;overflow:hidden;margin-top:5px;margin-left:auto;}
+.header{background:#000;border-bottom:3px solid transparent;border-image:linear-gradient(90deg,#EF4444,#0EA5E9,#10B981) 1;padding:18px 32px 0;position:relative;}
+.hdr-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;}
+.study-lbl{font-family:'IBM Plex Mono',monospace;font-size:8.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--sky);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.study-lbl::before{content:'';display:block;width:12px;height:2px;background:var(--sky);}
+.hdr-h1{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;color:#fff;line-height:1.1;letter-spacing:.5px;margin-bottom:4px;}
+.hdr-sub{font-size:11px;color:#888;margin-bottom:3px;}
+.hdr-fase{display:inline-flex;align-items:center;gap:6px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.3);border-radius:4px;padding:3px 10px;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--sky);font-weight:600;letter-spacing:.5px;margin-top:4px;}
+.hdr-fase::before{content:'●';animation:blink 1.5s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+.hdr-right{text-align:right;}
+.hdr-logo{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;color:#fff;letter-spacing:4px;}
+.hdr-by{font-family:'IBM Plex Mono',monospace;font-size:8px;color:#444;margin-top:3px;}
+.hdr-score-blk{margin-top:10px;}
+.hdr-score-lbl{font-family:'IBM Plex Mono',monospace;font-size:8px;color:#555;letter-spacing:.8px;text-transform:uppercase;margin-bottom:2px;}
+.hdr-score-v{font-size:40px;font-weight:700;color:#fff;line-height:1;letter-spacing:-1px;}
+.hdr-score-v span{font-size:16px;color:#444;}
+.hdr-track{background:rgba(255,255,255,.08);border-radius:3px;height:3px;width:140px;overflow:hidden;margin-top:4px;margin-left:auto;}
 .hdr-fill{height:3px;border-radius:3px;background:linear-gradient(90deg,var(--sky),#00D4FF);transition:width 1.5s ease;}
 
-/* META BAR — blanco */
-.hdr-meta{background:#fff;display:grid;grid-template-columns:repeat(5,1fr);}
-.hm{padding:10px 0 11px;border-right:1px solid #E5E7EB;}
+/* META BAR */
+.hdr-meta{background:#fff;display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--border);}
+.hm{padding:9px 0 10px;border-right:1px solid var(--border);}
 .hm:last-child{border-right:none;}
-.hm-l{font-family:'IBM Plex Mono',monospace;font-size:8px;font-weight:600;letter-spacing:.9px;text-transform:uppercase;color:#9CA3AF;margin-bottom:2px;}
-.hm-v{font-size:12.5px;font-weight:600;color:#111827;}
 .hm:first-child{padding-left:32px;}
+.hm-l{font-family:'IBM Plex Mono',monospace;font-size:7.5px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--tx4);margin-bottom:2px;}
+.hm-v{font-size:12px;font-weight:600;color:var(--tx);}
 
 /* NAV */
-nav{background:#fff;border-bottom:1px solid #E5E7EB;padding:0 32px;display:flex;overflow-x:auto;}
-.tab{padding:12px 16px;font-size:10px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;color:#6B7280;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;}
-.tab:hover{color:#111827;background:#F9FAFB;}
+nav{background:#fff;border-bottom:1px solid var(--border);padding:0 32px;display:flex;overflow-x:auto;}
+.tab{padding:11px 15px;font-size:10px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--tx3);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;}
+.tab:hover{color:var(--tx);background:var(--bg);}
 .tab.active{color:#0D2359;border-bottom-color:#0077C2;font-weight:700;}
 
 /* MAIN */
-main{padding:20px 32px 56px;background:#F3F4F6;}
+main{padding:20px 32px 56px;background:var(--bg);}
 .sec{display:none;animation:fi .2s ease;}
 .sec.active{display:block;}
-@keyframes fi{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
-.sec-hd{margin-bottom:16px;}
-.sec-hd h2{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;color:#111827;letter-spacing:.3px;margin-bottom:2px;}
-.sec-hd p{font-size:11px;color:#6B7280;}
+@keyframes fi{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:none;}}
+.sec-hd{margin-bottom:14px;}
+.sec-hd h2{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;color:var(--tx);margin-bottom:1px;}
+.sec-hd p{font-size:11px;color:var(--tx3);}
 
-/* ALERTA OPERATIVO */
-.data-alert{background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(14,165,233,.08));border:1px solid rgba(16,185,129,.3);border-radius:var(--r);padding:10px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px;font-size:11.5px;color:#065F46;}
-.data-alert strong{color:#059669;}
+/* ALERT */
+.alert{border-radius:var(--r);padding:9px 14px;margin-bottom:14px;display:flex;align-items:flex-start;gap:9px;font-size:11.5px;}
+.alert.info{background:#EFF6FF;border:1px solid #BFDBFE;color:#1E40AF;}
+.alert.warn{background:#FFFBEB;border:1px solid #FDE68A;color:#92400E;}
+.alert strong{font-weight:700;}
 
 /* KPI */
-.kpis{display:grid;gap:11px;margin-bottom:16px;}
+.kpis{display:grid;gap:10px;margin-bottom:14px;}
 .k5{grid-template-columns:repeat(5,1fr);}
 .k4{grid-template-columns:repeat(4,1fr);}
 .k3{grid-template-columns:repeat(3,1fr);}
-.kpi{background:#fff;border:1px solid #E5E7EB;border-radius:var(--r);padding:14px 16px 12px;border-left:3px solid var(--sky);transition:all .2s;}
-.kpi:hover{box-shadow:0 4px 12px rgba(0,0,0,.08);transform:translateY(-1px);}
+.k2{grid-template-columns:repeat(2,1fr);}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:13px 15px 11px;border-left:3px solid var(--sky);transition:all .18s;}
+.kpi:hover{box-shadow:0 4px 12px rgba(0,0,0,.07);transform:translateY(-1px);}
 .kpi.r{border-left-color:var(--condor);}
 .kpi.g{border-left-color:var(--green);}
 .kpi.a{border-left-color:var(--amber);}
 .kpi.p{border-left-color:var(--purple);}
 .kpi.t{border-left-color:var(--teal);}
-.kpi-l{font-family:'IBM Plex Mono',monospace;font-size:8.5px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:#9CA3AF;margin-bottom:5px;}
-.kpi-v{font-size:26px;font-weight:700;color:#111827;line-height:1;margin-bottom:3px;letter-spacing:-.5px;}
-.kpi-v sup{font-size:12px;color:#6B7280;}
-.kpi-s{font-size:10px;color:#9CA3AF;}
-.kpi-prog{margin-top:6px;background:#F3F4F6;border-radius:2px;height:3px;overflow:hidden;}
-.kpi-prog-f{height:3px;border-radius:2px;transition:width 1s ease;}
+.kpi-l{font-family:'IBM Plex Mono',monospace;font-size:8px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--tx4);margin-bottom:4px;}
+.kpi-v{font-size:24px;font-weight:700;color:var(--tx);line-height:1;margin-bottom:2px;letter-spacing:-.5px;}
+.kpi-v sup{font-size:11px;color:var(--tx3);}
+.kpi-s{font-size:10px;color:var(--tx4);}
+.kpi-prog{margin-top:5px;background:var(--bg);border-radius:2px;height:3px;overflow:hidden;}
+.kpi-pf{height:3px;border-radius:2px;transition:width 1s ease;}
 
 /* CARD */
-.card{background:#fff;border:1px solid #E5E7EB;border-radius:var(--r2);padding:16px 18px 14px;margin-bottom:14px;transition:box-shadow .2s;}
-.card:hover{box-shadow:0 4px 12px rgba(0,0,0,.06);}
-.card-hd{margin-bottom:12px;padding-bottom:9px;border-bottom:1px solid #F3F4F6;}
-.card-t{font-size:12px;font-weight:700;color:#111827;margin-bottom:1px;}
-.card-s{font-size:10px;color:#9CA3AF;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:15px 17px 13px;margin-bottom:13px;transition:box-shadow .18s;}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.06);}
+.card-hd{margin-bottom:11px;padding-bottom:8px;border-bottom:1px solid var(--bg);}
+.card-t{font-size:11.5px;font-weight:700;color:var(--tx);margin-bottom:1px;}
+.card-s{font-size:9.5px;color:var(--tx4);}
 .cw{position:relative;width:100%;}
 
 /* GRIDS */
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
-.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px;}
-.g21{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:14px;}
-.g12{display:grid;grid-template-columns:1fr 2fr;gap:14px;margin-bottom:14px;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px;}
+.g21{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:12px;}
+.g12{display:grid;grid-template-columns:1fr 2fr;gap:12px;margin-bottom:12px;}
 
-/* FILTER BAR */
-.filter-bar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center;background:#fff;padding:10px 14px;border-radius:var(--r);border:1px solid #E5E7EB;}
-.filter-lbl{font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:#9CA3AF;letter-spacing:.9px;text-transform:uppercase;margin-right:4px;}
-.fbtn{padding:5px 12px;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;cursor:pointer;transition:all .15s;border:1px solid #E5E7EB;background:#F9FAFB;color:#6B7280;}
-.fbtn:hover{background:#F3F4F6;color:#111827;}
+/* FILTER */
+.fbar{display:flex;gap:7px;margin-bottom:12px;flex-wrap:wrap;align-items:center;background:var(--card);padding:9px 13px;border-radius:var(--r);border:1px solid var(--border);}
+.flbl{font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--tx4);letter-spacing:.8px;text-transform:uppercase;margin-right:3px;}
+.fbtn{padding:4px 11px;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;cursor:pointer;transition:all .12s;border:1px solid var(--border);background:var(--card2);color:var(--tx3);}
+.fbtn:hover{background:var(--bg);color:var(--tx);}
 .fbtn.active{background:#0D2359;color:#fff;border-color:#0D2359;}
-.fbtn.condor-seg.active{background:var(--condor);border-color:var(--condor);}
-.sel{background:#F9FAFB;border:1px solid #E5E7EB;color:#111827;padding:6px 10px;border-radius:4px;font-size:11.5px;outline:none;cursor:pointer;}
+.fbtn.cr.active{background:var(--condor);border-color:var(--condor);}
+.sel{background:var(--card2);border:1px solid var(--border);color:var(--tx);padding:5px 10px;border-radius:4px;font-size:11.5px;outline:none;cursor:pointer;}
 
-/* RANK */
-.rl{display:flex;flex-direction:column;gap:9px;margin-top:4px;}
-.ri{display:flex;align-items:center;gap:9px;}
-.rn{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#9CA3AF;width:16px;text-align:right;flex-shrink:0;}
-.rm{font-size:11px;font-weight:600;color:#111827;flex-shrink:0;}
-.rb-w{flex:1;background:#F3F4F6;border-radius:2px;height:6px;overflow:hidden;}
-.rb{height:6px;border-radius:2px;transition:width .8s ease;}
-.rv{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;color:#374151;width:36px;text-align:right;flex-shrink:0;}
-
-/* TABLE */
-.tw{border:1px solid #E5E7EB;border-radius:var(--r);overflow:hidden;}
+/* TABLA */
+.tw{border:1px solid var(--border);border-radius:var(--r);overflow:hidden;}
 .dt{width:100%;border-collapse:collapse;}
-.dt th{padding:9px 11px;font-family:'IBM Plex Mono',monospace;font-size:8px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:#6B7280;background:#F9FAFB;border-bottom:2px solid #E5E7EB;text-align:left;}
-.dt td{padding:9px 11px;font-size:11.5px;color:#374151;border-bottom:1px solid #F3F4F6;}
+.dt th{padding:8px 10px;font-family:'IBM Plex Mono',monospace;font-size:8px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;color:var(--tx3);background:var(--card2);border-bottom:2px solid var(--border);text-align:left;}
+.dt td{padding:8px 10px;font-size:11px;color:var(--tx2);border-bottom:1px solid var(--bg);}
 .dt tr:last-child td{border-bottom:none;}
 .dt tr:hover td{background:#FAFAFA;}
-.dt td.n{font-weight:700;color:#111827;}
+.dt td.n{font-weight:700;color:var(--tx);}
 .dt td.r{text-align:right;font-family:'IBM Plex Mono',monospace;}
 .dt th.r{text-align:right;}
-.condor-row{background:rgba(239,68,68,.03)!important;}
-.condor-row td.n{color:#DC2626!important;}
+.cr-row td.n{color:#DC2626!important;}
 
 /* BADGE */
-.bdg{display:inline-block;padding:2px 7px;border-radius:3px;font-size:8.5px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;font-family:'IBM Plex Mono',monospace;}
+.bdg{display:inline-block;padding:2px 6px;border-radius:3px;font-size:8.5px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;font-family:'IBM Plex Mono',monospace;}
 .bdg.condor{background:#FEE2E2;color:#DC2626;border:1px solid #FECACA;}
 .bdg.good{background:#ECFDF5;color:#065F46;}
 .bdg.ok{background:#EFF6FF;color:#1D4ED8;}
 .bdg.warn{background:#FFFBEB;color:#92400E;}
 .bdg.bad{background:#FEF2F2;color:#991B1B;}
-.bdg.seg{background:#F3F4F6;color:#374151;}
-.bdg.real{background:#ECFDF5;color:#059669;}
+.bdg.seg{background:var(--bg);color:var(--tx2);}
 
 /* SEM */
-.sem{display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.sem{display:inline-block;width:8px;height:8px;border-radius:50%;}
 .sem.g{background:var(--green);}.sem.y{background:var(--amber);}.sem.r{background:var(--condor);}
 
-/* DIM BARS */
-.dbr{display:flex;align-items:center;gap:9px;margin-bottom:7px;}
-.dbl{font-size:11px;color:#374151;flex:1;}
-.dbt{width:120px;background:#F3F4F6;border-radius:2px;height:8px;overflow:hidden;flex-shrink:0;}
-.dbf{height:8px;border-radius:2px;}
-.dbv{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;color:#374151;width:36px;text-align:right;flex-shrink:0;}
+/* RANK */
+.rl{display:flex;flex-direction:column;gap:8px;}
+.ri{display:flex;align-items:center;gap:8px;}
+.rn{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--tx4);width:14px;text-align:right;flex-shrink:0;}
+.rm{font-size:11px;font-weight:600;color:var(--tx);flex-shrink:0;}
+.rb-w{flex:1;background:var(--bg);border-radius:2px;height:5px;overflow:hidden;}
+.rb{height:5px;border-radius:2px;}
+.rv{font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;color:var(--tx2);width:34px;text-align:right;flex-shrink:0;}
+
+/* DIM BAR */
+.dbr{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.dbl{font-size:10.5px;color:var(--tx2);flex:1;}
+.dbt{width:100px;background:var(--bg);border-radius:2px;height:7px;overflow:hidden;flex-shrink:0;}
+.dbf{height:7px;border-radius:2px;}
+.dbv{font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;color:var(--tx2);width:34px;text-align:right;flex-shrink:0;}
 
 /* INSIGHT */
-.ins{background:#F9FAFB;border-left:3px solid var(--sky);padding:9px 12px;border:1px solid #E5E7EB;margin-bottom:7px;border-radius:0 var(--r) var(--r) 0;}
+.ins{background:var(--card2);border-left:3px solid var(--sky);padding:8px 11px;border:1px solid var(--border);margin-bottom:6px;border-radius:0 var(--r) var(--r) 0;}
 .ins.g{border-left-color:var(--green);}.ins.w{border-left-color:var(--amber);}.ins.r{border-left-color:var(--condor);}
-.ins-l{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.8px;text-transform:uppercase;color:#9CA3AF;margin-bottom:2px;font-weight:600;}
-.ins-v{font-size:18px;font-weight:700;color:#111827;line-height:1;margin-bottom:1px;}
-.ins-d{font-size:10.5px;color:#374151;line-height:1.4;}
+.ins-l{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.7px;text-transform:uppercase;color:var(--tx4);margin-bottom:1px;font-weight:600;}
+.ins-v{font-size:17px;font-weight:700;color:var(--tx);line-height:1;margin-bottom:1px;}
+.ins-d{font-size:10px;color:var(--tx2);line-height:1.4;}
 
 /* AI */
-.ai-panel{background:linear-gradient(135deg,#EFF6FF,#F0FDF4);border:1px solid #BFDBFE;border-radius:var(--r2);padding:14px 18px;margin-top:16px;display:flex;gap:12px;}
-.ai-icon{font-size:22px;flex-shrink:0;}
-.ai-title{font-family:'IBM Plex Mono',monospace;font-size:8.5px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#1D4ED8;margin-bottom:6px;}
-.ai-text{font-size:11.5px;color:#1E3A5F;line-height:1.7;}
+.ai-panel{background:linear-gradient(135deg,#EFF6FF,#F0FDF4);border:1px solid #BFDBFE;border-radius:var(--r2);padding:13px 16px;margin-top:14px;display:flex;gap:11px;}
+.ai-icon{font-size:20px;flex-shrink:0;}
+.ai-title{font-family:'IBM Plex Mono',monospace;font-size:8px;font-weight:600;letter-spacing:.9px;text-transform:uppercase;color:#1D4ED8;margin-bottom:5px;}
+.ai-text{font-size:11px;color:#1E3A5F;line-height:1.7;}
 .ai-text strong{color:#0D2359;}
 
-/* MATRIZ */
-.mat-cell{text-align:center;font-size:14px;}
-.mat-cell.si{color:var(--green);}
-.mat-cell.no{color:#DC2626;}
-.mat-cell.na{color:#9CA3AF;}
-
-/* TOP3 POR DIM */
-.top3-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px;}
-.top3-card{background:#fff;border:1px solid #E5E7EB;border-radius:var(--r);padding:12px;border-top:3px solid var(--sky);}
-.top3-card.fiab{border-top-color:var(--purple);}
-.top3-card.cap{border-top-color:var(--amber);}
-.top3-card.seg{border-top-color:var(--green);}
-.top3-card.emp{border-top-color:var(--condor);}
-.top3-dim{font-family:'IBM Plex Mono',monospace;font-size:8px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#9CA3AF;margin-bottom:8px;}
-.top3-item{display:flex;align-items:center;justify-content:space-between;padding:3px 0;border-bottom:1px solid #F3F4F6;font-size:11px;}
+/* TOP3 */
+.top3-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-bottom:13px;}
+.top3-c{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:11px;border-top:3px solid var(--sky);}
+.top3-c.b{border-top-color:var(--purple);}
+.top3-c.c{border-top-color:var(--amber);}
+.top3-c.d{border-top-color:var(--green);}
+.top3-c.e{border-top-color:var(--condor);}
+.top3-dim{font-family:'IBM Plex Mono',monospace;font-size:7.5px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--tx4);margin-bottom:7px;}
+.top3-item{display:flex;align-items:center;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--bg);font-size:10.5px;}
 .top3-item:last-child{border-bottom:none;}
-.top3-m{font-weight:600;color:#111827;}
-.top3-v{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;color:#059669;}
+.top3-m{font-weight:600;color:var(--tx);}
+.top3-v{font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;color:var(--green);}
+
+/* GRUPO CARD */
+.grupo-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:14px 16px;margin-bottom:13px;}
+.grupo-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;padding-bottom:8px;border-bottom:1px solid var(--bg);}
+.grupo-title{font-size:12px;font-weight:700;color:var(--tx);}
+.grupo-sub{font-size:10px;color:var(--tx4);}
+
+/* MATRIZ */
+.mat-cell{text-align:center;font-size:13px;}
+.mat-si{color:var(--green);}
+.mat-no{color:var(--condor);}
+.mat-na{color:var(--tx4);font-size:10px;}
+
+/* METOD */
+.pilar{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:14px 16px;border-top:3px solid var(--sky);}
+.pilar.b{border-top-color:var(--condor);}
+.pilar.c{border-top-color:var(--green);}
 
 /* FICHA */
-.ficha-hdr{background:#fff;border:1px solid #E5E7EB;border-radius:var(--r2);padding:18px 22px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;}
-.ficha-nm{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:#111827;}
-.ficha-sc{font-family:'Barlow Condensed',sans-serif;font-size:44px;font-weight:800;line-height:1;}
+.ficha-hdr{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:16px 20px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;}
+.ficha-nm{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:800;color:var(--tx);}
+.ficha-sc{font-family:'Barlow Condensed',sans-serif;font-size:40px;font-weight:800;line-height:1;}
 
 /* CHECK */
-.check-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
-.check-dim{background:#F9FAFB;border:1px solid #E5E7EB;border-radius:var(--r);padding:12px;}
-.check-dim-t{font-size:11px;font-weight:700;color:#111827;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #E5E7EB;}
-.check-item{display:flex;align-items:center;gap:7px;padding:3px 0;font-size:10.5px;color:#374151;border-bottom:1px solid #F3F4F6;}
-.check-item:last-child{border-bottom:none;}
+.ck-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
+.ck-dim{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:11px;}
+.ck-t{font-size:11px;font-weight:700;color:var(--tx);margin-bottom:7px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+.ck-item{display:flex;align-items:center;gap:6px;padding:3px 0;font-size:10px;color:var(--tx2);border-bottom:1px solid var(--bg);}
+.ck-item:last-child{border-bottom:none;}
 
-/* SCORE BAND */
-.sband{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:10px;font-size:10px;font-weight:600;}
+/* SBAND */
+.sband{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:9px;font-size:9.5px;font-weight:600;}
 .sband.alto{background:#ECFDF5;color:#065F46;}
 .sband.medio{background:#FFFBEB;color:#92400E;}
 .sband.bajo{background:#FEF2F2;color:#991B1B;}
 
 /* FOOTER */
-footer{background:#000;padding:11px 32px;display:flex;align-items:center;justify-content:space-between;}
+footer{background:#000;padding:10px 32px;display:flex;align-items:center;justify-content:space-between;}
 .ft{font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:#444;}
 
 /* RESP */
-@media(max-width:1100px){.k5{grid-template-columns:repeat(3,1fr);}.g3{grid-template-columns:1fr 1fr;}.top3-grid{grid-template-columns:repeat(3,1fr);}}
-@media(max-width:780px){.topbar,.header,nav,main,footer{padding-left:14px;padding-right:14px;}.k5,.k4{grid-template-columns:1fr 1fr;}.g2,.g21,.g12,.g3{grid-template-columns:1fr;}.hdr-main{flex-direction:column;gap:14px;}.check-grid{grid-template-columns:1fr 1fr;}.top3-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:1100px){.k5{grid-template-columns:repeat(3,1fr);}.top3-grid{grid-template-columns:repeat(3,1fr);}.g3{grid-template-columns:1fr 1fr;}}
+@media(max-width:780px){.topbar,.header,nav,main,footer{padding-left:14px;padding-right:14px;}.k5,.k4{grid-template-columns:1fr 1fr;}.g2,.g21,.g12,.g3{grid-template-columns:1fr;}.hdr-top{flex-direction:column;gap:12px;}.ck-grid{grid-template-columns:1fr 1fr;}.top3-grid{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
 <body>
 <script>
 const U="condor2026",P="arvi2026";
 const u=prompt("Usuario — Grupo Condor 2026:"),p=prompt("Contraseña:");
-if(u!==U||p!==P){document.body.innerHTML='<div style="height:100vh;display:flex;align-items:center;justify-content:center;background:#F3F4F6;font-family:sans-serif"><div style="background:#fff;padding:48px 56px;border-radius:12px;text-align:center;border:1px solid #E5E7EB;box-shadow:0 4px 24px rgba(0,0,0,.08)"><div style="font-size:38px;margin-bottom:12px">🔒</div><h2 style="color:#111827;margin-bottom:8px">Acceso denegado</h2><p style="color:#6B7280;font-size:13px">Credenciales incorrectas. Contacte a ARVI Company.</p></div></div>';throw new Error("AUTH");}
+if(u!==U||p!==P){document.body.innerHTML='<div style="height:100vh;display:flex;align-items:center;justify-content:center;background:#F3F4F6;font-family:sans-serif"><div style="background:#fff;padding:48px;border-radius:12px;text-align:center;border:1px solid #E5E7EB;box-shadow:0 4px 20px rgba(0,0,0,.08)"><div style="font-size:36px;margin-bottom:12px">🔒</div><h2 style="color:#111827;margin-bottom:8px">Acceso denegado</h2><p style="color:#6B7280;font-size:13px">Contacte a ARVI Company.</p></div></div>';throw new Error("AUTH");}
 </script>
 
 <!-- TOPBAR -->
 <div class="topbar">
   <div class="tb-l">
-    <div class="tb-brand"><span class="tb-dot"></span>CONDOR</div>
+    <div class="tb-brand">CONDOR</div>
     <div class="tb-div"></div>
-    <div class="tb-title">Dashboard Ejecutivo CX · G-SERVQUAL · Mystery Shopper 2026</div>
+    <div class="tb-sub">Dashboard Ejecutivo CX · Mystery Shopper · G-Servqual · Benchmark 2026</div>
   </div>
   <div class="tb-r">
-    <span class="tag real">● Operativo en campo</span>
+    <span class="tag fase">Monitoreo en Vivo</span>
     <span class="tag arvi">ARVI Company</span>
     <span class="tag date" id="ts">01/07/2026</span>
   </div>
@@ -244,17 +258,18 @@ if(u!==U||p!==P){document.body.innerHTML='<div style="height:100vh;display:flex;
 
 <!-- HEADER NEGRO -->
 <div class="header">
-  <div class="hdr-main">
+  <div class="hdr-top">
     <div>
-      <div class="study-lbl">Proyecto Condor 2026 · G-SERVQUAL · Mystery Shopper · Benchmark</div>
-      <h1 class="hdr-h1">DASHBOARD EJECUTIVO<br/>EXPERIENCIA DEL CLIENTE</h1>
-      <div class="hdr-sub">G-SERVQUAL (I1) · Mystery Shopper Presencial (I2) · Digital WA/RRSS (I3) · Cualitativo (I4) · 14 marcas activas</div>
+      <div class="study-lbl">Grupo Condor · Proyecto 2026 · G-Servqual · Mystery Shopper · Benchmark</div>
+      <h1 class="hdr-h1">DASHBOARD EJECUTIVO CX<br/>GRUPO CONDOR</h1>
+      <div class="hdr-sub">Evaluación puntual de experiencia al cliente — Encuesta · Presencial · Digital · Posventa · Repuestos</div>
+      <div class="hdr-fase">Monitoreo en Vivo / Fase: Recolección</div>
     </div>
-    <div>
+    <div class="hdr-right">
       <div class="hdr-logo">GRUPO CONDOR</div>
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#444;text-align:right;margin-top:3px;">80 AÑOS · PARAGUAY · ELABORADO POR ARVI COMPANY</div>
-      <div class="hdr-score-mini">
-        <div class="hdr-score-lbl">Score Condor — G-SERVQUAL</div>
+      <div class="hdr-by">Elaborado por ARVI Company · Paraguay · 2026</div>
+      <div class="hdr-score-blk">
+        <div class="hdr-score-lbl">Score G-SERVQUAL parcial</div>
         <div class="hdr-score-v">86<span>/100</span></div>
         <div class="hdr-track"><div class="hdr-fill" id="hdrFill" style="width:0%"></div></div>
       </div>
@@ -262,23 +277,22 @@ if(u!==U||p!==P){document.body.innerHTML='<div style="height:100vh;display:flex;
   </div>
 </div>
 
-<!-- META BAR — BLANCO -->
+<!-- META BAR -->
 <div class="hdr-meta">
   <div class="hm" style="padding-left:32px"><div class="hm-l">Cliente</div><div class="hm-v">Grupo Condor S.A.</div></div>
-  <div class="hm" style="padding-left:18px"><div class="hm-l">I1 Encuesta G-SERVQUAL</div><div class="hm-v">13 / 60 · Operativo activo</div></div>
-  <div class="hm" style="padding-left:18px"><div class="hm-l">Mystery Shopper (I2/I3)</div><div class="hm-v">0 / 18+14+17 — en campo</div></div>
-  <div class="hm" style="padding-left:18px"><div class="hm-l">Metodología</div><div class="hm-v">G-SERVQUAL · Mystery Shopper</div></div>
-  <div class="hm" style="padding-left:18px"><div class="hm-l">Período</div><div class="hm-v">2026 · Operativo en curso</div></div>
+  <div class="hm" style="padding-left:16px"><div class="hm-l">I1 Encuesta G-SERVQUAL</div><div class="hm-v">13/60 · 14 marcas activas</div></div>
+  <div class="hm" style="padding-left:16px"><div class="hm-l">Mystery Shopper</div><div class="hm-v">I2: 0/18 · I3-WA: 0/13 · I3-RRSS: 0/17</div></div>
+  <div class="hm" style="padding-left:16px"><div class="hm-l">Metodología</div><div class="hm-v">G-SERVQUAL · Mystery Shopper · Benchmark</div></div>
+  <div class="hm" style="padding-left:16px"><div class="hm-l">Período</div><div class="hm-v">2026 · Fase: Recolección</div></div>
 </div>
 
 <!-- NAV -->
 <nav>
   <div class="tab active" onclick="ST('panorama',this)">Panorama General</div>
-  <div class="tab" onclick="ST('gservqual',this)">I. G-SERVQUAL</div>
-  <div class="tab" onclick="ST('mystery',this)">II. Mystery Shopper</div>
+  <div class="tab" onclick="ST('mystery',this)">I. Mystery Shopper</div>
+  <div class="tab" onclick="ST('gservqual',this)">II. G-SERVQUAL</div>
   <div class="tab" onclick="ST('benchmark',this)">III. Benchmark</div>
-  <div class="tab" onclick="ST('marca',this)">IV. Por Marca</div>
-  <div class="tab" onclick="ST('metodologia',this)">Metodología</div>
+  <div class="tab" onclick="ST('metodologia',this)">IV. Metodología</div>
   <div class="tab" onclick="ST('produccion',this)">Producción</div>
 </nav>
 
@@ -286,310 +300,353 @@ if(u!==U||p!==P){document.body.innerHTML='<div style="height:100vh;display:flex;
 
 <!-- ═══ PANORAMA ═══ -->
 <section class="sec active" id="sec-panorama">
-  <div class="sec-hd"><h2>Panorama General</h2><p>Estado del operativo · I1 Encuesta G-SERVQUAL en curso · Mystery Shopper iniciando · Resultados al 01/07/2026</p></div>
-  <div class="data-alert">📊 <strong>Operativo en campo:</strong> I1 Encuesta G-SERVQUAL: 13/60 casos completados · 7 marcas evaluadas. Mystery Shopper (I2/I3/I4): en curso. Resultados actualizados al 01/07/2026.</div>
+  <div class="sec-hd"><h2>Panorama General</h2><p>Control de muestra · Indicadores clave · Grupos de marcas · Avance del operativo</p></div>
 
   <!-- CONTROL DE MUESTRA -->
-  <div class="kpis k4" style="margin-bottom:16px;">
+  <div class="kpis k4">
     <div class="kpi g">
       <div class="kpi-l">Encuesta G-SERVQUAL (I1)</div>
       <div class="kpi-v">13<sup>/60</sup></div>
-      <div class="kpi-s">7 marcas evaluadas · 22% avance</div>
-      <div class="kpi-prog"><div class="kpi-prog-f" style="width:22%;background:var(--green);"></div></div>
+      <div class="kpi-s">14 marcas · 22% avance</div>
+      <div class="kpi-prog"><div class="kpi-pf" style="width:22%;background:var(--green);"></div></div>
     </div>
     <div class="kpi a">
-      <div class="kpi-l">Mystery Presencial (I2)</div>
+      <div class="kpi-l">Mystery Shopper Presencial (I2)</div>
       <div class="kpi-v">0<sup>/18</sup></div>
-      <div class="kpi-s">Operativo iniciando</div>
-      <div class="kpi-prog"><div class="kpi-prog-f" style="width:0%;background:var(--amber);"></div></div>
+      <div class="kpi-s">0% avance · Iniciando</div>
+      <div class="kpi-prog"><div class="kpi-pf" style="width:0%;background:var(--amber);"></div></div>
     </div>
     <div class="kpi a">
-      <div class="kpi-l">Mystery WhatsApp (I3-WA)</div>
-      <div class="kpi-v">0<sup>/14</sup></div>
-      <div class="kpi-s">Operativo iniciando</div>
-      <div class="kpi-prog"><div class="kpi-prog-f" style="width:0%;background:var(--amber);"></div></div>
+      <div class="kpi-l">Mystery Shopper WhatsApp (I3-WA)</div>
+      <div class="kpi-v">0<sup>/13</sup></div>
+      <div class="kpi-s">0% avance · Iniciando</div>
+      <div class="kpi-prog"><div class="kpi-pf" style="width:0%;background:var(--amber);"></div></div>
     </div>
     <div class="kpi a">
-      <div class="kpi-l">Mystery RRSS (I3-RRSS)</div>
+      <div class="kpi-l">Mystery Shopper RRSS (I3-RRSS)</div>
       <div class="kpi-v">0<sup>/17</sup></div>
-      <div class="kpi-s">Operativo iniciando</div>
-      <div class="kpi-prog"><div class="kpi-prog-f" style="width:0%;background:var(--amber);"></div></div>
+      <div class="kpi-s">0% avance · Iniciando</div>
+      <div class="kpi-prog"><div class="kpi-pf" style="width:0%;background:var(--amber);"></div></div>
     </div>
   </div>
 
-  <!-- KPIs G-SERVQUAL -->
-  <div class="kpis k5">
-    <div class="kpi"><div class="kpi-l">🏢 Tangibles</div><div class="kpi-v">91.5</div><div class="kpi-s">I1 G-SERVQUAL /100</div></div>
-    <div class="kpi p"><div class="kpi-l">✅ Fiabilidad</div><div class="kpi-v">87.8</div><div class="kpi-s">I1 G-SERVQUAL /100</div></div>
-    <div class="kpi a"><div class="kpi-l">⚡ Cap. Respuesta</div><div class="kpi-v">82.5</div><div class="kpi-s">I1 G-SERVQUAL /100</div></div>
-    <div class="kpi g"><div class="kpi-l">🛡 Seguridad</div><div class="kpi-v">81.2</div><div class="kpi-s">I1 G-SERVQUAL /100</div></div>
-    <div class="kpi r"><div class="kpi-l">🤝 Empatía</div><div class="kpi-v">81.2</div><div class="kpi-s">I1 G-SERVQUAL /100</div></div>
+  <!-- INDICADORES POR GRUPO -->
+  <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--tx3);margin-bottom:9px;">INDICADORES CLAVE POR GRUPO DE MARCAS</div>
+  <div class="kpis k4" style="margin-bottom:6px;">
+    <div class="kpi r"><div class="kpi-l">Grupo 1 · SUV/Sedán (Seg. A)</div><div class="kpi-v" id="kpiA">—</div><div class="kpi-s">MG · Geely · Chery · Jetour · Kia</div></div>
+    <div class="kpi"><div class="kpi-l">Grupo 2 · Comerciales (Seg. B)</div><div class="kpi-v" id="kpiB">—</div><div class="kpi-s">MAXUS · Chev. · Ford · VW · GWM</div></div>
+    <div class="kpi"><div class="kpi-l">Grupo 3 · Pesados (Seg. C)</div><div class="kpi-v" id="kpiC">—</div><div class="kpi-s">FUSO · Isuzu · Hino · JMC</div></div>
+    <div class="kpi p"><div class="kpi-l">Grupo 4 · Independientes (Seg. D)</div><div class="kpi-v" id="kpiD">—</div><div class="kpi-s">MB-Camiones · MB-Automóviles</div></div>
   </div>
 
-  <!-- TOP 3 POR DIMENSIÓN -->
-  <div style="margin-bottom:10px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#6B7280;">TOP 3 MARCAS POR DIMENSIÓN — Datos reales I1</span></div>
+  <!-- PROMEDIO POR TIPO DE INSTRUMENTO -->
+  <div class="g2">
+    <div class="card">
+      <div class="card-hd"><div class="card-t">Promedio Global por Dimensión — G-SERVQUAL (I1)</div><div class="card-s">Índice 0–100 · 13 casos disponibles · Separado por instrumento</div></div>
+      <div class="cw" style="height:240px"><canvas id="cDimGS"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-hd"><div class="card-t">Promedio por Dimensión — Mystery Shopper</div><div class="card-s">Meta operativa · I2 Presencial · I3-WA · I3-RRSS · Datos pendientes</div></div>
+      <div class="cw" style="height:240px"><canvas id="cDimMS"></canvas></div>
+    </div>
+  </div>
+
+  <!-- TOP 3 POR DOMINIO -->
+  <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--tx3);margin-bottom:9px;">TOP 3 MARCAS POR DOMINIO — G-SERVQUAL (datos disponibles)</div>
   <div class="top3-grid" id="top3Dims"></div>
 
-  <div class="g2">
-    <div class="card"><div class="card-hd"><div class="card-t">Dimensiones G-SERVQUAL</div><div class="card-s">Índice 0–100 · I1 · N=13 casos</div></div><div class="cw" style="height:250px"><canvas id="cDimReal"></canvas></div></div>
-    <div class="card"><div class="card-hd"><div class="card-t">Satisfacción General por Marca</div><div class="card-s">Escala 1–5 · Promedio por marca</div></div><div class="cw" style="height:250px"><canvas id="cSatMarca"></canvas></div></div>
-  </div>
-
+  <!-- GRAFICOS -->
   <div class="g3">
-    <div class="card"><div class="card-hd"><div class="card-t">Canales de Entrevista</div><div class="card-s">Distribución I1 real</div></div><div class="cw" style="height:200px"><canvas id="cCanales"></canvas></div></div>
-    <div class="card"><div class="card-hd"><div class="card-t">Uso Posventa</div><div class="card-s">¿Ha utilizado taller/posventa? N=13</div></div><div class="cw" style="height:200px"><canvas id="cPosventa"></canvas></div></div>
-    <div class="card"><div class="card-hd"><div class="card-t">Distribución por Marca</div><div class="card-s">Entrevistas completadas por marca</div></div><div class="cw" style="height:200px"><canvas id="cMarcaDist"></canvas></div></div>
+    <div class="card"><div class="card-hd"><div class="card-t">Canales de Entrevista I1</div><div class="card-s">Distribución 13 casos</div></div><div class="cw" style="height:190px"><canvas id="cCanales"></canvas></div></div>
+    <div class="card"><div class="card-hd"><div class="card-t">Uso de Posventa</div><div class="card-s">¿Ha utilizado taller/posventa?</div></div><div class="cw" style="height:190px"><canvas id="cPos"></canvas></div></div>
+    <div class="card"><div class="card-hd"><div class="card-t">Distribución por Marca</div><div class="card-s">Casos por marca</div></div><div class="cw" style="height:190px"><canvas id="cMDist"></canvas></div></div>
   </div>
 
-  <div class="ai-panel"><div class="ai-icon">🤖</div><div class="ai-content"><div class="ai-title">Análisis Automático ARVI IA — Panorama</div><div class="ai-text" id="aiPanorama"></div></div></div>
+  <div class="ai-panel"><div class="ai-icon">🤖</div><div class="ai-content"><div class="ai-title">Análisis Automático ARVI IA — Panorama General</div><div class="ai-text" id="aiPan"></div></div></div>
+</section>
+
+<!-- ═══ MYSTERY SHOPPER ═══ -->
+<section class="sec" id="sec-mystery">
+  <div class="sec-hd"><h2>I. Mystery Shopper</h2><p>Estructura de salida · Un gráfico de barras por grupo · Eje Y: marcas del grupo · Eje X: dominios (5.1–5.5)</p></div>
+  <div class="alert warn">⏳ <strong>Operativo en inicio:</strong> Mystery Shopper aún sin datos. Se muestran la estructura de evaluación, metas por grupo y las variables a evaluar por dominio. Esta sección se actualizará al recibir los primeros CSV de I2/I3.</div>
+
+  <div class="fbar"><span class="flbl">Tipo:</span>
+    <button class="fbtn active" onclick="filterMS('pres',this)">Presencial (I2) · Meta: 18</button>
+    <button class="fbtn" onclick="filterMS('wa',this)">WhatsApp (I3-WA) · Meta: 13</button>
+    <button class="fbtn" onclick="filterMS('rrss',this)">RRSS (I3-RRSS) · Meta: 17</button>
+  </div>
+
+  <!-- TABLA RESUMEN % -->
+  <div class="card">
+    <div class="card-hd"><div class="card-t">Tabla Resumen — Metas por Grupo y Dominio</div><div class="card-s">% completado · Marcas por grupo · Estructura operativa</div></div>
+    <div class="tw">
+      <table class="dt">
+        <thead><tr><th>Grupo</th><th>Marcas</th><th class="r">Meta</th><th class="r">Completado</th><th class="r">% Avance</th><th>Dominio 5.1</th><th>Dominio 5.2</th><th>Dominio 5.3</th><th>Dominio 5.4</th><th>Dominio 5.5</th></tr></thead>
+        <tbody id="tablaMS"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- GRÁFICOS POR GRUPO -->
+  <div id="msGrupos"></div>
+
+  <!-- VARIABLES POR DOMINIO -->
+  <div class="card">
+    <div class="card-hd"><div class="card-t">Variables a Evaluar por Dominio</div><div class="card-s">Checklist · I2 Presencial + I3 Digital · Escala 1–5</div></div>
+    <div class="ck-grid">
+      <div class="ck-dim"><div class="ck-t" style="color:var(--sky)">5.1 Tangibles</div>
+        <div class="ck-item">🔲 Limpieza del showroom</div>
+        <div class="ck-item">🔲 Orden e iluminación</div>
+        <div class="ck-item">🔲 Climatización</div>
+        <div class="ck-item">🔲 Señalética</div>
+        <div class="ck-item">🔲 Vehículos en exhibición</div>
+        <div class="ck-item">🔲 Presentación personal</div>
+      </div>
+      <div class="ck-dim"><div class="ck-t" style="color:var(--purple)">5.2 Fiabilidad</div>
+        <div class="ck-item">🔲 Cumplimiento de información</div>
+        <div class="ck-item">🔲 Claridad de procesos</div>
+        <div class="ck-item">🔲 Transparencia comercial</div>
+        <div class="ck-item">🔲 Coherencia comercial</div>
+        <div class="ck-item">🔲 Exactitud de datos</div>
+      </div>
+      <div class="ck-dim"><div class="ck-t" style="color:var(--amber)">5.3 Cap. Respuesta</div>
+        <div class="ck-item">🔲 Tiempo de atención</div>
+        <div class="ck-item">🔲 Rapidez de respuesta</div>
+        <div class="ck-item">🔲 Disponibilidad del asesor</div>
+        <div class="ck-item">🔲 Seguimiento comercial</div>
+        <div class="ck-item">🔲 Resolución de dudas</div>
+      </div>
+      <div class="ck-dim"><div class="ck-t" style="color:var(--green)">5.4 Seguridad</div>
+        <div class="ck-item">🔲 Dominio técnico</div>
+        <div class="ck-item">🔲 Conocimiento del producto</div>
+        <div class="ck-item">🔲 Capacidad de argumentación</div>
+        <div class="ck-item">🔲 Transparencia financiera</div>
+        <div class="ck-item">🔲 Seguridad transmitida</div>
+      </div>
+      <div class="ck-dim"><div class="ck-t" style="color:var(--condor)">5.5 Empatía</div>
+        <div class="ck-item">🔲 Cordialidad</div>
+        <div class="ck-item">🔲 Escucha activa</div>
+        <div class="ck-item">🔲 Interés genuino</div>
+        <div class="ck-item">🔲 Personalización</div>
+        <div class="ck-item">🔲 Trato humano</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ai-panel"><div class="ai-icon">🤖</div><div class="ai-content"><div class="ai-title">Análisis Automático ARVI IA — Mystery Shopper</div><div class="ai-text" id="aiMS"></div></div></div>
 </section>
 
 <!-- ═══ G-SERVQUAL ═══ -->
 <section class="sec" id="sec-gservqual">
-  <div class="sec-hd"><h2>I. G-SERVQUAL — Encuesta Clientes</h2><p>I1 · 13 casos · 7 marcas · 5 dimensiones · 14 sub-bloques · Escala 1–5</p></div>
-  <div class="filter-bar"><span class="filter-lbl">Segmento:</span>
+  <div class="sec-hd"><h2>II. G-SERVQUAL</h2><p>Gráficos radiales por grupo de marcas · Selector de grupo · Comparativa entre marcas del mismo grupo</p></div>
+
+  <div class="fbar"><span class="flbl">Grupo:</span>
     <button class="fbtn active" onclick="filterGS('all',this)">Todos</button>
-    <button class="fbtn" onclick="filterGS('A',this)">A · SUV/Sedán</button>
-    <button class="fbtn" onclick="filterGS('B',this)">B · Comerciales</button>
-    <button class="fbtn" onclick="filterGS('C',this)">C · Pesados</button>
+    <button class="fbtn cr" onclick="filterGS('A',this)">Grupo 1 · SUV/Sedán</button>
+    <button class="fbtn" onclick="filterGS('B',this)">Grupo 2 · Comerciales</button>
+    <button class="fbtn" onclick="filterGS('C',this)">Grupo 3 · Pesados</button>
   </div>
-  <div class="g12">
+
+  <!-- RADARES POR GRUPO -->
+  <div id="gsGrupos"></div>
+
+  <!-- SUB-ITEMS -->
+  <div class="g2">
     <div class="card">
-      <div class="card-hd"><div class="card-t">Radar por Marca</div><div class="card-s">Seleccioná marca con datos reales</div></div>
-      <select class="sel" id="selRadar" onchange="updateRadar()" style="width:100%;margin-bottom:10px;"></select>
-      <div class="cw" style="height:270px"><canvas id="cRadar"></canvas></div>
-    </div>
-    <div class="card">
-      <div class="card-hd"><div class="card-t">Sub-items B1–B14 — Resultados G-SERVQUAL</div><div class="card-s">Promedio G-SERVQUAL · Semáforo rendimiento</div></div>
+      <div class="card-hd"><div class="card-t">Sub-items B1–B14 — Mayor a Menor</div><div class="card-s">Promedio disponible · Semáforo rendimiento</div></div>
       <div id="dimBars"></div>
     </div>
-  </div>
-  <div class="card"><div class="card-hd"><div class="card-t">G-SERVQUAL por Segmento — Barras por Grupo</div><div class="card-s">Dimensiones por marca · Resultados I1</div></div><div class="cw" style="height:300px"><canvas id="cGSBar"></canvas></div></div>
-  <div class="g2">
     <div class="card">
-      <div class="card-hd"><div class="card-t">Fortalezas detectadas</div><div class="card-s">Sub-items con mayor puntaje</div></div>
-      <div class="ins g"><div class="ins-l">✅ #1</div><div class="ins-v">4.77</div><div class="ins-d">B2 – Vehículos en exhibición</div></div>
-      <div class="ins g"><div class="ins-l">✅ #2</div><div class="ins-v">4.75</div><div class="ins-d">B6 – Taller y disponibilidad (quienes lo usaron)</div></div>
-      <div class="ins g"><div class="ins-l">✅ #3</div><div class="ins-v">4.69</div><div class="ins-d">B5 – Procesos administrativos</div></div>
-    </div>
-    <div class="card">
-      <div class="card-hd"><div class="card-t">Oportunidades detectadas</div><div class="card-s">Sub-items con menor puntaje</div></div>
-      <div class="ins w"><div class="ins-l">⚠ #1</div><div class="ins-v">3.85</div><div class="ins-d">B14 – Seguimiento posterior a la compra</div></div>
-      <div class="ins w"><div class="ins-l">⚠ #2</div><div class="ins-v">4.25</div><div class="ins-d">Seguridad y Empatía — dimensiones más bajas</div></div>
-      <div class="ins w"><div class="ins-l">⚠ #3</div><div class="ins-v">3.76</div><div class="ins-d">Isuzu — score más bajo del grupo (n=1, dato preliminar)</div></div>
+      <div class="card-hd"><div class="card-t">Radar por Marca Individual</div><div class="card-s">Marca seleccionada vs promedio general</div></div>
+      <select class="sel" id="selRadar" onchange="updateRadar()" style="width:100%;margin-bottom:10px;"></select>
+      <div class="cw" style="height:260px"><canvas id="cRadar"></canvas></div>
     </div>
   </div>
-  <div class="ai-panel"><div class="ai-icon">🤖</div><div class="ai-content"><div class="ai-title">Análisis Automático ARVI IA — G-SERVQUAL</div><div class="ai-text" id="aiGS"></div></div></div>
-</section>
 
-<!-- ═══ MYSTERY ═══ -->
-<section class="sec" id="sec-mystery">
-  <div class="sec-hd"><h2>II. Mystery Shopper</h2><p>I2 Presencial (meta: 18) · I3-WA WhatsApp (meta: 14) · I3-RRSS (meta: 17) · Operativo en curso</p></div>
-  <div class="data-alert" style="background:rgba(245,158,11,.06);border-color:rgba(245,158,11,.3);color:#92400E;">⏳ <strong>Operativo en inicio:</strong> Los datos de Mystery Shopper aún no están disponibles. Esta sección se actualizará al recibir los primeros CSV de I2 e I3. Se muestran metas del operativo.</div>
-  <div class="kpis k4">
-    <div class="kpi a"><div class="kpi-l">Meta MS Presencial (I2)</div><div class="kpi-v">18</div><div class="kpi-s">Evaluaciones programadas</div></div>
-    <div class="kpi a"><div class="kpi-l">Meta MS WhatsApp (I3-WA)</div><div class="kpi-v">14</div><div class="kpi-s">Marcas con WA</div></div>
-    <div class="kpi a"><div class="kpi-l">Meta MS RRSS (I3-RRSS)</div><div class="kpi-v">17</div><div class="kpi-s">Marcas con RRSS</div></div>
-    <div class="kpi t"><div class="kpi-l">Evaluaciones Cualitativas (I4)</div><div class="kpi-v">—</div><div class="kpi-s">Pendiente</div></div>
-  </div>
-  <div class="card"><div class="card-hd"><div class="card-t">Estructura del Mystery Shopper — Dimensiones a Evaluar</div><div class="card-s">5 dimensiones · Escala 1–5 · Presencial + Digital</div></div>
-    <div class="cw" style="height:280px"><canvas id="cMSPlan"></canvas></div>
-  </div>
   <div class="g2">
-    <div class="card"><div class="card-hd"><div class="card-t">Marcas por Tipo de Mystery</div><div class="card-s">Distribución según matriz operativa</div></div><div class="cw" style="height:250px"><canvas id="cMSMat"></canvas></div></div>
     <div class="card">
-      <div class="card-hd"><div class="card-t">Variables a evaluar — I2 Presencial</div><div class="card-s">Checklist de dimensiones</div></div>
-      <div class="check-grid" style="grid-template-columns:1fr 1fr">
-        <div class="check-dim">
-          <div class="check-dim-t">A. Tangibles</div>
-          <div class="check-item"><span>🔲</span> Limpieza showroom</div>
-          <div class="check-item"><span>🔲</span> Iluminación y climatización</div>
-          <div class="check-item"><span>🔲</span> Vehículos en exhibición</div>
-          <div class="check-item"><span>🔲</span> Presentación del personal</div>
-        </div>
-        <div class="check-dim">
-          <div class="check-dim-t">B. Fiabilidad</div>
-          <div class="check-item"><span>🔲</span> Cumplimiento información</div>
-          <div class="check-item"><span>🔲</span> Claridad de procesos</div>
-          <div class="check-item"><span>🔲</span> Transparencia comercial</div>
-        </div>
-        <div class="check-dim">
-          <div class="check-dim-t">C. Cap. Respuesta</div>
-          <div class="check-item"><span>🔲</span> Tiempo de atención</div>
-          <div class="check-item"><span>🔲</span> Rapidez de respuesta</div>
-          <div class="check-item"><span>🔲</span> Resolución de dudas</div>
-        </div>
-        <div class="check-dim">
-          <div class="check-dim-t">D/E. Seguridad · Empatía</div>
-          <div class="check-item"><span>🔲</span> Dominio técnico</div>
-          <div class="check-item"><span>🔲</span> Conocimiento del producto</div>
-          <div class="check-item"><span>🔲</span> Cordialidad y trato</div>
-        </div>
-      </div>
+      <div class="card-hd"><div class="card-t">Fortalezas detectadas</div></div>
+      <div class="ins g"><div class="ins-l">✅ #1 Fortaleza</div><div class="ins-v">4.77</div><div class="ins-d">B2 – Vehículos en exhibición (Tangibles)</div></div>
+      <div class="ins g"><div class="ins-l">✅ #2 Fortaleza</div><div class="ins-v">4.75</div><div class="ins-d">B6 – Taller y posventa (Fiabilidad)</div></div>
+      <div class="ins g"><div class="ins-l">✅ #3 Fortaleza</div><div class="ins-v">4.69</div><div class="ins-d">B5 – Procesos administrativos (Fiabilidad)</div></div>
+    </div>
+    <div class="card">
+      <div class="card-hd"><div class="card-t">Oportunidades de mejora</div></div>
+      <div class="ins w"><div class="ins-l">⚠ #1 Oportunidad</div><div class="ins-v">3.85</div><div class="ins-d">B14 – Seguimiento posterior a la compra (Empatía)</div></div>
+      <div class="ins w"><div class="ins-l">⚠ #2 Oportunidad</div><div class="ins-v">4.25</div><div class="ins-d">Seguridad y Empatía — dimensiones más bajas del grupo</div></div>
+      <div class="ins w"><div class="ins-l">⚠ #3 Oportunidad</div><div class="ins-v">3.76</div><div class="ins-d">Isuzu — menor score del grupo C (dato preliminar)</div></div>
     </div>
   </div>
-  <div class="ai-panel"><div class="ai-icon">🤖</div><div class="ai-content"><div class="ai-title">Análisis Automático ARVI IA — Mystery Shopper</div><div class="ai-text" id="aiMS"></div></div></div>
+
+  <div class="ai-panel"><div class="ai-icon">🤖</div><div class="ai-content"><div class="ai-title">Análisis Automático ARVI IA — G-SERVQUAL</div><div class="ai-text" id="aiGS"></div></div></div>
 </section>
 
 <!-- ═══ BENCHMARK ═══ -->
 <section class="sec" id="sec-benchmark">
-  <div class="sec-hd"><h2>III. Benchmark Integrado</h2><p>Comparativo por segmento · G-SERVQUAL (I1) · Mystery Shopper en curso</p></div>
-  <div class="filter-bar"><span class="filter-lbl">Segmento:</span>
+  <div class="sec-hd"><h2>III. Benchmark Integrado</h2><p>Bloque 1: Comparativo entre grupos · Bloque 2: Por fuente de evaluación · Análisis de brechas</p></div>
+
+  <div class="fbar"><span class="flbl">Segmento:</span>
     <button class="fbtn active" onclick="filterBench('all',this)">Todos</button>
-    <button class="fbtn condor-seg" onclick="filterBench('A',this)">A · MG vs Geely, Chery, Jetour, Kia</button>
-    <button class="fbtn condor-seg" onclick="filterBench('B',this)">B · MAXUS vs Chevrolet, Ford, VW, GWM</button>
-    <button class="fbtn condor-seg" onclick="filterBench('C',this)">C · FUSO vs Isuzu, Hino, JMC</button>
-    <button class="fbtn condor-seg" onclick="filterBench('D',this)">D · Mercedes-Benz</button>
+    <button class="fbtn cr" onclick="filterBench('A',this)">Grupo 1 · MG vs Geely, Chery, Jetour, Kia</button>
+    <button class="fbtn" onclick="filterBench('B',this)">Grupo 2 · MAXUS vs Chevrolet, Ford, VW, GWM</button>
+    <button class="fbtn" onclick="filterBench('C',this)">Grupo 3 · FUSO vs Isuzu, Hino, JMC</button>
   </div>
-  <div class="card"><div class="card-hd"><div class="card-t">Ranking Score G-SERVQUAL — Marcas evaluadas</div><div class="card-s">I1 real · Escala 0–100 · Marcas Condor destacadas en rojo</div></div><div class="cw" style="height:300px"><canvas id="cBenchBar"></canvas></div></div>
-  <div class="g21">
-    <div class="card"><div class="card-hd"><div class="card-t">Ranking por Score GS Real</div><div class="card-s">Marcas con resultados disponibles</div></div><div class="rl" id="rankReal"></div></div>
-    <div class="card"><div class="card-hd"><div class="card-t">Score por Dimensión — Comparativo</div><div class="card-s">Marcas con datos reales I1</div></div><div class="cw" style="height:280px"><canvas id="cBenchRadar"></canvas></div></div>
+
+  <!-- BLOQUE 1 -->
+  <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:var(--tx3);margin-bottom:8px;">BLOQUE 1 — COMPARATIVO ENTRE GRUPOS DE MARCAS</div>
+  <div class="card"><div class="card-hd"><div class="card-t">Score G-SERVQUAL por Marca — Ranking</div><div class="card-s">Marcas Condor destacadas en rojo · Datos I1 disponibles</div></div><div class="cw" style="height:280px"><canvas id="cBench1"></canvas></div></div>
+  <div class="g2">
+    <div class="card"><div class="card-hd"><div class="card-t">Ranking Score GS</div></div><div class="rl" id="rankBench"></div></div>
+    <div class="card"><div class="card-hd"><div class="card-t">Radar Comparativo por Grupo</div><div class="card-s">5 dimensiones · Marcas disponibles</div></div><div class="cw" style="height:260px"><canvas id="cBenchRadar"></canvas></div></div>
+  </div>
+
+  <!-- BLOQUE 2 -->
+  <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:var(--tx3);margin:14px 0 8px;">BLOQUE 2 — COMPARATIVO POR FUENTE DE EVALUACIÓN</div>
+  <div class="alert info">📊 <strong>Bloque 2 parcial:</strong> Solo disponible G-SERVQUAL (I1). Se completará con Mystery Presencial (I2), WhatsApp (I3-WA) y RRSS (I3-RRSS) al avanzar el operativo. Puntuación media 1–5 por dominio · marca · tipo de evaluación.</div>
+  <div class="card"><div class="card-hd"><div class="card-t">Puntuación Media 1–5 por Dominio y Tipo de Evaluación</div><div class="card-s">G-SERVQUAL disponible · Mystery Shopper: pendiente</div></div>
+    <div class="tw" style="margin-top:10px">
+      <table class="dt">
+        <thead><tr><th>Dominio</th><th class="r">GS I1 (media 1–5)</th><th class="r">MS Presencial</th><th class="r">MS WhatsApp</th><th class="r">MS RRSS</th><th>Brecha GS–MS</th></tr></thead>
+        <tbody id="tablaFuente"></tbody>
+      </table>
+    </div>
   </div>
   <div class="card">
-    <div class="card-hd"><div class="card-t">Tabla Comparativa — G-SERVQUAL I1</div><div class="card-s">Promedio G-SERVQUAL por dimensión · Semáforo rendimiento</div></div>
-    <div class="tw" style="margin-top:10px"><table class="dt"><thead><tr><th>Marca</th><th>Seg.</th><th class="r">Tang.</th><th class="r">Fiab.</th><th class="r">Cap.R.</th><th class="r">Seg.</th><th class="r">Emp.</th><th class="r">Score GS</th><th>Nivel</th><th class="r">N</th></tr></thead><tbody id="tablaBench"></tbody></table></div>
+    <div class="card-hd"><div class="card-t">Tabla de Brechas por Marca</div><div class="card-s">G-SERVQUAL I1 · Semáforo rendimiento</div></div>
+    <div class="tw" style="margin-top:10px"><table class="dt"><thead><tr><th>Marca</th><th>Grupo</th><th class="r">Tang.</th><th class="r">Fiab.</th><th class="r">Cap.R.</th><th class="r">Seg.</th><th class="r">Emp.</th><th class="r">Score GS</th><th>Nivel</th></tr></thead><tbody id="tablaBench"></tbody></table></div>
   </div>
-  <div class="ai-panel"><div class="ai-icon">🤖</div><div class="ai-content"><div class="ai-title">Análisis Automático ARVI IA — Benchmark</div><div class="ai-text" id="aiBench"></div></div></div>
-</section>
 
-<!-- ═══ POR MARCA ═══ -->
-<section class="sec" id="sec-marca">
-  <div class="sec-hd"><h2>IV. Vista por Marca</h2><p>Ficha individual · Marcas con resultados disponibles en I1</p></div>
-  <div class="filter-bar">
-    <span class="filter-lbl">Marca:</span>
-    <select class="sel" id="selMarca" onchange="renderFicha()"></select>
-  </div>
-  <div id="fichaContent"></div>
+  <div class="ai-panel"><div class="ai-icon">🤖</div><div class="ai-content"><div class="ai-title">Análisis Automático ARVI IA — Benchmark</div><div class="ai-text" id="aiBench"></div></div></div>
 </section>
 
 <!-- ═══ METODOLOGÍA ═══ -->
 <section class="sec" id="sec-metodologia">
-  <div class="sec-hd"><h2>Metodología</h2><p>3 pilares · G-SERVQUAL + Mystery Shopper + Benchmark · Instrumentos I1–I4</p></div>
+  <div class="sec-hd"><h2>IV. Metodología</h2><p>Resumen metodológico · 3 pilares · Matriz de evaluación completa</p></div>
+
   <div class="g3">
-    <div class="card" style="border-top:3px solid var(--sky)">
-      <div class="card-hd"><div class="card-t">1. Encuesta G-SERVQUAL (I1)</div></div>
-      <div style="font-size:11.5px;color:#374151;line-height:1.7">Medición de <strong>5 dimensiones</strong> de calidad percibida por clientes reales que adquirieron vehículos 0km. Base: 60 entrevistas · 14 marcas · ~4 casos/marca. Escala Likert 1–5.</div>
-      <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
-        <span class="bdg ok">Tangibles</span><span class="bdg ok">Fiabilidad</span><span class="bdg ok">Cap. Respuesta</span><span class="bdg ok">Seguridad</span><span class="bdg ok">Empatía</span>
-      </div>
+    <div class="pilar">
+      <div style="font-size:22px;margin-bottom:8px">🕵️</div>
+      <div class="card-t" style="margin-bottom:6px">Mystery Shopper</div>
+      <div style="font-size:11px;color:var(--tx2);line-height:1.7;margin-bottom:10px">Evaluación realizada por compradores incógnitos entrenados que simulan ser clientes reales para observar y registrar el comportamiento del personal, procesos y experiencia general en canales presenciales y digitales.</div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap"><span class="bdg ok">Presencial</span><span class="bdg ok">WhatsApp</span><span class="bdg ok">RRSS</span><span class="bdg ok">Cronometración</span></div>
     </div>
-    <div class="card" style="border-top:3px solid var(--condor)">
-      <div class="card-hd"><div class="card-t">2. Mystery Shopper (I2/I3)</div></div>
-      <div style="font-size:11.5px;color:#374151;line-height:1.7">Evaluación incógnita presencial y digital. <strong>I2 Presencial:</strong> 18 visitas. <strong>I3-WA:</strong> 14 evaluaciones WhatsApp. <strong>I3-RRSS:</strong> 17 evaluaciones Facebook/Instagram. Cronometración de tiempos.</div>
-      <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
-        <span class="bdg condor">Presencial</span><span class="bdg condor">WhatsApp</span><span class="bdg condor">RRSS</span>
-      </div>
+    <div class="pilar b">
+      <div style="font-size:22px;margin-bottom:8px">📊</div>
+      <div class="card-t" style="margin-bottom:6px">G-SERVQUAL</div>
+      <div style="font-size:11px;color:var(--tx2);line-height:1.7;margin-bottom:10px">Modelo de medición de calidad del servicio basado en 5 dimensiones: Tangibles, Fiabilidad, Capacidad de Respuesta, Seguridad y Empatía. Se evalúa mediante escala Likert 1 a 5. Base: 60 clientes · 14 marcas.</div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap"><span class="bdg condor">Tangibles</span><span class="bdg condor">Fiabilidad</span><span class="bdg condor">Cap. Respuesta</span><span class="bdg condor">Seguridad</span><span class="bdg condor">Empatía</span></div>
     </div>
-    <div class="card" style="border-top:3px solid var(--green)">
-      <div class="card-hd"><div class="card-t">3. Benchmark Competitivo</div></div>
-      <div style="font-size:11.5px;color:#374151;line-height:1.7">Comparación sistemática entre marcas del mismo segmento. Score Condor = <strong>Mystery 40% + G-SERVQUAL 60%</strong>. Análisis de brechas (MS – GS). Ranking por segmento con marcas Condor destacadas.</div>
-      <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
-        <span class="bdg good">Seg. A</span><span class="bdg good">Seg. B</span><span class="bdg good">Seg. C</span><span class="bdg good">Seg. D</span>
-      </div>
+    <div class="pilar c">
+      <div style="font-size:22px;margin-bottom:8px">🏆</div>
+      <div class="card-t" style="margin-bottom:6px">Benchmark Competitivo</div>
+      <div style="font-size:11px;color:var(--tx2);line-height:1.7;margin-bottom:10px">Comparación sistemática entre marcas del mismo grupo para identificar fortalezas y oportunidades. Score Condor = Mystery 40% + G-SERVQUAL 60%. Análisis de brechas por dominio, marca y tipo de evaluación.</div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap"><span class="bdg good">Grupo 1</span><span class="bdg good">Grupo 2</span><span class="bdg good">Grupo 3</span><span class="bdg good">Grupo 4</span></div>
+    </div>
+  </div>
+
+  <!-- TABLA RESUMEN METODOLOGICA -->
+  <div class="card" style="margin-bottom:13px;">
+    <div class="card-hd"><div class="card-t">Metodología Aplicada — Tabla Resumen</div><div class="card-s">Técnicas cuantitativas y cualitativas · Dos universos de análisis</div></div>
+    <div class="tw">
+      <table class="dt">
+        <thead><tr><th>Metodología</th><th>Descripción</th><th>Muestra</th><th>Instrumento</th></tr></thead>
+        <tbody>
+          <tr><td class="n">Mystery Shopper Presencial</td><td>Evaluación incógnita en showroom · Comportamiento del personal · Procesos · Experiencia</td><td>18 evaluaciones</td><td><span class="bdg ok">I2</span></td></tr>
+          <tr><td class="n">Mystery Shopper WhatsApp</td><td>Rapidez y calidad de atención digital · Cotizaciones · Seguimiento</td><td>13 evaluaciones</td><td><span class="bdg ok">I3-WA</span></td></tr>
+          <tr><td class="n">Mystery Shopper RRSS</td><td>Atención comercial vía Facebook e Instagram · Calidad visual y comercial</td><td>17 evaluaciones</td><td><span class="bdg ok">I3-RRSS</span></td></tr>
+          <tr><td class="n">G-SERVQUAL</td><td>Encuesta a clientes reales · 5 dimensiones · 14 sub-bloques · Escala 1–5</td><td>60 clientes · 14 marcas</td><td><span class="bdg ok">I1</span></td></tr>
+          <tr><td class="n">Documentación Cualitativa</td><td>Fotografías · Capturas · Notas de campo · Evidencia documental</td><td>Por evaluación</td><td><span class="bdg ok">I4</span></td></tr>
+          <tr><td class="n">Cronometración</td><td>Medición objetiva de tiempos: Ingreso → Recepción → Asesor · Respuesta digital</td><td>Incluida en I2/I3</td><td><span class="bdg seg">Integrado</span></td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
   <!-- MATRIZ OPERATIVA -->
   <div class="card">
-    <div class="card-hd"><div class="card-t">Matriz Operativa — Evaluaciones por Marca e Instrumento</div><div class="card-s">✅ Incluido · ❌ Excluido · Marcas Condor en rojo</div></div>
-    <div class="tw" style="margin-top:10px">
-      <table class="dt">
-        <thead><tr><th>COD</th><th>Marca</th><th>Concesionaria</th><th>Seg.</th><th class="r">I1 Encuesta</th><th class="r">I2 Presencial</th><th class="r">I3-WA</th><th class="r">I3-RRSS</th><th>Condor</th></tr></thead>
-        <tbody id="tablaMatriz"></tbody>
-      </table>
-    </div>
+    <div class="card-hd"><div class="card-t">Matriz Operativa — A quiénes se aplica la evaluación</div><div class="card-s">✅ Incluido · ❌ Excluido · Marcas Condor destacadas · Según planilla oficial aprobada</div></div>
+    <div class="tw" style="margin-top:10px"><table class="dt"><thead><tr><th>COD</th><th>Marca</th><th>Concesionaria</th><th>Grupo</th><th class="r">I1 Encuesta</th><th class="r">I2 Presencial</th><th class="r">I3-WA</th><th class="r">I3-RRSS</th><th>Condor</th></tr></thead><tbody id="tablaMatriz"></tbody></table></div>
   </div>
 </section>
 
 <!-- ═══ PRODUCCION ═══ -->
 <section class="sec" id="sec-produccion">
-  <div class="sec-hd"><h2>Producción por Encuestador</h2><p>I1: 13 registros · I2/I3/I4: operativo en inicio</p></div>
+  <div class="sec-hd"><h2>Producción</h2><p>I1: 13 registros · I2/I3/I4: operativo en inicio · Avance al 01/07/2026</p></div>
   <div class="kpis k4">
     <div class="kpi g"><div class="kpi-l">Registros I1</div><div class="kpi-v">13</div><div class="kpi-s">Al 01/07/2026</div></div>
-    <div class="kpi"><div class="kpi-l">Marcas cubiertas</div><div class="kpi-v">7</div><div class="kpi-s">de 14 marcas activas</div></div>
-    <div class="kpi a"><div class="kpi-l">Avance I1</div><div class="kpi-v">22%</div><div class="kpi-s">13/60 entrevistas</div></div>
-    <div class="kpi p"><div class="kpi-l">Canales utilizados</div><div class="kpi-v">3</div><div class="kpi-s">Presencial · Tel. · WA</div></div>
+    <div class="kpi"><div class="kpi-l">Marcas cubiertas</div><div class="kpi-v">7</div><div class="kpi-s">de 14 activas</div></div>
+    <div class="kpi a"><div class="kpi-l">Avance I1</div><div class="kpi-v">22%</div><div class="kpi-s">13/60 casos</div></div>
+    <div class="kpi p"><div class="kpi-l">Canales usados</div><div class="kpi-v">3</div><div class="kpi-s">F2F · Tel · WA</div></div>
   </div>
   <div class="card">
-    <div class="card-hd"><div class="card-t">Resultados I1 por Marca y Canal</div><div class="card-s">Operativo activo · Actualizado 01/07/2026</div></div>
-    <div class="tw" style="margin-top:10px">
-      <table class="dt">
-        <thead><tr><th>Marca</th><th>Segmento</th><th class="r">Face to face</th><th class="r">Telefónica</th><th class="r">WhatsApp</th><th class="r">Total</th><th>Posventa Si</th></tr></thead>
-        <tbody id="tablaProd"></tbody>
-      </table>
-    </div>
+    <div class="card-hd"><div class="card-t">Resultados I1 por Marca y Canal</div><div class="card-s">Operativo activo · 01/07/2026</div></div>
+    <div class="tw"><table class="dt"><thead><tr><th>Marca</th><th>Grupo</th><th class="r">Face to face</th><th class="r">Telefónica</th><th class="r">WhatsApp</th><th class="r">Total</th><th>Posventa Sí</th></tr></thead><tbody id="tablaProd"></tbody></table></div>
   </div>
   <div class="g2">
-    <div class="card"><div class="card-hd"><div class="card-t">Entrevistas por Marca</div></div><div class="cw" style="height:250px"><canvas id="cProdMarca"></canvas></div></div>
-    <div class="card"><div class="card-hd"><div class="card-t">Distribución por Canal</div></div><div class="cw" style="height:250px"><canvas id="cProdCanal"></canvas></div></div>
+    <div class="card"><div class="card-hd"><div class="card-t">Casos por Marca</div></div><div class="cw" style="height:240px"><canvas id="cProdM"></canvas></div></div>
+    <div class="card"><div class="card-hd"><div class="card-t">Distribución por Canal</div></div><div class="cw" style="height:240px"><canvas id="cProdC"></canvas></div></div>
   </div>
 </section>
 
 </main>
+
 <footer>
-  <div class="ft">ARVI COMPANY · Proyecto Condor 2026 · Dashboard CX · G-SERVQUAL · Mystery Shopper</div>
-  <div class="ft">Operativo en campo · Actualizado 01/07/2026 · Actualizar con nuevos CSV de KoboToolbox</div>
+  <div class="ft">ARVI COMPANY · Proyecto Condor 2026 · Dashboard Ejecutivo CX · G-SERVQUAL · Mystery Shopper · Benchmark</div>
+  <div class="ft">Elaborado por ARVI Company · Operativo activo · Actualizado 01/07/2026</div>
 </footer>
 
 <script>
 Chart.register(ChartDataLabels);
 
 // ── DATOS REALES I1 ────────────────────────────────────────
-const GS_REAL = {
-  Chevrolet: {n:2, seg:'B', condor:false, conc:'TEMA',
-    gs:91.3, tang:4.77, fiab:4.83, cap:4.5, seg_d:4.55, emp:4.65, sat:4.5,
-    ftf:1, tel:1, wa:0, pos_si:1},
-  Geely:     {n:4, seg:'A', condor:false, conc:'Automotor',
-    gs:91.3, tang:4.98, fiab:4.86, cap:4.46, seg_d:4.53, emp:4.48, sat:4.75,
-    ftf:2, tel:2, wa:0, pos_si:4},
-  Hino:      {n:1, seg:'C', condor:false, conc:'Toyotoshi',
-    gs:80.5, tang:4.31, fiab:4.44, cap:4.21, seg_d:4.0, emp:4.15, sat:4.0,
-    ftf:1, tel:0, wa:0, pos_si:1},
-  Isuzu:     {n:1, seg:'C', condor:false, conc:'Automotor',
-    gs:69.0, tang:4.0, fiab:3.56, cap:3.71, seg_d:3.6, emp:3.85, sat:4.0,
-    ftf:0, tel:1, wa:0, pos_si:1},
-  JMC:       {n:1, seg:'C', condor:false, conc:'Chacomer',
-    gs:82.7, tang:4.77, fiab:4.11, cap:4.43, seg_d:4.1, emp:4.0, sat:5.0,
-    ftf:0, tel:1, wa:0, pos_si:0},
-  Kia:       {n:2, seg:'A', condor:false, conc:'Garden',
-    gs:89.8, tang:4.62, fiab:4.94, cap:4.46, seg_d:4.65, emp:4.42, sat:4.5,
-    ftf:1, tel:1, wa:0, pos_si:0},
-  VW:        {n:2, seg:'B', condor:false, conc:'Diesa',
-    gs:71.2, tang:4.38, fiab:3.78, cap:3.86, seg_d:3.5, emp:3.62, sat:3.0,
-    ftf:1, tel:0, wa:1, pos_si:1},
+const GS={
+  Chevrolet:{n:2,seg:'B',condor:false,conc:'TEMA',gs:91.3,tang:4.77,fiab:4.83,cap:4.5,seg_d:4.55,emp:4.65,sat:4.5,ftf:1,tel:1,wa:0,pos:1},
+  Geely:    {n:4,seg:'A',condor:false,conc:'Automotor',gs:91.3,tang:4.98,fiab:4.86,cap:4.46,seg_d:4.53,emp:4.48,sat:4.75,ftf:2,tel:2,wa:0,pos:4},
+  Hino:     {n:1,seg:'C',condor:false,conc:'Toyotoshi',gs:80.5,tang:4.31,fiab:4.44,cap:4.21,seg_d:4.0,emp:4.15,sat:4.0,ftf:1,tel:0,wa:0,pos:1},
+  Isuzu:    {n:1,seg:'C',condor:false,conc:'Automotor',gs:69.0,tang:4.0,fiab:3.56,cap:3.71,seg_d:3.6,emp:3.85,sat:4.0,ftf:0,tel:1,wa:0,pos:1},
+  JMC:      {n:1,seg:'C',condor:false,conc:'Chacomer',gs:82.7,tang:4.77,fiab:4.11,cap:4.43,seg_d:4.1,emp:4.0,sat:5.0,ftf:0,tel:1,wa:0,pos:0},
+  Kia:      {n:2,seg:'A',condor:false,conc:'Garden',gs:89.8,tang:4.62,fiab:4.94,cap:4.46,seg_d:4.65,emp:4.42,sat:4.5,ftf:1,tel:1,wa:0,pos:0},
+  VW:       {n:2,seg:'B',condor:false,conc:'Diesa',gs:71.2,tang:4.38,fiab:3.78,cap:3.86,seg_d:3.5,emp:3.62,sat:3.0,ftf:1,tel:0,wa:1,pos:1},
 };
 
-const SUBITEMS_REAL = [
-  {id:'B1',dim:'Tangibles',lbl:'Instalaciones físicas del showroom',v:4.54},
+const SUBS=[
   {id:'B2',dim:'Tangibles',lbl:'Vehículos en exhibición',v:4.77},
-  {id:'B3',dim:'Tangibles',lbl:'Presentación personal de asesores',v:4.62},
-  {id:'B4',dim:'Fiabilidad',lbl:'Cumplimiento y confianza',v:4.31},
-  {id:'B5',dim:'Fiabilidad',lbl:'Procesos administrativos',v:4.69},
   {id:'B6',dim:'Fiabilidad',lbl:'Taller y posventa',v:4.75},
-  {id:'B7',dim:'Cap. Respuesta',lbl:'Rapidez de atención al llegar',v:4.46},
-  {id:'B8',dim:'Cap. Respuesta',lbl:'Atención digital (WA/RRSS)',v:4.62},
-  {id:'B9',dim:'Cap. Respuesta',lbl:'Gestión de problemas',v:4.54},
-  {id:'B10',dim:'Seguridad',lbl:'Conocimiento técnico del asesor',v:4.38},
-  {id:'B11',dim:'Seguridad',lbl:'Aspectos financieros',v:4.46},
+  {id:'B5',dim:'Fiabilidad',lbl:'Procesos administrativos',v:4.69},
+  {id:'B3',dim:'Tangibles',lbl:'Presentación personal',v:4.62},
+  {id:'B8',dim:'Cap. Respuesta',lbl:'Atención digital',v:4.62},
   {id:'B12',dim:'Empatía',lbl:'Atención personalizada',v:4.62},
+  {id:'B1',dim:'Tangibles',lbl:'Instalaciones físicas',v:4.54},
+  {id:'B9',dim:'Cap. Respuesta',lbl:'Gestión de problemas',v:4.54},
   {id:'B13',dim:'Empatía',lbl:'Experiencia de bienvenida',v:4.54},
-  {id:'B14',dim:'Empatía',lbl:'Seguimiento posterior a la compra',v:3.85},
+  {id:'B7',dim:'Cap. Respuesta',lbl:'Rapidez de atención',v:4.46},
+  {id:'B11',dim:'Seguridad',lbl:'Aspectos financieros',v:4.46},
+  {id:'B4',dim:'Fiabilidad',lbl:'Cumplimiento y confianza',v:4.31},
+  {id:'B10',dim:'Seguridad',lbl:'Conocimiento técnico',v:4.38},
+  {id:'B14',dim:'Empatía',lbl:'Seguimiento post-compra',v:3.85},
 ];
 
-const DIMS_GRAL = {Tangibles:91.5, Fiabilidad:87.8, 'Cap. Respuesta':82.5, Seguridad:81.2, Empatía:81.2};
+const DIMS_REAL={Tangibles:91.5,Fiabilidad:87.8,'Cap. Respuesta':82.5,Seguridad:81.2,Empatía:81.2};
+const DIMS_V={tang:4.66,fiab:4.51,cap:4.30,seg_d:4.25,emp:4.25};
 
-const MATRIZ = [
+const GRUPOS={
+  A:{lbl:'Grupo 1 · SUV/Sedán',condor:'MG Motors',marcas:['MG Motors','Geely','Chery','Jetour','Kia'],color:'#EF4444'},
+  B:{lbl:'Grupo 2 · Comerciales',condor:'MAXUS',marcas:['MAXUS','Chevrolet','Ford','VW','GWM'],color:'#0EA5E9'},
+  C:{lbl:'Grupo 3 · Pesados',condor:'FUSO',marcas:['FUSO','Isuzu','Hino','JMC'],color:'#F59E0B'},
+  D:{lbl:'Grupo 4 · Independientes',condor:'MB-Camiones/MB-Automóviles',marcas:['MB-Camiones','MB-Automóviles'],color:'#8B5CF6'},
+};
+
+const MATRIZ=[
   {cod:10,m:'MG Motors',c:'G. Condor',seg:'A',condor:true,i1:'SI',i2:'SI',wa:'SI',rrss:'SI'},
   {cod:11,m:'Geely',c:'Automotor',seg:'A',condor:false,i1:'SI',i2:'SI',wa:'SI',rrss:'SI'},
   {cod:12,m:'Chery',c:'Garden',seg:'A',condor:false,i1:'SI',i2:'SI',wa:'SI',rrss:'SI'},
   {cod:13,m:'Jetour',c:'Santa Rosa Py',seg:'A',condor:false,i1:'SI',i2:'SI',wa:'SI',rrss:'SI'},
-  {cod:14,m:'Kia',c:'Garden',seg:'A',condor:false,i1:'SI',i2:'SI',wa:'NO',rrss:'SI'},
+  {cod:14,m:'Kia',c:'Garden',seg:'A',condor:false,i1:'SI',i2:'SI',wa:'—',rrss:'SI'},
   {cod:20,m:'MAXUS',c:'G. Condor',seg:'B',condor:true,i1:'SI',i2:'SI',wa:'SI',rrss:'SI'},
-  {cod:21,m:'Chevrolet',c:'TEMA',seg:'B',condor:false,i1:'SI',i2:'SI',wa:'NO',rrss:'SI'},
-  {cod:22,m:'Ford',c:'Tape Ruvicha',seg:'B',condor:false,i1:'SI',i2:'SI',wa:'NO',rrss:'SI'},
-  {cod:23,m:'VW',c:'Diesa',seg:'B',condor:false,i1:'SI',i2:'SI',wa:'NO',rrss:'SI'},
-  {cod:24,m:'GWM',c:'Santa Rosa Py',seg:'B',condor:false,i1:'SI',i2:'SI',wa:'NO',rrss:'SI'},
+  {cod:21,m:'Chevrolet',c:'TEMA',seg:'B',condor:false,i1:'SI',i2:'SI',wa:'—',rrss:'SI'},
+  {cod:22,m:'Ford',c:'Tape Ruvicha',seg:'B',condor:false,i1:'SI',i2:'SI',wa:'—',rrss:'SI'},
+  {cod:23,m:'VW',c:'Diesa',seg:'B',condor:false,i1:'SI',i2:'SI',wa:'—',rrss:'SI'},
+  {cod:24,m:'GWM',c:'Santa Rosa Py',seg:'B',condor:false,i1:'SI',i2:'SI',wa:'—',rrss:'SI'},
   {cod:30,m:'FUSO',c:'G. Condor',seg:'C',condor:true,i1:'SI',i2:'SI',wa:'SI',rrss:'SI'},
   {cod:31,m:'FAW',c:'Diesa',seg:'C',condor:false,i1:'NO',i2:'NO',wa:'NO',rrss:'NO'},
   {cod:32,m:'Isuzu',c:'Automotor',seg:'C',condor:false,i1:'SI',i2:'SI',wa:'SI',rrss:'SI'},
@@ -597,36 +654,34 @@ const MATRIZ = [
   {cod:34,m:'JMC',c:'Chacomer',seg:'C',condor:false,i1:'SI',i2:'SI',wa:'SI',rrss:'SI'},
   {cod:40,m:'MB-Camiones',c:'G. Condor',seg:'D',condor:true,i1:'NO',i2:'SI',wa:'SI',rrss:'SI'},
   {cod:50,m:'MB-Automóviles',c:'G. Condor',seg:'D',condor:true,i1:'NO',i2:'SI',wa:'SI',rrss:'SI'},
-  {cod:70,m:'Souza',c:'G. Condor',seg:'Servicios',condor:true,i1:'NO',i2:'SI',wa:'NO',rrss:'NO'},
-  {cod:80,m:'Taller Estrella',c:'G. Condor',seg:'Servicios',condor:true,i1:'NO',i2:'SI',wa:'SI',rrss:'NO'},
+  {cod:80,m:'Taller Estrella',c:'G. Condor',seg:'Serv.',condor:true,i1:'NO',i2:'SI',wa:'SI',rrss:'NO'},
+  {cod:90,m:'Repuestos',c:'G. Condor',seg:'Serv.',condor:true,i1:'NO',i2:'SI',wa:'SI',rrss:'NO'},
+  {cod:99,m:'Covering — Seguros',c:'G. Condor',seg:'Serv.',condor:true,i1:'NO',i2:'NO',wa:'SI',rrss:'SI'},
 ];
 
-const SEG_MAP = {A:'Seg. A · SUV/Sedán',B:'Seg. B · Comerciales',C:'Seg. C · Pesados',D:'Seg. D · MB',Servicios:'Servicios Condor'};
-
-// ── COLORES ────────────────────────────────────────────────
-const CC={sky:'#0EA5E9',navy:'#1D4ED8',green:'#10B981',amber:'#F59E0B',
-          purple:'#8B5CF6',condor:'#EF4444',teal:'#14B8A6',indigo:'#6366F1'};
+const CC={sky:'#0EA5E9',navy:'#1D4ED8',green:'#10B981',amber:'#F59E0B',purple:'#8B5CF6',condor:'#EF4444',teal:'#14B8A6',indigo:'#6366F1'};
 const PAL=[CC.sky,CC.navy,CC.green,CC.amber,CC.purple,CC.condor,CC.teal,CC.indigo,'#EC4899','#F97316'];
-function mCol(m){return GS_REAL[m]?.condor?CC.condor:CC.sky;}
 function nivel(s){return s>=85?['good','Alto']:s>=75?['ok','Medio']:['warn','En desarrollo'];}
 
-// ── CHART BASE ──────────────────────────────────────────────
+let charts={};
+function mk(id,cfg){if(charts[id])charts[id].destroy();const el=document.getElementById(id);if(!el)return;charts[id]=new Chart(el,cfg);}
+
 const bO=()=>({responsive:true,maintainAspectRatio:false,
   plugins:{legend:{display:false},datalabels:{display:false},
-    tooltip:{backgroundColor:'#fff',titleColor:'#111',bodyColor:'#374151',borderColor:'#E5E7EB',borderWidth:1,padding:10,cornerRadius:6}},
-  scales:{x:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{color:'#9CA3AF',font:{size:10}}},
-          y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{color:'#9CA3AF',font:{size:10}}}}
+    tooltip:{backgroundColor:'#fff',titleColor:'#111',bodyColor:'#374151',borderColor:'#E5E7EB',borderWidth:1,padding:9,cornerRadius:5}},
+  scales:{x:{grid:{color:'rgba(0,0,0,.04)'},ticks:{color:'#9CA3AF',font:{size:10}}},
+          y:{grid:{color:'rgba(0,0,0,.04)'},ticks:{color:'#9CA3AF',font:{size:10}}}}
 });
-const DL={display:true,anchor:'end',align:'top',color:'#374151',font:{size:9,weight:'600'},
-  formatter:v=>v!=null&&v>0?v.toFixed(1):'—'};
+const DL={display:true,anchor:'end',align:'top',color:'#374151',font:{size:9,weight:'600'},formatter:v=>v!=null&&v>0?v.toFixed(1):'—'};
 const PIE={responsive:true,maintainAspectRatio:false,plugins:{
-  legend:{position:'bottom',labels:{color:'#374151',font:{size:10},padding:10}},
+  legend:{position:'bottom',labels:{color:'#374151',font:{size:10},padding:8}},
   datalabels:{color:'#fff',font:{size:10,weight:'700'},formatter:v=>v>0?v+'%':''}}};
+const RADAR_OPTS=(leg=false)=>({responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{display:leg,position:'bottom',labels:{color:'#374151',font:{size:9},padding:6}},datalabels:{display:false}},
+  scales:{r:{min:1,max:5,ticks:{stepSize:1,font:{size:8},color:'#9CA3AF',backdropColor:'transparent'},
+    pointLabels:{font:{size:9,weight:'600'},color:'#374151'},
+    grid:{color:'rgba(0,0,0,.06)'},angleLines:{color:'rgba(0,0,0,.06)'}}}});
 
-let charts={};
-function mk(id,cfg){if(charts[id])charts[id].destroy();charts[id]=new Chart(document.getElementById(id),cfg);}
-
-// ── NAV ──────────────────────────────────────────────────────
 function ST(id,el){
   document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
@@ -636,296 +691,319 @@ function ST(id,el){
 
 // ── PANORAMA ────────────────────────────────────────────────
 function buildPanorama(){
-  const marcas=Object.keys(GS_REAL).sort((a,b)=>GS_REAL[b].gs-GS_REAL[a].gs);
+  const marcas=Object.keys(GS).sort((a,b)=>GS[b].gs-GS[a].gs);
 
-  // Top 3 por dimensión
-  const dims=['tang','fiab','cap','seg_d','emp'];
-  const dimLbls=['Tangibles','Fiabilidad','Cap. Resp.','Seguridad','Empatía'];
-  const dimColors=['sky','fiab','cap','seg','emp'];
-  const top3=document.getElementById('top3Dims');
-  top3.innerHTML='';
-  dims.forEach((d,i)=>{
-    const sorted=[...marcas].sort((a,b)=>GS_REAL[b][d]-GS_REAL[a][d]).slice(0,3);
-    const cls=['','fiab','cap','seg','emp'][i];
-    top3.innerHTML+=`<div class="top3-card ${cls}">
-      <div class="top3-dim">${dimLbls[i]}</div>
-      ${sorted.map((m,j)=>`<div class="top3-item"><span class="top3-m">${['🥇','🥈','🥉'][j]} ${m}</span><span class="top3-v">${GS_REAL[m][d].toFixed(2)}</span></div>`).join('')}
-    </div>`;
+  // KPIs por grupo
+  ['A','B','C','D'].forEach(seg=>{
+    const ms=marcas.filter(m=>GS[m].seg===seg);
+    const el=document.getElementById('kpi'+seg);
+    if(el) el.textContent=ms.length?Math.round(ms.reduce((a,m)=>a+GS[m].gs,0)/ms.length)+'/100':'—';
   });
 
-  // Gráfico dimensiones reales
-  mk('cDimReal',{type:'bar',
-    data:{labels:Object.keys(DIMS_GRAL),
-      datasets:[{data:Object.values(DIMS_GRAL),
-        backgroundColor:[CC.sky,CC.purple,CC.amber,CC.green,CC.condor].map(c=>c+'CC'),
-        borderColor:[CC.sky,CC.purple,CC.amber,CC.green,CC.condor],borderWidth:1,borderRadius:5}]},
+  // Top 3 por dimensión
+  const dims=[{k:'tang',lbl:'Tangibles',cls:''},
+    {k:'fiab',lbl:'Fiabilidad',cls:'b'},
+    {k:'cap',lbl:'Cap. Respuesta',cls:'c'},
+    {k:'seg_d',lbl:'Seguridad',cls:'d'},
+    {k:'emp',lbl:'Empatía',cls:'e'}];
+  const t3=document.getElementById('top3Dims');
+  t3.innerHTML='';
+  dims.forEach(d=>{
+    const sorted=[...marcas].sort((a,b)=>GS[b][d.k]-GS[a][d.k]).slice(0,3);
+    t3.innerHTML+=`<div class="top3-c ${d.cls}"><div class="top3-dim">${d.lbl}</div>
+      ${sorted.map((m,i)=>`<div class="top3-item"><span class="top3-m">${['🥇','🥈','🥉'][i]} ${m}</span><span class="top3-v">${GS[m][d.k].toFixed(2)}</span></div>`).join('')}</div>`;
+  });
+
+  // Gráfico GS por dimensión
+  mk('cDimGS',{type:'bar',
+    data:{labels:Object.keys(DIMS_REAL),
+      datasets:[{label:'G-SERVQUAL I1',data:Object.values(DIMS_REAL),
+        backgroundColor:[CC.sky,CC.purple,CC.amber,CC.green,CC.condor].map(c=>c+'BB'),
+        borderColor:[CC.sky,CC.purple,CC.amber,CC.green,CC.condor],borderWidth:1,borderRadius:4}]},
     options:{...bO(),plugins:{...bO().plugins,datalabels:DL},
-      scales:{x:{grid:{color:'rgba(0,0,0,.04)'},ticks:{color:'#9CA3AF',font:{size:10}}},
+      scales:{x:{grid:{color:'rgba(0,0,0,.04)'},ticks:{color:'#9CA3AF',font:{size:9}}},
               y:{min:60,max:100,ticks:{color:'#9CA3AF',font:{size:10}}}}}
   });
 
-  // Satisfacción por marca
-  mk('cSatMarca',{type:'bar',
-    data:{labels:marcas,
-      datasets:[{data:marcas.map(m=>GS_REAL[m].sat),
-        backgroundColor:marcas.map(m=>GS_REAL[m].condor?CC.condor+'BB':CC.sky+'BB'),
-        borderColor:marcas.map(m=>GS_REAL[m].condor?CC.condor:CC.sky),
-        borderWidth:1,borderRadius:4}]},
-    options:{...bO(),plugins:{...bO().plugins,datalabels:DL},
+  // Gráfico MS (estructura/meta)
+  mk('cDimMS',{type:'bar',
+    data:{labels:['5.1 Tangibles','5.2 Fiabilidad','5.3 Cap.Resp.','5.4 Seguridad','5.5 Empatía'],
+      datasets:[
+        {label:'I2 Presencial (meta 18)',data:[0,0,0,0,0],backgroundColor:CC.sky+'33',borderColor:CC.sky,borderWidth:1,borderRadius:4,borderDash:[]},
+        {label:'I3-WA (meta 13)',data:[0,0,0,0,0],backgroundColor:CC.green+'33',borderColor:CC.green,borderWidth:1,borderRadius:4},
+        {label:'I3-RRSS (meta 17)',data:[0,0,0,0,0],backgroundColor:CC.purple+'33',borderColor:CC.purple,borderWidth:1,borderRadius:4}
+      ]},
+    options:{...bO(),plugins:{...bO().plugins,legend:{display:true,position:'bottom',labels:{color:'#374151',font:{size:9}}},
+      datalabels:{display:false},
+      tooltip:{callbacks:{label:()=>'Pendiente — operativo en inicio'}}},
       scales:{x:{grid:{color:'rgba(0,0,0,.04)'},ticks:{color:'#9CA3AF',font:{size:9}}},
-              y:{min:1,max:5,ticks:{color:'#9CA3AF',font:{size:10}}}}}
+              y:{min:0,max:5,ticks:{color:'#9CA3AF',font:{size:10}},
+                title:{display:true,text:'Escala 1–5 (pendiente)',color:'#9CA3AF',font:{size:9}}}}}
   });
 
-  // Canales
-  mk('cCanales',{type:'doughnut',
-    data:{labels:['Telefónica 6','Face to face 5','WhatsApp 2'],
-      datasets:[{data:[46,38,16],backgroundColor:[CC.sky,CC.navy,CC.green],borderWidth:0,hoverOffset:6}]},
-    options:PIE
+  // Canales, posventa, distribución
+  mk('cCanales',{type:'doughnut',data:{labels:['Telefónica (6)','Face to face (5)','WhatsApp (2)'],datasets:[{data:[46,38,16],backgroundColor:[CC.sky,CC.navy,CC.green],borderWidth:0,hoverOffset:5}]},options:PIE});
+  mk('cPos',{type:'doughnut',data:{labels:['Sí utilizó (8)','No utilizó (5)'],datasets:[{data:[62,38],backgroundColor:[CC.green,CC.amber],borderWidth:0,hoverOffset:5}]},options:PIE});
+  mk('cMDist',{type:'doughnut',data:{labels:marcas,datasets:[{data:marcas.map(m=>GS[m].n),backgroundColor:PAL,borderWidth:0,hoverOffset:5}]},options:PIE});
+
+  const top=marcas[0],bot=marcas[marcas.length-1];
+  document.getElementById('aiPan').innerHTML=`Con <strong>13 casos completados (22% avance)</strong> en I1 G-SERVQUAL, el operativo de campo está activo. Marcas evaluadas: <strong>Geely, Chevrolet, Kia, Hino, Isuzu, JMC y VW</strong>. Las marcas propias de Condor (MG, MAXUS, FUSO, MB) aún no tienen registros en I1 — se incorporarán próximamente. Mayor score disponible: <strong>${top} (${GS[top].gs}/100)</strong>. Menor: <strong>${bot} (${GS[bot].gs}/100)</strong>. Dimensión más fuerte: <strong>Tangibles (91.5/100)</strong>. Mystery Shopper (I2/I3) iniciando operativo — datos pendientes.`;
+}
+
+// ── MYSTERY SHOPPER ─────────────────────────────────────────
+let msFilter='pres';
+function filterMS(tipo,el){
+  msFilter=tipo;
+  document.querySelectorAll('#sec-mystery .fbtn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  buildMS();
+}
+
+const MS_META={pres:{meta:18,lbl:'I2 Presencial'},wa:{meta:13,lbl:'I3-WA'},rrss:{meta:17,lbl:'I3-RRSS'}};
+
+function buildMS(){
+  // Tabla resumen por grupo
+  const tb=document.getElementById('tablaMS');
+  tb.innerHTML='';
+  Object.entries(GRUPOS).forEach(([seg,g])=>{
+    const meta=Math.ceil(MS_META[msFilter].meta*(g.marcas.length/14));
+    const pct=0;
+    const condorFlag=`<span class="bdg condor" style="font-size:7.5px">★</span> `;
+    tb.innerHTML+=`<tr>
+      <td class="n">${g.lbl}</td>
+      <td style="font-size:10px;color:var(--tx3)">${condorFlag}${g.condor} · ${g.marcas.filter(m=>m!==g.condor).join(', ')}</td>
+      <td class="r">${meta}</td><td class="r">0</td>
+      <td class="r"><span class="bdg warn">0%</span></td>
+      <td class="r" style="color:var(--tx4);font-size:10px">—</td>
+      <td class="r" style="color:var(--tx4);font-size:10px">—</td>
+      <td class="r" style="color:var(--tx4);font-size:10px">—</td>
+      <td class="r" style="color:var(--tx4);font-size:10px">—</td>
+      <td class="r" style="color:var(--tx4);font-size:10px">—</td>
+    </tr>`;
   });
 
-  // Posventa
-  mk('cPosventa',{type:'doughnut',
-    data:{labels:['Si utilizó (8)','No utilizó (5)'],
-      datasets:[{data:[62,38],backgroundColor:[CC.green,CC.amber],borderWidth:0,hoverOffset:6}]},
-    options:PIE
+  // Gráficos por grupo (un gráfico por grupo)
+  const cont=document.getElementById('msGrupos');
+  cont.innerHTML='';
+  const dimLbls=['5.1 Tangibles','5.2 Fiabilidad','5.3 Cap. Resp.','5.4 Seguridad','5.5 Empatía'];
+  const grpColors={A:CC.condor,B:CC.sky,C:CC.amber,D:CC.purple};
+
+  Object.entries(GRUPOS).forEach(([seg,g])=>{
+    const canvasId=`cMS_${seg}`;
+    cont.innerHTML+=`<div class="grupo-card">
+      <div class="grupo-hd">
+        <div><div class="grupo-title">${g.lbl} <span class="bdg condor" style="font-size:8px">★ ${g.condor}</span></div>
+        <div class="grupo-sub">${MS_META[msFilter].lbl} · Meta: ~${Math.ceil(MS_META[msFilter].meta*(g.marcas.length/14))} evaluaciones · Estado: Pendiente</div></div>
+        <span class="sband bajo">0% completado</span>
+      </div>
+      <div style="font-size:10px;color:var(--tx3);margin-bottom:10px;font-style:italic">Gráfico de barras — Eje Y: Marcas del grupo · Eje X: Dominios (5.1–5.5) · Se actualizará con datos del campo</div>
+      <div class="cw" style="height:200px"><canvas id="${canvasId}"></canvas></div>
+    </div>`;
   });
 
-  // Distribución marcas
-  mk('cMarcaDist',{type:'doughnut',
-    data:{labels:marcas,datasets:[{data:marcas.map(m=>GS_REAL[m].n),backgroundColor:PAL,borderWidth:0,hoverOffset:6}]},
-    options:PIE
-  });
+  // Render gráficos por grupo con datos en 0 (estructura lista para datos reales)
+  setTimeout(()=>{
+    Object.entries(GRUPOS).forEach(([seg,g])=>{
+      const marcasGrupo=g.marcas;
+      const col=grpColors[seg];
+      mk(`cMS_${seg}`,{type:'bar',
+        data:{
+          labels:dimLbls,
+          datasets:marcasGrupo.map((m,i)=>({
+            label:m,
+            data:[0,0,0,0,0],
+            backgroundColor:m===g.condor?CC.condor+'BB':PAL[i+1]+'BB',
+            borderColor:m===g.condor?CC.condor:PAL[i+1],
+            borderWidth:1,borderRadius:3,
+          }))
+        },
+        options:{...bO(),plugins:{...bO().plugins,
+          legend:{display:true,position:'bottom',labels:{color:'#374151',font:{size:9},padding:6}},
+          datalabels:{display:false},
+          tooltip:{callbacks:{label:ctx=>`${ctx.dataset.label}: pendiente`}}},
+          scales:{
+            x:{grid:{color:'rgba(0,0,0,.04)'},ticks:{color:'#9CA3AF',font:{size:9}}},
+            y:{min:0,max:5,ticks:{color:'#9CA3AF',font:{size:10}},
+               title:{display:true,text:'Escala 1–5',color:'#9CA3AF',font:{size:9}}}
+          }}
+      });
+    });
+  },100);
 
-  // AI
-  const top=marcas[0], bot=marcas[marcas.length-1];
-  document.getElementById('aiPanorama').innerHTML=`Con <strong>13 casos completados</strong> al 01/07/2026, el operativo de campo muestra avance del 22% en I1. La marca con mayor Score G-SERVQUAL es <strong>${top} (${GS_REAL[top].gs}/100)</strong> y la menor es <strong>${bot} (${GS_REAL[bot].gs}/100)</strong>. La dimensión más fuerte es <strong>Tangibles (91.5/100)</strong> y la más débil es <strong>Seguridad y Empatía (81.2/100)</strong>. <strong>Nota:</strong> No hay marcas propias de Condor en los datos disponibles aún — MG, MAXUS y FUSO aún sin entrevistas completadas. El Mystery Shopper está por iniciar.`;
+  document.getElementById('aiMS').innerHTML=`El operativo Mystery Shopper está <strong>por iniciar</strong>. Se evaluarán <strong>4 grupos de marcas</strong> mediante ${MS_META[msFilter].lbl}: <strong>${MS_META[msFilter].meta} evaluaciones</strong> en total. Cada grupo tendrá su propio gráfico de barras con eje Y = marcas y eje X = dominios (5.1 a 5.5). Las marcas propias de Condor (<strong>${Object.values(GRUPOS).map(g=>g.condor).join(', ')}</strong>) se destacarán en rojo para comparación directa con sus competidores. Al recibir los CSV de I2/I3, los gráficos se actualizarán automáticamente con los datos reales del campo.`;
 }
 
 // ── G-SERVQUAL ──────────────────────────────────────────────
 let gsFilter='all';
 function filterGS(seg,el){
-  gsFilter=seg; document.querySelectorAll('#sec-gservqual .fbtn').forEach(b=>b.classList.remove('active'));el.classList.add('active');buildGS();
+  gsFilter=seg;
+  document.querySelectorAll('#sec-gservqual .fbtn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  buildGS();
 }
 
 function buildGS(){
-  const marcas=Object.keys(GS_REAL).filter(m=>gsFilter==='all'||GS_REAL[m].seg===gsFilter).sort((a,b)=>GS_REAL[b].gs-GS_REAL[a].gs);
+  const allMarcas=Object.keys(GS).sort((a,b)=>GS[b].gs-GS[a].gs);
+  const filtered=gsFilter==='all'?allMarcas:allMarcas.filter(m=>GS[m].seg===gsFilter);
 
-  // Selector radar
-  const sel=document.getElementById('selRadar');
-  sel.innerHTML='';
-  marcas.forEach(m=>{const o=document.createElement('option');o.value=m;o.textContent=m+' ('+GS_REAL[m].conc+')';sel.appendChild(o);});
-  updateRadar(marcas[0]);
+  // Radares por grupo
+  const cont=document.getElementById('gsGrupos');
+  cont.innerHTML='';
+
+  const segsToShow=gsFilter==='all'?['A','B','C']:[ gsFilter];
+  segsToShow.forEach(seg=>{
+    const g=GRUPOS[seg];
+    const marcasGrupo=filtered.filter(m=>GS[m].seg===seg);
+    if(!marcasGrupo.length){
+      cont.innerHTML+=`<div class="grupo-card"><div class="grupo-hd"><div><div class="grupo-title">${g.lbl}</div><div class="grupo-sub">Sin datos disponibles aún en I1</div></div></div><div style="font-size:11px;color:var(--tx3);padding:20px 0;text-align:center">Pendiente — marcas de este grupo aún sin entrevistas completadas</div></div>`;
+      return;
+    }
+    const canvasId=`cGS_${seg}`;
+    cont.innerHTML+=`<div class="grupo-card">
+      <div class="grupo-hd">
+        <div><div class="grupo-title">${g.lbl} <span class="bdg condor" style="font-size:8px">★ ${g.condor}</span></div>
+        <div class="grupo-sub">Radar comparativo · ${marcasGrupo.length} marca${marcasGrupo.length>1?'s':''} con datos · G-SERVQUAL I1</div></div>
+      </div>
+      <div class="cw" style="height:280px"><canvas id="${canvasId}"></canvas></div>
+    </div>`;
+  });
+
+  setTimeout(()=>{
+    segsToShow.forEach(seg=>{
+      const marcasGrupo=filtered.filter(m=>GS[m].seg===seg);
+      if(!marcasGrupo.length)return;
+      // Promedio del grupo
+      const avg={tang:0,fiab:0,cap:0,seg_d:0,emp:0};
+      Object.keys(avg).forEach(k=>avg[k]=marcasGrupo.reduce((a,m)=>a+GS[m][k],0)/marcasGrupo.length);
+
+      mk(`cGS_${seg}`,{type:'radar',
+        data:{labels:['Tangibles','Fiabilidad','Cap. Respuesta','Seguridad','Empatía'],
+          datasets:[
+            ...marcasGrupo.map((m,i)=>({
+              label:m,
+              data:[GS[m].tang,GS[m].fiab,GS[m].cap,GS[m].seg_d,GS[m].emp],
+              borderColor:PAL[i],backgroundColor:PAL[i]+'15',pointBackgroundColor:PAL[i],borderWidth:1.5
+            })),
+            {label:'Promedio grupo',data:Object.values(avg).map(v=>+v.toFixed(2)),borderColor:'rgba(0,0,0,.2)',backgroundColor:'rgba(0,0,0,.04)',pointBackgroundColor:'#9CA3AF',borderWidth:1,borderDash:[3,3]}
+          ]},
+        options:RADAR_OPTS(true)
+      });
+    });
+  },100);
 
   // Sub-items
   const db=document.getElementById('dimBars');
   db.innerHTML='';
-  const sorted=[...SUBITEMS_REAL].sort((a,b)=>b.v-a.v);
-  sorted.forEach(d=>{
+  SUBS.forEach(d=>{
     const pct=((d.v-1)/4)*100;
     const col=d.v>=4.5?CC.green:d.v>=4.0?CC.sky:d.v>=3.5?CC.amber:CC.condor;
-    db.innerHTML+=`<div class="dbr"><div class="dbl" style="font-size:10.5px">${d.id} – ${d.lbl}</div><div class="dbt"><div class="dbf" style="width:${pct}%;background:${col};"></div></div><div class="dbv" style="color:${col}">${d.v.toFixed(2)}</div></div>`;
+    db.innerHTML+=`<div class="dbr"><div class="dbl">${d.id} – ${d.lbl}</div><div class="dbt"><div class="dbf" style="width:${pct}%;background:${col};"></div></div><div class="dbv" style="color:${col}">${d.v.toFixed(2)}</div></div>`;
   });
 
-  // Barras por segmento
-  const dims=['tang','fiab','cap','seg_d','emp'];
-  const dimLbls=['Tangibles','Fiabilidad','Cap. Resp.','Seguridad','Empatía'];
-  mk('cGSBar',{type:'bar',
-    data:{labels:marcas,
-      datasets:dims.map((d,i)=>({
-        label:dimLbls[i],
-        data:marcas.map(m=>GS_REAL[m][d]),
-        backgroundColor:Object.values(CC)[i]+'BB',
-        borderColor:Object.values(CC)[i],borderWidth:1,borderRadius:3
-      }))},
-    options:{...bO(),plugins:{...bO().plugins,legend:{display:true,position:'bottom',labels:{color:'#374151',font:{size:10},padding:8}},datalabels:{display:false}},
-      scales:{x:{grid:{color:'rgba(0,0,0,.04)'},ticks:{color:'#9CA3AF',font:{size:9}}},y:{min:1,max:5,ticks:{color:'#9CA3AF',font:{size:10}}}}}
-  });
+  // Radar individual
+  const sel=document.getElementById('selRadar');
+  const curVal=sel.value;
+  sel.innerHTML='';
+  filtered.forEach(m=>{const o=document.createElement('option');o.value=m;o.textContent=m+' ('+GS[m].conc+')';o.selected=m===curVal;sel.appendChild(o);});
+  updateRadar();
 
-  const avgGS=(Object.values(GS_REAL).reduce((a,m)=>a+m.gs,0)/Object.values(GS_REAL).length).toFixed(1);
-  document.getElementById('aiGS').innerHTML=`El promedio G-SERVQUAL de las <strong>7 marcas evaluadas</strong> es <strong>${avgGS}/100</strong>. <strong>Tangibles</strong> es la dimensión más fortalecida (91.5/100) — los clientes valoran especialmente las instalaciones y vehículos en exhibición. <strong>B14 – Seguimiento posterior a la compra</strong> (3.85) es el ítem más débil, representando la mayor oportunidad de mejora estratégica. <strong>VW</strong> presenta el score más bajo (71.2/100) con debilidades en Seguridad (3.5) y Fiabilidad (3.78). <strong>Importante:</strong> Aún no hay datos de marcas Condor propias (MG, MAXUS, FUSO, MB) — se incorporarán en próximas actualizaciones.`;
+  const avg2=(filtered.reduce((a,m)=>a+GS[m].gs,0)/filtered.length).toFixed(1);
+  document.getElementById('aiGS').innerHTML=`En el grupo seleccionado, el promedio G-SERVQUAL es <strong>${avg2}/100</strong>. <strong>Tangibles</strong> lidera con 91.5/100, indicando que los clientes valoran especialmente las instalaciones físicas, los vehículos en exhibición y la presentación del personal. El ítem más débil es <strong>B14 – Seguimiento posterior a la compra (3.85/5)</strong>, representando la oportunidad de mejora más crítica y accionable. Los radares por grupo permitirán comparar el desempeño relativo de cada marca Condor frente a sus competidores directos al completarse el operativo.`;
 }
 
-function updateRadar(forceMarca){
+function updateRadar(){
   const sel=document.getElementById('selRadar');
-  const mn=forceMarca||sel.value;
-  const m=GS_REAL[mn];
+  const mn=sel.value;
+  const m=GS[mn];
   if(!m)return;
-  const avg={tang:0,fiab:0,cap:0,seg_d:0,emp:0};
-  const all=Object.values(GS_REAL);
-  Object.keys(avg).forEach(k=>avg[k]=all.reduce((a,x)=>a+x[k],0)/all.length);
+  const all=Object.values(GS);
+  const avg={tang:all.reduce((a,x)=>a+x.tang,0)/all.length,fiab:all.reduce((a,x)=>a+x.fiab,0)/all.length,cap:all.reduce((a,x)=>a+x.cap,0)/all.length,seg_d:all.reduce((a,x)=>a+x.seg_d,0)/all.length,emp:all.reduce((a,x)=>a+x.emp,0)/all.length};
   mk('cRadar',{type:'radar',
     data:{labels:['Tangibles','Fiabilidad','Cap. Respuesta','Seguridad','Empatía'],
       datasets:[
         {label:mn,data:[m.tang,m.fiab,m.cap,m.seg_d,m.emp],borderColor:m.condor?CC.condor:CC.sky,backgroundColor:(m.condor?CC.condor:CC.sky)+'20',pointBackgroundColor:m.condor?CC.condor:CC.sky,borderWidth:2.5},
-        {label:'Promedio general',data:[avg.tang,avg.fiab,avg.cap,avg.seg_d,avg.emp].map(v=>+v.toFixed(2)),borderColor:'rgba(0,0,0,.2)',backgroundColor:'rgba(0,0,0,.04)',pointBackgroundColor:'#9CA3AF',borderWidth:1,borderDash:[4,4]}
+        {label:'Promedio general',data:Object.values(avg).map(v=>+v.toFixed(2)),borderColor:'rgba(0,0,0,.2)',backgroundColor:'rgba(0,0,0,.04)',pointBackgroundColor:'#9CA3AF',borderWidth:1,borderDash:[3,3]}
       ]},
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:true,position:'bottom',labels:{color:'#374151',font:{size:10}}},datalabels:{display:false}},
-      scales:{r:{min:1,max:5,ticks:{stepSize:1,font:{size:9},color:'#9CA3AF',backdropColor:'transparent'},pointLabels:{font:{size:10,weight:'600'},color:'#374151'},grid:{color:'rgba(0,0,0,.08)'},angleLines:{color:'rgba(0,0,0,.08)'}}}}
+    options:RADAR_OPTS(true)
   });
-}
-
-// ── MYSTERY ──────────────────────────────────────────────────
-function buildMystery(){
-  // Plan de dimensiones
-  mk('cMSPlan',{type:'bar',
-    data:{labels:['Tangibles','Fiabilidad','Cap. Respuesta','Seguridad','Empatía'],
-      datasets:[
-        {label:'I2 Presencial (meta)',data:[18,18,18,18,18],backgroundColor:CC.sky+'44',borderColor:CC.sky,borderWidth:1,borderRadius:4,borderDash:[]},
-        {label:'I3-WA (meta)',data:[14,14,14,14,14],backgroundColor:CC.green+'44',borderColor:CC.green,borderWidth:1,borderRadius:4},
-        {label:'I3-RRSS (meta)',data:[17,17,17,17,17],backgroundColor:CC.purple+'44',borderColor:CC.purple,borderWidth:1,borderRadius:4}
-      ]},
-    options:{...bO(),plugins:{...bO().plugins,legend:{display:true,position:'bottom',labels:{color:'#374151',font:{size:10}}},datalabels:{display:false}},
-      scales:{x:{grid:{color:'rgba(0,0,0,.04)'},ticks:{color:'#9CA3AF'}},y:{min:0,max:20,ticks:{color:'#9CA3AF'}}}}
-  });
-
-  // Distribución marcas por instrumento
-  mk('cMSMat',{type:'doughnut',
-    data:{labels:['Solo Presencial','Presencial + WA + RRSS','Presencial + RRSS','Solo RRSS'],
-      datasets:[{data:[2,10,4,1],backgroundColor:[CC.sky,CC.green,CC.amber,CC.purple],borderWidth:0,hoverOffset:6}]},
-    options:PIE
-  });
-
-  document.getElementById('aiMS').innerHTML=`El operativo Mystery Shopper está <strong>por iniciar</strong>. La meta total es: <strong>I2 Presencial: 18 evaluaciones</strong> en 14 marcas activas (+ servicios Condor), <strong>I3-WA: 14 marcas</strong> con atención WhatsApp habilitada, y <strong>I3-RRSS: 17 marcas</strong> con presencia en Facebook/Instagram. Las marcas <strong>Kia, Chevrolet, Ford, VW y GWM</strong> no tienen evaluación de WhatsApp según la planilla oficial. Al recibir los CSV de I2/I3, esta sección se completará automáticamente con los del operativo en campo.`;
 }
 
 // ── BENCHMARK ───────────────────────────────────────────────
 let benchFilter='all';
 function filterBench(seg,el){
-  benchFilter=seg;document.querySelectorAll('#sec-benchmark .fbtn').forEach(b=>b.classList.remove('active'));el.classList.add('active');buildBenchmark();
+  benchFilter=seg;
+  document.querySelectorAll('#sec-benchmark .fbtn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  buildBench();
 }
 
-function buildBenchmark(){
-  const marcas=Object.keys(GS_REAL).filter(m=>benchFilter==='all'||GS_REAL[m].seg===benchFilter).sort((a,b)=>GS_REAL[b].gs-GS_REAL[a].gs);
+function buildBench(){
+  const all=Object.keys(GS).sort((a,b)=>GS[b].gs-GS[a].gs);
+  const marcas=benchFilter==='all'?all:all.filter(m=>GS[m].seg===benchFilter);
 
-  mk('cBenchBar',{type:'bar',
+  // Bloque 1 — ranking
+  mk('cBench1',{type:'bar',
     data:{labels:marcas,
-      datasets:[{label:'Score G-SERVQUAL',data:marcas.map(m=>GS_REAL[m].gs),
-        backgroundColor:marcas.map(m=>GS_REAL[m].condor?CC.condor+'BB':CC.sky+'BB'),
-        borderColor:marcas.map(m=>GS_REAL[m].condor?CC.condor:CC.sky),borderWidth:1,borderRadius:5}]},
-    options:{...bO(),plugins:{...bO().plugins,datalabels:{display:true,anchor:'end',align:'top',color:'#374151',font:{size:10,weight:'700'},formatter:v=>v}},
-      scales:{x:{grid:{color:'rgba(0,0,0,.04)'},ticks:{color:'#9CA3AF',font:{size:9}}},y:{min:60,max:100,ticks:{color:'#9CA3AF'}}}}
+      datasets:[{label:'Score G-SERVQUAL',data:marcas.map(m=>GS[m].gs),
+        backgroundColor:marcas.map(m=>GS[m].condor?CC.condor+'BB':CC.sky+'BB'),
+        borderColor:marcas.map(m=>GS[m].condor?CC.condor:CC.sky),borderWidth:1,borderRadius:5}]},
+    options:{...bO(),plugins:{...bO().plugins,
+      datalabels:{display:true,anchor:'end',align:'top',color:'#374151',font:{size:10,weight:'700'},formatter:v=>v}},
+      scales:{x:{grid:{color:'rgba(0,0,0,.04)'},ticks:{color:'#9CA3AF',font:{size:9}}},
+              y:{min:60,max:100,ticks:{color:'#9CA3AF'}}}}
   });
 
-  const rl=document.getElementById('rankReal');
+  const rl=document.getElementById('rankBench');
   rl.innerHTML='';
   marcas.forEach((m,i)=>{
-    const d=GS_REAL[m];
-    const col=d.condor?CC.condor:PAL[i];
-    rl.innerHTML+=`<div class="ri"><span class="rn">${i+1}</span><span class="rm" style="width:110px;color:${d.condor?'#DC2626':'#111827'}">${d.condor?'🔴 ':''} ${m}</span><div class="rb-w"><div class="rb" style="width:${d.gs}%;background:${col};"></div></div><span class="rv">${d.gs}</span></div>`;
+    const col=GS[m].condor?CC.condor:PAL[i];
+    rl.innerHTML+=`<div class="ri"><span class="rn">${i+1}</span><span class="rm" style="width:110px;color:${GS[m].condor?'#DC2626':'var(--tx)'}">${GS[m].condor?'🔴 ':''} ${m}</span><div class="rb-w"><div class="rb" style="width:${GS[m].gs}%;background:${col};"></div></div><span class="rv">${GS[m].gs}</span></div>`;
   });
 
   mk('cBenchRadar',{type:'radar',
-    data:{labels:['Tangibles','Fiabilidad','Cap. Resp.','Seguridad','Empatía'],
+    data:{labels:['Tangibles','Fiabilidad','Cap. Respuesta','Seguridad','Empatía'],
       datasets:marcas.slice(0,5).map((m,i)=>({
-        label:m,data:[GS_REAL[m].tang,GS_REAL[m].fiab,GS_REAL[m].cap,GS_REAL[m].seg_d,GS_REAL[m].emp],
-        borderColor:PAL[i],backgroundColor:PAL[i]+'15',pointBackgroundColor:PAL[i],borderWidth:1.5
-      }))},
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:true,position:'bottom',labels:{color:'#374151',font:{size:9},padding:6}},datalabels:{display:false}},
-      scales:{r:{min:1,max:5,ticks:{stepSize:1,font:{size:8},color:'#9CA3AF',backdropColor:'transparent'},pointLabels:{font:{size:9,weight:'600'},color:'#374151'},grid:{color:'rgba(0,0,0,.08)'},angleLines:{color:'rgba(0,0,0,.08)'}}}}
+        label:m,data:[GS[m].tang,GS[m].fiab,GS[m].cap,GS[m].seg_d,GS[m].emp],
+        borderColor:PAL[i],backgroundColor:PAL[i]+'15',pointBackgroundColor:PAL[i],borderWidth:1.5}))},
+    options:RADAR_OPTS(true)
   });
 
+  // Bloque 2 — fuentes
+  const tbF=document.getElementById('tablaFuente');
+  tbF.innerHTML='';
+  const dimKeys=['tang','fiab','cap','seg_d','emp'];
+  const dimLbls=['5.1 Tangibles','5.2 Fiabilidad','5.3 Cap. Resp.','5.4 Seguridad','5.5 Empatía'];
+  const dimVals=[DIMS_V.tang,DIMS_V.fiab,DIMS_V.cap,DIMS_V.seg_d,DIMS_V.emp];
+  dimLbls.forEach((lbl,i)=>{
+    tbF.innerHTML+=`<tr>
+      <td class="n">${lbl}</td>
+      <td class="r"><strong>${dimVals[i].toFixed(2)}</strong></td>
+      <td class="r" style="color:var(--tx4);font-style:italic">Pendiente</td>
+      <td class="r" style="color:var(--tx4);font-style:italic">Pendiente</td>
+      <td class="r" style="color:var(--tx4);font-style:italic">Pendiente</td>
+      <td><span class="sem y"></span> <span style="font-size:10px;color:var(--amber)">En curso</span></td>
+    </tr>`;
+  });
+
+  // Tabla brechas
   const tb=document.getElementById('tablaBench');
   tb.innerHTML='';
   marcas.forEach(m=>{
-    const d=GS_REAL[m];
+    const d=GS[m];
     const [cls,lbl]=nivel(d.gs);
-    const dimColor=v=>v>=4.5?'color:#059669':v>=4.0?'color:#1D4ED8':v>=3.5?'color:#92400E':'color:#DC2626';
-    const rc=d.condor?' condor-row':'';
+    const dimC=v=>v>=4.5?'color:#059669':v>=4.0?'color:#1D4ED8':v>=3.5?'color:#92400E':'color:#DC2626';
+    const rc=d.condor?' cr-row':'';
     tb.innerHTML+=`<tr class="${rc}"><td class="n">${d.condor?'🔴 ':''} ${m}</td><td><span class="bdg seg">${d.seg}</span></td>
-      <td class="r" style="${dimColor(d.tang)};font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600">${d.tang.toFixed(2)}</td>
-      <td class="r" style="${dimColor(d.fiab)};font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600">${d.fiab.toFixed(2)}</td>
-      <td class="r" style="${dimColor(d.cap)};font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600">${d.cap.toFixed(2)}</td>
-      <td class="r" style="${dimColor(d.seg_d)};font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600">${d.seg_d.toFixed(2)}</td>
-      <td class="r" style="${dimColor(d.emp)};font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600">${d.emp.toFixed(2)}</td>
-      <td class="r"><strong>${d.gs}</strong></td>
-      <td><span class="bdg ${cls}">${lbl}</span></td>
-      <td class="r">${d.n}</td></tr>`;
+      <td class="r" style="${dimC(d.tang)};font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600">${d.tang.toFixed(2)}</td>
+      <td class="r" style="${dimC(d.fiab)};font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600">${d.fiab.toFixed(2)}</td>
+      <td class="r" style="${dimC(d.cap)};font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600">${d.cap.toFixed(2)}</td>
+      <td class="r" style="${dimC(d.seg_d)};font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600">${d.seg_d.toFixed(2)}</td>
+      <td class="r" style="${dimC(d.emp)};font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600">${d.emp.toFixed(2)}</td>
+      <td class="r"><strong>${d.gs}</strong></td><td><span class="bdg ${cls}">${lbl}</span></td></tr>`;
   });
 
-  const avg=(marcas.reduce((a,m)=>a+GS_REAL[m].gs,0)/marcas.length).toFixed(1);
-  document.getElementById('aiBench').innerHTML=`En el segmento mostrado, el promedio Score G-SERVQUAL es <strong>${avg}/100</strong>. <strong>Geely y Chevrolet</strong> lideran con 91.3/100 cada una. <strong>VW (71.2) e Isuzu (69.0)</strong> están por debajo del promedio y requieren atención prioritaria. <strong>Importante:</strong> El benchmark estará completo cuando se integren los datos de Mystery Shopper (I2/I3) y las marcas propias de Condor (MG, MAXUS, FUSO, MB). El Score Condor final = Mystery 40% + G-SERVQUAL 60% se calculará al tener ambas fuentes.`;
-}
-
-// ── POR MARCA ───────────────────────────────────────────────
-function initSelMarca(){
-  const sel=document.getElementById('selMarca');
-  Object.keys(GS_REAL).forEach(m=>{
-    const o=document.createElement('option');
-    o.value=m; o.textContent=m+' · '+GS_REAL[m].conc+' ('+GS_REAL[m].n+' enc.)';
-    sel.appendChild(o);
-  });
-  renderFicha();
-}
-
-function renderFicha(){
-  const mn=document.getElementById('selMarca').value;
-  const m=GS_REAL[mn];
-  if(!m){document.getElementById('fichaContent').innerHTML='<div class="data-alert">Sin datos disponibles para esta marca.</div>';return;}
-  const [cls,lbl]=nivel(m.gs);
-  const avg=Object.values(GS_REAL);
-  const avgTang=avg.reduce((a,x)=>a+x.tang,0)/avg.length;
-  const avgFiab=avg.reduce((a,x)=>a+x.fiab,0)/avg.length;
-  const avgCap=avg.reduce((a,x)=>a+x.cap,0)/avg.length;
-  const avgSeg=avg.reduce((a,x)=>a+x.seg_d,0)/avg.length;
-  const avgEmp=avg.reduce((a,x)=>a+x.emp,0)/avg.length;
-
-  const dims=[{d:'Tangibles',v:m.tang,a:avgTang},{d:'Fiabilidad',v:m.fiab,a:avgFiab},{d:'Cap. Respuesta',v:m.cap,a:avgCap},{d:'Seguridad',v:m.seg_d,a:avgSeg},{d:'Empatía',v:m.emp,a:avgEmp}];
-  const sorted=[...dims].sort((a,b)=>b.v-a.v);
-  const best=sorted[0], worst=sorted[sorted.length-1];
-
-  const checkDims=[
-    {t:'Tangibles',items:[{l:'Instalaciones y showroom',v:m.tang>=4.5},{l:'Vehículos en exhibición',v:m.tang>=4.0},{l:'Presentación del personal',v:m.tang>=4.0},{l:'Señalética y orden',v:m.tang>=3.8}]},
-    {t:'Fiabilidad',items:[{l:'Cumplimiento de promesas',v:m.fiab>=4.2},{l:'Claridad de procesos',v:m.fiab>=4.0},{l:'Transparencia comercial',v:m.fiab>=3.8},{l:'Organización administrativa',v:m.fiab>=4.0}]},
-    {t:'Cap. Respuesta',items:[{l:'Rapidez de atención',v:m.cap>=4.2},{l:'Respuesta a consultas',v:m.cap>=4.0},{l:'Atención digital',v:m.cap>=3.8},{l:'Seguimiento comercial',v:m.cap>=3.8}]},
-    {t:'Seguridad',items:[{l:'Conocimiento técnico',v:m.seg_d>=4.2},{l:'Explicación de características',v:m.seg_d>=4.0},{l:'Claridad financiera',v:m.seg_d>=3.8},{l:'Confianza transmitida',v:m.seg_d>=4.0}]},
-    {t:'Empatía',items:[{l:'Amabilidad y cordialidad',v:m.emp>=4.2},{l:'Escucha activa',v:m.emp>=4.0},{l:'Seguimiento post-compra',v:m.emp>=3.5},{l:'Atención personalizada',v:m.emp>=4.0}]},
-  ];
-
-  document.getElementById('fichaContent').innerHTML=`
-    <div class="ficha-hdr" style="border-left:4px solid ${m.condor?CC.condor:CC.sky}">
-      <div>
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:#9CA3AF;letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px">${SEG_MAP[m.seg]||m.seg} · ${m.conc} · N=${m.n} casos</div>
-        <div class="ficha-nm">${mn}</div>
-        <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
-          <span class="sband ${m.gs>=85?'alto':m.gs>=75?'medio':'bajo'}">● ${lbl}</span>
-          <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:#6B7280">Fortaleza: ${best.d} (${best.v.toFixed(2)}) · Oportunidad: ${worst.d} (${worst.v.toFixed(2)})</span>
-        </div>
-      </div>
-      <div style="text-align:right">
-        <div class="ficha-sc" style="color:${m.condor?CC.condor:CC.sky}">${m.gs}<span style="font-size:18px;color:#9CA3AF">/100</span></div>
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:#9CA3AF;margin-top:3px">Score G-SERVQUAL</div>
-        <div style="margin-top:6px;display:flex;gap:5px;justify-content:flex-end">
-          <span class="bdg good">Sat. ${m.sat}/5</span>
-          ${m.pos_si>0?'<span class="bdg ok">Posventa: '+m.pos_si+' casos</span>':''}
-        </div>
-      </div>
-    </div>
-    <div class="g2">
-      <div class="card"><div class="card-hd"><div class="card-t">Radar G-SERVQUAL vs Promedio</div><div class="card-s">${mn} (azul) vs promedio general (gris)</div></div><div class="cw" style="height:270px"><canvas id="cFichaRadar"></canvas></div></div>
-      <div class="card">
-        <div class="card-hd"><div class="card-t">% Cumplimiento por Dimensión</div><div class="card-s">Escala 1–5 → índice 0–100%</div></div>
-        ${dims.map(d=>{const pct=Math.round(((d.v-1)/4)*100);const col=pct>=80?CC.green:pct>=65?CC.sky:pct>=50?CC.amber:CC.condor;const dif=d.v-d.a;const difTxt=(dif>=0?'+':'')+dif.toFixed(2);return`<div class="dbr"><div class="dbl">${d.d} <span style="font-size:9px;color:${dif>=0?CC.green:CC.condor}">(${difTxt} vs prom.)</span></div><div class="dbt"><div class="dbf" style="width:${pct}%;background:${col};"></div></div><div class="dbv" style="color:${col}">${pct}%</div></div>`;}).join('')}
-      </div>
-    </div>
-    <div class="card"><div class="card-hd"><div class="card-t">Evaluación por Ítem — ${mn}</div><div class="card-s">✅ Por encima del umbral · ❌ Por mejorar · vs promedio general</div></div>
-      <div class="check-grid">${checkDims.map(cd=>`<div class="check-dim"><div class="check-dim-t">${cd.t}</div>${cd.items.map(it=>`<div class="check-item"><span style="font-size:12px">${it.v?'✅':'❌'}</span><span>${it.l}</span></div>`).join('')}</div>`).join('')}</div>
-    </div>
-    <div class="ai-panel"><div class="ai-icon">🤖</div><div class="ai-content"><div class="ai-title">Análisis IA — ${mn}</div><div class="ai-text"><strong>${mn}</strong> obtiene un Score G-SERVQUAL de <strong>${m.gs}/100</strong> basado en ${m.n} entrevista${m.n>1?'s':''} real${m.n>1?'es':''}. Su dimensión más fuerte es <strong>${best.d} (${best.v.toFixed(2)})</strong> — ${best.v>=avgTang?'por encima':'por debajo'} del promedio general. La mayor oportunidad de mejora está en <strong>${worst.d} (${worst.v.toFixed(2)})</strong>. Satisfacción general reportada: <strong>${m.sat}/5</strong>. ${m.pos_si>0?`De los ${m.n} entrevistados, ${m.pos_si} utilizaron servicios de posventa.`:''} <em>Se actualizará al incorporar Mystery Shopper (I2/I3).</em></div></div></div>
-  `;
-  setTimeout(()=>{
-    mk('cFichaRadar',{type:'radar',
-      data:{labels:['Tangibles','Fiabilidad','Cap. Respuesta','Seguridad','Empatía'],
-        datasets:[
-          {label:mn,data:[m.tang,m.fiab,m.cap,m.seg_d,m.emp],borderColor:m.condor?CC.condor:CC.sky,backgroundColor:(m.condor?CC.condor:CC.sky)+'20',pointBackgroundColor:m.condor?CC.condor:CC.sky,borderWidth:2.5},
-          {label:'Promedio',data:[avgTang,avgFiab,avgCap,avgSeg,avgEmp].map(v=>+v.toFixed(2)),borderColor:'rgba(0,0,0,.2)',backgroundColor:'rgba(0,0,0,.04)',pointBackgroundColor:'#9CA3AF',borderWidth:1,borderDash:[4,4]}
-        ]},
-      options:{responsive:true,maintainAspectRatio:false,
-        plugins:{legend:{display:true,position:'bottom',labels:{color:'#374151',font:{size:10}}},datalabels:{display:false}},
-        scales:{r:{min:1,max:5,ticks:{stepSize:1,font:{size:9},color:'#9CA3AF',backdropColor:'transparent'},pointLabels:{font:{size:10,weight:'600'},color:'#374151'},grid:{color:'rgba(0,0,0,.08)'},angleLines:{color:'rgba(0,0,0,.08)'}}}}
-    });
-  },50);
+  const avg=(marcas.reduce((a,m)=>a+GS[m].gs,0)/marcas.length).toFixed(1);
+  document.getElementById('aiBench').innerHTML=`<strong>Bloque 1:</strong> En el grupo seleccionado, el promedio Score G-SERVQUAL es <strong>${avg}/100</strong>. Lideran: <strong>${marcas[0]} (${GS[marcas[0]].gs})</strong> y <strong>${marcas[1]||'—'} (${GS[marcas[1]]?.gs||'—'})</strong>. El menor score es <strong>${marcas[marcas.length-1]} (${GS[marcas[marcas.length-1]].gs})</strong>. <strong>Bloque 2:</strong> El análisis comparativo por fuente (G-SERVQUAL vs Mystery Presencial vs WA vs RRSS) estará disponible al completarse el operativo de Mystery Shopper. La puntuación media 1–5 por dominio y tipo de evaluación se calculará automáticamente. <strong>Nota:</strong> Marcas propias de Condor (MG, MAXUS, FUSO, MB) no tienen datos en I1 aún — se incorporarán en próxima actualización.`;
 }
 
 // ── METODOLOGÍA ────────────────────────────────────────────
@@ -933,56 +1011,58 @@ function buildMetodo(){
   const tb=document.getElementById('tablaMatriz');
   tb.innerHTML='';
   MATRIZ.forEach(m=>{
-    const rc=m.condor?' condor-row':'';
+    const rc=m.condor?' cr-row':'';
     const faw=m.cod===31;
-    const cell=(v)=>`<td class="mat-cell ${faw?'na':v==='SI'?'si':'no'}">${faw?'N/A':v==='SI'?'✅':'❌'}</td>`;
-    tb.innerHTML+=`<tr class="${rc}"><td style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#9CA3AF">${m.cod}</td>
-      <td class="n">${m.condor?'🔴 ':''} ${m.m}</td><td>${m.c}</td>
+    const cell=v=>{
+      if(faw) return `<td class="mat-cell"><span class="mat-na">N/A</span></td>`;
+      if(v==='SI') return `<td class="mat-cell"><span class="mat-si">✅</span></td>`;
+      if(v==='NO') return `<td class="mat-cell"><span class="mat-no">❌</span></td>`;
+      return `<td class="mat-cell"><span class="mat-na">—</span></td>`;
+    };
+    tb.innerHTML+=`<tr class="${rc}">
+      <td style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--tx4)">${m.cod}</td>
+      <td class="n">${m.condor?'🔴 ':''} ${m.m}</td>
+      <td style="font-size:11px;color:var(--tx2)">${m.c}</td>
       <td><span class="bdg seg">${m.seg}</span></td>
       ${cell(m.i1)}${cell(m.i2)}${cell(m.wa)}${cell(m.rrss)}
-      <td>${m.condor?'<span class="bdg condor">CONDOR</span>':''}</td></tr>`;
+      <td>${m.condor?'<span class="bdg condor">CONDOR</span>':''}</td>
+    </tr>`;
   });
 }
 
 // ── PRODUCCION ─────────────────────────────────────────────
 function buildProd(){
-  const segOf={Kia:'A',Geely:'A',VW:'B',Chevrolet:'B',Hino:'C',Isuzu:'C',JMC:'C'};
-  const tp=document.getElementById('tablaProd');
-  tp.innerHTML='';
-  Object.entries(GS_REAL).sort((a,b)=>b[1].n-a[1].n).forEach(([m,d])=>{
-    tp.innerHTML+=`<tr>
+  const tb=document.getElementById('tablaProd');
+  tb.innerHTML='';
+  const segLbl={A:'Grupo 1',B:'Grupo 2',C:'Grupo 3',D:'Grupo 4'};
+  Object.entries(GS).sort((a,b)=>b[1].n-a[1].n).forEach(([m,d])=>{
+    tb.innerHTML+=`<tr>
       <td class="n">${m}</td>
-      <td><span class="bdg seg">${d.seg}</span></td>
+      <td><span class="bdg seg">${segLbl[d.seg]||d.seg}</span></td>
       <td class="r">${d.ftf}</td><td class="r">${d.tel}</td><td class="r">${d.wa}</td>
       <td class="r"><strong>${d.n}</strong></td>
-      <td>${d.pos_si>0?`<span class="bdg good">${d.pos_si}/${d.n}</span>`:'<span class="bdg warn">0</span>'}</td>
+      <td>${d.pos>0?`<span class="bdg good">${d.pos}/${d.n}</span>`:`<span class="bdg warn">0</span>`}</td>
     </tr>`;
   });
 
-  const marcas=Object.keys(GS_REAL).sort((a,b)=>GS_REAL[b].n-GS_REAL[a].n);
-  mk('cProdMarca',{type:'bar',
-    data:{labels:marcas,datasets:[{data:marcas.map(m=>GS_REAL[m].n),
+  const marcas=Object.keys(GS).sort((a,b)=>GS[b].n-GS[a].n);
+  mk('cProdM',{type:'bar',
+    data:{labels:marcas,datasets:[{data:marcas.map(m=>GS[m].n),
       backgroundColor:marcas.map((m,i)=>PAL[i]+'BB'),borderColor:marcas.map((m,i)=>PAL[i]),borderWidth:1,borderRadius:4}]},
     options:{...bO(),plugins:{...bO().plugins,datalabels:{display:true,anchor:'end',align:'top',color:'#374151',font:{size:10,weight:'700'},formatter:v=>v}},
       scales:{x:{grid:{color:'rgba(0,0,0,.04)'},ticks:{color:'#9CA3AF',font:{size:9}}},y:{min:0,max:6,ticks:{color:'#9CA3AF'}}}}
   });
-
-  mk('cProdCanal',{type:'doughnut',
-    data:{labels:['Telefónica','Face to face','WhatsApp'],
-      datasets:[{data:[6,5,2],backgroundColor:[CC.sky,CC.green,CC.amber],borderWidth:0,hoverOffset:6}]},
-    options:PIE
-  });
+  mk('cProdC',{type:'doughnut',data:{labels:['Telefónica (6)','Face to face (5)','WhatsApp (2)'],datasets:[{data:[46,38,16],backgroundColor:[CC.sky,CC.green,CC.amber],borderWidth:0,hoverOffset:5}]},options:PIE});
 }
 
-// ── INIT ──────────────────────────────────────────────────
+// ── INIT ─────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',()=>{
   setTimeout(()=>document.getElementById('hdrFill').style.width='86%',400);
   document.getElementById('ts').textContent='Act: '+new Date().toLocaleDateString('es-PY');
   buildPanorama();
+  buildMS();
   buildGS();
-  buildMystery();
-  buildBenchmark();
-  initSelMarca();
+  buildBench();
   buildMetodo();
   buildProd();
 });
