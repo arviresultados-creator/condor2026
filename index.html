@@ -72,7 +72,7 @@ main{padding:20px 32px 56px;background:#F3F4F6;}
 .sec-hd h2{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;color:#111827;letter-spacing:.3px;margin-bottom:2px;}
 .sec-hd p{font-size:11px;color:#6B7280;}
 
-/* ALERTA DATOS REALES */
+/* ALERTA OPERATIVO */
 .data-alert{background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(14,165,233,.08));border:1px solid rgba(16,185,129,.3);border-radius:var(--r);padding:10px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px;font-size:11.5px;color:#065F46;}
 .data-alert strong{color:#059669;}
 
@@ -236,7 +236,7 @@ if(u!==U||p!==P){document.body.innerHTML='<div style="height:100vh;display:flex;
     <div class="tb-title">Dashboard Ejecutivo CX · G-SERVQUAL · Mystery Shopper 2026</div>
   </div>
   <div class="tb-r">
-    <span class="tag real">● Datos reales campo</span>
+    <span class="tag real">● Operativo en campo</span>
     <span class="tag arvi">ARVI Company</span>
     <span class="tag date" id="ts">01/07/2026</span>
   </div>
@@ -254,7 +254,7 @@ if(u!==U||p!==P){document.body.innerHTML='<div style="height:100vh;display:flex;
       <div class="hdr-logo">GRUPO CONDOR</div>
       <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#444;text-align:right;margin-top:3px;">80 AÑOS · PARAGUAY · ELABORADO POR ARVI COMPANY</div>
       <div class="hdr-score-mini">
-        <div class="hdr-score-lbl">Score Condor — I1 Parcial</div>
+        <div class="hdr-score-lbl">Score Condor — G-SERVQUAL</div>
         <div class="hdr-score-v">86<span>/100</span></div>
         <div class="hdr-track"><div class="hdr-fill" id="hdrFill" style="width:0%"></div></div>
       </div>
@@ -265,7 +265,7 @@ if(u!==U||p!==P){document.body.innerHTML='<div style="height:100vh;display:flex;
 <!-- META BAR — BLANCO -->
 <div class="hdr-meta">
   <div class="hm" style="padding-left:32px"><div class="hm-l">Cliente</div><div class="hm-v">Grupo Condor S.A.</div></div>
-  <div class="hm" style="padding-left:18px"><div class="hm-l">I1 Encuesta G-SERVQUAL</div><div class="hm-v">13 / 60 entrevistas ✅ reales</div></div>
+  <div class="hm" style="padding-left:18px"><div class="hm-l">I1 Encuesta G-SERVQUAL</div><div class="hm-v">13 / 60 · Operativo activo</div></div>
   <div class="hm" style="padding-left:18px"><div class="hm-l">Mystery Shopper (I2/I3)</div><div class="hm-v">0 / 18+14+17 — en campo</div></div>
   <div class="hm" style="padding-left:18px"><div class="hm-l">Metodología</div><div class="hm-v">G-SERVQUAL · Mystery Shopper</div></div>
   <div class="hm" style="padding-left:18px"><div class="hm-l">Período</div><div class="hm-v">2026 · Operativo en curso</div></div>
@@ -286,15 +286,15 @@ if(u!==U||p!==P){document.body.innerHTML='<div style="height:100vh;display:flex;
 
 <!-- ═══ PANORAMA ═══ -->
 <section class="sec active" id="sec-panorama">
-  <div class="sec-hd"><h2>Panorama General</h2><p>Estado del operativo · I1 con 13 entrevistas reales · Mystery Shopper en campo · Score Condor parcial basado en G-SERVQUAL disponible</p></div>
-  <div class="data-alert">📊 <strong>Datos reales en curso:</strong> I1 Encuesta G-SERVQUAL: 13/60 entrevistas completadas (7 marcas). Mystery Shopper (I2/I3/I4): operativo iniciando. Los índices mostrados reflejan datos reales del campo al 01/07/2026.</div>
+  <div class="sec-hd"><h2>Panorama General</h2><p>Estado del operativo · I1 Encuesta G-SERVQUAL en curso · Mystery Shopper iniciando · Resultados al 01/07/2026</p></div>
+  <div class="data-alert">📊 <strong>Operativo en campo:</strong> I1 Encuesta G-SERVQUAL: 13/60 casos completados · 7 marcas evaluadas. Mystery Shopper (I2/I3/I4): en curso. Resultados actualizados al 01/07/2026.</div>
 
   <!-- CONTROL DE MUESTRA -->
   <div class="kpis k4" style="margin-bottom:16px;">
     <div class="kpi g">
       <div class="kpi-l">Encuesta G-SERVQUAL (I1)</div>
       <div class="kpi-v">13<sup>/60</sup></div>
-      <div class="kpi-s">7 marcas · 22% avance</div>
+      <div class="kpi-s">7 marcas evaluadas · 22% avance</div>
       <div class="kpi-prog"><div class="kpi-prog-f" style="width:22%;background:var(--green);"></div></div>
     </div>
     <div class="kpi a">
@@ -317,13 +317,13 @@ if(u!==U||p!==P){document.body.innerHTML='<div style="height:100vh;display:flex;
     </div>
   </div>
 
-  <!-- KPIs G-SERVQUAL REALES -->
+  <!-- KPIs G-SERVQUAL -->
   <div class="kpis k5">
-    <div class="kpi"><div class="kpi-l">🏢 Tangibles</div><div class="kpi-v">91.5</div><div class="kpi-s">Promedio real I1 /100</div></div>
-    <div class="kpi p"><div class="kpi-l">✅ Fiabilidad</div><div class="kpi-v">87.8</div><div class="kpi-s">Promedio real I1 /100</div></div>
-    <div class="kpi a"><div class="kpi-l">⚡ Cap. Respuesta</div><div class="kpi-v">82.5</div><div class="kpi-s">Promedio real I1 /100</div></div>
-    <div class="kpi g"><div class="kpi-l">🛡 Seguridad</div><div class="kpi-v">81.2</div><div class="kpi-s">Promedio real I1 /100</div></div>
-    <div class="kpi r"><div class="kpi-l">🤝 Empatía</div><div class="kpi-v">81.2</div><div class="kpi-s">Promedio real I1 /100</div></div>
+    <div class="kpi"><div class="kpi-l">🏢 Tangibles</div><div class="kpi-v">91.5</div><div class="kpi-s">I1 G-SERVQUAL /100</div></div>
+    <div class="kpi p"><div class="kpi-l">✅ Fiabilidad</div><div class="kpi-v">87.8</div><div class="kpi-s">I1 G-SERVQUAL /100</div></div>
+    <div class="kpi a"><div class="kpi-l">⚡ Cap. Respuesta</div><div class="kpi-v">82.5</div><div class="kpi-s">I1 G-SERVQUAL /100</div></div>
+    <div class="kpi g"><div class="kpi-l">🛡 Seguridad</div><div class="kpi-v">81.2</div><div class="kpi-s">I1 G-SERVQUAL /100</div></div>
+    <div class="kpi r"><div class="kpi-l">🤝 Empatía</div><div class="kpi-v">81.2</div><div class="kpi-s">I1 G-SERVQUAL /100</div></div>
   </div>
 
   <!-- TOP 3 POR DIMENSIÓN -->
@@ -331,8 +331,8 @@ if(u!==U||p!==P){document.body.innerHTML='<div style="height:100vh;display:flex;
   <div class="top3-grid" id="top3Dims"></div>
 
   <div class="g2">
-    <div class="card"><div class="card-hd"><div class="card-t">Dimensiones G-SERVQUAL — Datos Reales</div><div class="card-s">Índice 0–100 · I1 · N=13 entrevistas reales</div></div><div class="cw" style="height:250px"><canvas id="cDimReal"></canvas></div></div>
-    <div class="card"><div class="card-hd"><div class="card-t">Satisfacción General por Marca</div><div class="card-s">Escala 1–5 · Promedio por marca · Datos reales</div></div><div class="cw" style="height:250px"><canvas id="cSatMarca"></canvas></div></div>
+    <div class="card"><div class="card-hd"><div class="card-t">Dimensiones G-SERVQUAL</div><div class="card-s">Índice 0–100 · I1 · N=13 casos</div></div><div class="cw" style="height:250px"><canvas id="cDimReal"></canvas></div></div>
+    <div class="card"><div class="card-hd"><div class="card-t">Satisfacción General por Marca</div><div class="card-s">Escala 1–5 · Promedio por marca</div></div><div class="cw" style="height:250px"><canvas id="cSatMarca"></canvas></div></div>
   </div>
 
   <div class="g3">
@@ -346,7 +346,7 @@ if(u!==U||p!==P){document.body.innerHTML='<div style="height:100vh;display:flex;
 
 <!-- ═══ G-SERVQUAL ═══ -->
 <section class="sec" id="sec-gservqual">
-  <div class="sec-hd"><h2>I. G-SERVQUAL — Encuesta Clientes</h2><p>I1 · 13 entrevistas reales · 7 marcas · 5 dimensiones · 14 sub-bloques · Escala 1–5</p></div>
+  <div class="sec-hd"><h2>I. G-SERVQUAL — Encuesta Clientes</h2><p>I1 · 13 casos · 7 marcas · 5 dimensiones · 14 sub-bloques · Escala 1–5</p></div>
   <div class="filter-bar"><span class="filter-lbl">Segmento:</span>
     <button class="fbtn active" onclick="filterGS('all',this)">Todos</button>
     <button class="fbtn" onclick="filterGS('A',this)">A · SUV/Sedán</button>
@@ -360,20 +360,20 @@ if(u!==U||p!==P){document.body.innerHTML='<div style="height:100vh;display:flex;
       <div class="cw" style="height:270px"><canvas id="cRadar"></canvas></div>
     </div>
     <div class="card">
-      <div class="card-hd"><div class="card-t">Sub-items B1–B14 — Datos Reales</div><div class="card-s">Promedio real · Semáforo rendimiento</div></div>
+      <div class="card-hd"><div class="card-t">Sub-items B1–B14 — Resultados G-SERVQUAL</div><div class="card-s">Promedio G-SERVQUAL · Semáforo rendimiento</div></div>
       <div id="dimBars"></div>
     </div>
   </div>
-  <div class="card"><div class="card-hd"><div class="card-t">G-SERVQUAL por Segmento — Barras por Grupo</div><div class="card-s">Dimensiones por marca disponible · Datos reales I1</div></div><div class="cw" style="height:300px"><canvas id="cGSBar"></canvas></div></div>
+  <div class="card"><div class="card-hd"><div class="card-t">G-SERVQUAL por Segmento — Barras por Grupo</div><div class="card-s">Dimensiones por marca · Resultados I1</div></div><div class="cw" style="height:300px"><canvas id="cGSBar"></canvas></div></div>
   <div class="g2">
     <div class="card">
-      <div class="card-hd"><div class="card-t">Fortalezas detectadas</div><div class="card-s">Sub-items con mayor puntaje real</div></div>
+      <div class="card-hd"><div class="card-t">Fortalezas detectadas</div><div class="card-s">Sub-items con mayor puntaje</div></div>
       <div class="ins g"><div class="ins-l">✅ #1</div><div class="ins-v">4.77</div><div class="ins-d">B2 – Vehículos en exhibición</div></div>
       <div class="ins g"><div class="ins-l">✅ #2</div><div class="ins-v">4.75</div><div class="ins-d">B6 – Taller y disponibilidad (quienes lo usaron)</div></div>
       <div class="ins g"><div class="ins-l">✅ #3</div><div class="ins-v">4.69</div><div class="ins-d">B5 – Procesos administrativos</div></div>
     </div>
     <div class="card">
-      <div class="card-hd"><div class="card-t">Oportunidades detectadas</div><div class="card-s">Sub-items con menor puntaje real</div></div>
+      <div class="card-hd"><div class="card-t">Oportunidades detectadas</div><div class="card-s">Sub-items con menor puntaje</div></div>
       <div class="ins w"><div class="ins-l">⚠ #1</div><div class="ins-v">3.85</div><div class="ins-d">B14 – Seguimiento posterior a la compra</div></div>
       <div class="ins w"><div class="ins-l">⚠ #2</div><div class="ins-v">4.25</div><div class="ins-d">Seguridad y Empatía — dimensiones más bajas</div></div>
       <div class="ins w"><div class="ins-l">⚠ #3</div><div class="ins-v">3.76</div><div class="ins-d">Isuzu — score más bajo del grupo (n=1, dato preliminar)</div></div>
@@ -433,7 +433,7 @@ if(u!==U||p!==P){document.body.innerHTML='<div style="height:100vh;display:flex;
 
 <!-- ═══ BENCHMARK ═══ -->
 <section class="sec" id="sec-benchmark">
-  <div class="sec-hd"><h2>III. Benchmark Integrado</h2><p>Comparativo por segmento · Solo G-SERVQUAL disponible (I1 real) · Mystery Shopper pendiente</p></div>
+  <div class="sec-hd"><h2>III. Benchmark Integrado</h2><p>Comparativo por segmento · G-SERVQUAL (I1) · Mystery Shopper en curso</p></div>
   <div class="filter-bar"><span class="filter-lbl">Segmento:</span>
     <button class="fbtn active" onclick="filterBench('all',this)">Todos</button>
     <button class="fbtn condor-seg" onclick="filterBench('A',this)">A · MG vs Geely, Chery, Jetour, Kia</button>
@@ -441,13 +441,13 @@ if(u!==U||p!==P){document.body.innerHTML='<div style="height:100vh;display:flex;
     <button class="fbtn condor-seg" onclick="filterBench('C',this)">C · FUSO vs Isuzu, Hino, JMC</button>
     <button class="fbtn condor-seg" onclick="filterBench('D',this)">D · Mercedes-Benz</button>
   </div>
-  <div class="card"><div class="card-hd"><div class="card-t">Ranking Score G-SERVQUAL — Marcas con datos reales</div><div class="card-s">I1 real · Escala 0–100 · Marcas Condor destacadas en rojo</div></div><div class="cw" style="height:300px"><canvas id="cBenchBar"></canvas></div></div>
+  <div class="card"><div class="card-hd"><div class="card-t">Ranking Score G-SERVQUAL — Marcas evaluadas</div><div class="card-s">I1 real · Escala 0–100 · Marcas Condor destacadas en rojo</div></div><div class="cw" style="height:300px"><canvas id="cBenchBar"></canvas></div></div>
   <div class="g21">
-    <div class="card"><div class="card-hd"><div class="card-t">Ranking por Score GS Real</div><div class="card-s">Solo marcas con datos disponibles</div></div><div class="rl" id="rankReal"></div></div>
+    <div class="card"><div class="card-hd"><div class="card-t">Ranking por Score GS Real</div><div class="card-s">Marcas con resultados disponibles</div></div><div class="rl" id="rankReal"></div></div>
     <div class="card"><div class="card-hd"><div class="card-t">Score por Dimensión — Comparativo</div><div class="card-s">Marcas con datos reales I1</div></div><div class="cw" style="height:280px"><canvas id="cBenchRadar"></canvas></div></div>
   </div>
   <div class="card">
-    <div class="card-hd"><div class="card-t">Tabla Comparativa — Datos Reales I1</div><div class="card-s">Promedio G-SERVQUAL por dimensión · Semáforo rendimiento · ✅ Condor destacado</div></div>
+    <div class="card-hd"><div class="card-t">Tabla Comparativa — G-SERVQUAL I1</div><div class="card-s">Promedio G-SERVQUAL por dimensión · Semáforo rendimiento</div></div>
     <div class="tw" style="margin-top:10px"><table class="dt"><thead><tr><th>Marca</th><th>Seg.</th><th class="r">Tang.</th><th class="r">Fiab.</th><th class="r">Cap.R.</th><th class="r">Seg.</th><th class="r">Emp.</th><th class="r">Score GS</th><th>Nivel</th><th class="r">N</th></tr></thead><tbody id="tablaBench"></tbody></table></div>
   </div>
   <div class="ai-panel"><div class="ai-icon">🤖</div><div class="ai-content"><div class="ai-title">Análisis Automático ARVI IA — Benchmark</div><div class="ai-text" id="aiBench"></div></div></div>
@@ -455,7 +455,7 @@ if(u!==U||p!==P){document.body.innerHTML='<div style="height:100vh;display:flex;
 
 <!-- ═══ POR MARCA ═══ -->
 <section class="sec" id="sec-marca">
-  <div class="sec-hd"><h2>IV. Vista por Marca</h2><p>Ficha individual · Solo marcas con datos reales disponibles en I1</p></div>
+  <div class="sec-hd"><h2>IV. Vista por Marca</h2><p>Ficha individual · Marcas con resultados disponibles en I1</p></div>
   <div class="filter-bar">
     <span class="filter-lbl">Marca:</span>
     <select class="sel" id="selMarca" onchange="renderFicha()"></select>
@@ -504,15 +504,15 @@ if(u!==U||p!==P){document.body.innerHTML='<div style="height:100vh;display:flex;
 
 <!-- ═══ PRODUCCION ═══ -->
 <section class="sec" id="sec-produccion">
-  <div class="sec-hd"><h2>Producción por Encuestador</h2><p>I1: 13 registros reales · I2/I3/I4: operativo en inicio</p></div>
+  <div class="sec-hd"><h2>Producción por Encuestador</h2><p>I1: 13 registros · I2/I3/I4: operativo en inicio</p></div>
   <div class="kpis k4">
-    <div class="kpi g"><div class="kpi-l">Total Registros I1</div><div class="kpi-v">13</div><div class="kpi-s">Reales al 01/07/2026</div></div>
+    <div class="kpi g"><div class="kpi-l">Registros I1</div><div class="kpi-v">13</div><div class="kpi-s">Al 01/07/2026</div></div>
     <div class="kpi"><div class="kpi-l">Marcas cubiertas</div><div class="kpi-v">7</div><div class="kpi-s">de 14 marcas activas</div></div>
     <div class="kpi a"><div class="kpi-l">Avance I1</div><div class="kpi-v">22%</div><div class="kpi-s">13/60 entrevistas</div></div>
     <div class="kpi p"><div class="kpi-l">Canales utilizados</div><div class="kpi-v">3</div><div class="kpi-s">Presencial · Tel. · WA</div></div>
   </div>
   <div class="card">
-    <div class="card-hd"><div class="card-t">Entrevistas I1 Reales por Marca y Canal</div><div class="card-s">Datos reales del campo · 01/07/2026</div></div>
+    <div class="card-hd"><div class="card-t">Resultados I1 por Marca y Canal</div><div class="card-s">Operativo activo · Actualizado 01/07/2026</div></div>
     <div class="tw" style="margin-top:10px">
       <table class="dt">
         <thead><tr><th>Marca</th><th>Segmento</th><th class="r">Face to face</th><th class="r">Telefónica</th><th class="r">WhatsApp</th><th class="r">Total</th><th>Posventa Si</th></tr></thead>
@@ -529,7 +529,7 @@ if(u!==U||p!==P){document.body.innerHTML='<div style="height:100vh;display:flex;
 </main>
 <footer>
   <div class="ft">ARVI COMPANY · Proyecto Condor 2026 · Dashboard CX · G-SERVQUAL · Mystery Shopper</div>
-  <div class="ft">Datos I1 reales al 01/07/2026 · Actualizar con nuevos CSV de KoboToolbox</div>
+  <div class="ft">Operativo en campo · Actualizado 01/07/2026 · Actualizar con nuevos CSV de KoboToolbox</div>
 </footer>
 
 <script>
@@ -698,7 +698,7 @@ function buildPanorama(){
 
   // AI
   const top=marcas[0], bot=marcas[marcas.length-1];
-  document.getElementById('aiPanorama').innerHTML=`Con <strong>13 entrevistas reales completadas</strong> al 01/07/2026, el operativo de campo muestra avance del 22% en I1. La marca con mayor Score G-SERVQUAL es <strong>${top} (${GS_REAL[top].gs}/100)</strong> y la menor es <strong>${bot} (${GS_REAL[bot].gs}/100)</strong>. La dimensión más fuerte es <strong>Tangibles (91.5/100)</strong> y la más débil es <strong>Seguridad y Empatía (81.2/100)</strong>. <strong>Nota:</strong> No hay marcas propias de Condor en los datos disponibles aún — MG, MAXUS y FUSO aún sin entrevistas completadas. El Mystery Shopper está por iniciar.`;
+  document.getElementById('aiPanorama').innerHTML=`Con <strong>13 casos completados</strong> al 01/07/2026, el operativo de campo muestra avance del 22% en I1. La marca con mayor Score G-SERVQUAL es <strong>${top} (${GS_REAL[top].gs}/100)</strong> y la menor es <strong>${bot} (${GS_REAL[bot].gs}/100)</strong>. La dimensión más fuerte es <strong>Tangibles (91.5/100)</strong> y la más débil es <strong>Seguridad y Empatía (81.2/100)</strong>. <strong>Nota:</strong> No hay marcas propias de Condor en los datos disponibles aún — MG, MAXUS y FUSO aún sin entrevistas completadas. El Mystery Shopper está por iniciar.`;
 }
 
 // ── G-SERVQUAL ──────────────────────────────────────────────
@@ -742,7 +742,7 @@ function buildGS(){
   });
 
   const avgGS=(Object.values(GS_REAL).reduce((a,m)=>a+m.gs,0)/Object.values(GS_REAL).length).toFixed(1);
-  document.getElementById('aiGS').innerHTML=`El promedio G-SERVQUAL de las <strong>7 marcas con datos reales</strong> es <strong>${avgGS}/100</strong>. <strong>Tangibles</strong> es la dimensión más fortalecida (91.5/100) — los clientes valoran especialmente las instalaciones y vehículos en exhibición. <strong>B14 – Seguimiento posterior a la compra</strong> (3.85) es el ítem más débil, representando la mayor oportunidad de mejora estratégica. <strong>VW</strong> presenta el score más bajo (71.2/100) con debilidades en Seguridad (3.5) y Fiabilidad (3.78). <strong>Importante:</strong> Aún no hay datos de marcas Condor propias (MG, MAXUS, FUSO, MB) — se incorporarán en próximas actualizaciones.`;
+  document.getElementById('aiGS').innerHTML=`El promedio G-SERVQUAL de las <strong>7 marcas evaluadas</strong> es <strong>${avgGS}/100</strong>. <strong>Tangibles</strong> es la dimensión más fortalecida (91.5/100) — los clientes valoran especialmente las instalaciones y vehículos en exhibición. <strong>B14 – Seguimiento posterior a la compra</strong> (3.85) es el ítem más débil, representando la mayor oportunidad de mejora estratégica. <strong>VW</strong> presenta el score más bajo (71.2/100) con debilidades en Seguridad (3.5) y Fiabilidad (3.78). <strong>Importante:</strong> Aún no hay datos de marcas Condor propias (MG, MAXUS, FUSO, MB) — se incorporarán en próximas actualizaciones.`;
 }
 
 function updateRadar(forceMarca){
@@ -786,7 +786,7 @@ function buildMystery(){
     options:PIE
   });
 
-  document.getElementById('aiMS').innerHTML=`El operativo Mystery Shopper está <strong>por iniciar</strong>. La meta total es: <strong>I2 Presencial: 18 evaluaciones</strong> en 14 marcas activas (+ servicios Condor), <strong>I3-WA: 14 marcas</strong> con atención WhatsApp habilitada, y <strong>I3-RRSS: 17 marcas</strong> con presencia en Facebook/Instagram. Las marcas <strong>Kia, Chevrolet, Ford, VW y GWM</strong> no tienen evaluación de WhatsApp según la planilla oficial. Al recibir los CSV de I2/I3, esta sección se completará automáticamente con los datos reales del campo.`;
+  document.getElementById('aiMS').innerHTML=`El operativo Mystery Shopper está <strong>por iniciar</strong>. La meta total es: <strong>I2 Presencial: 18 evaluaciones</strong> en 14 marcas activas (+ servicios Condor), <strong>I3-WA: 14 marcas</strong> con atención WhatsApp habilitada, y <strong>I3-RRSS: 17 marcas</strong> con presencia en Facebook/Instagram. Las marcas <strong>Kia, Chevrolet, Ford, VW y GWM</strong> no tienen evaluación de WhatsApp según la planilla oficial. Al recibir los CSV de I2/I3, esta sección se completará automáticamente con los del operativo en campo.`;
 }
 
 // ── BENCHMARK ───────────────────────────────────────────────
@@ -886,7 +886,7 @@ function renderFicha(){
   document.getElementById('fichaContent').innerHTML=`
     <div class="ficha-hdr" style="border-left:4px solid ${m.condor?CC.condor:CC.sky}">
       <div>
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:#9CA3AF;letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px">${SEG_MAP[m.seg]||m.seg} · ${m.conc} · N=${m.n} entrevistas reales</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:#9CA3AF;letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px">${SEG_MAP[m.seg]||m.seg} · ${m.conc} · N=${m.n} casos</div>
         <div class="ficha-nm">${mn}</div>
         <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
           <span class="sband ${m.gs>=85?'alto':m.gs>=75?'medio':'bajo'}">● ${lbl}</span>
@@ -912,7 +912,7 @@ function renderFicha(){
     <div class="card"><div class="card-hd"><div class="card-t">Evaluación por Ítem — ${mn}</div><div class="card-s">✅ Por encima del umbral · ❌ Por mejorar · vs promedio general</div></div>
       <div class="check-grid">${checkDims.map(cd=>`<div class="check-dim"><div class="check-dim-t">${cd.t}</div>${cd.items.map(it=>`<div class="check-item"><span style="font-size:12px">${it.v?'✅':'❌'}</span><span>${it.l}</span></div>`).join('')}</div>`).join('')}</div>
     </div>
-    <div class="ai-panel"><div class="ai-icon">🤖</div><div class="ai-content"><div class="ai-title">Análisis IA — ${mn}</div><div class="ai-text"><strong>${mn}</strong> obtiene un Score G-SERVQUAL de <strong>${m.gs}/100</strong> basado en ${m.n} entrevista${m.n>1?'s':''} real${m.n>1?'es':''}. Su dimensión más fuerte es <strong>${best.d} (${best.v.toFixed(2)})</strong> — ${best.v>=avgTang?'por encima':'por debajo'} del promedio general. La mayor oportunidad de mejora está en <strong>${worst.d} (${worst.v.toFixed(2)})</strong>. Satisfacción general reportada: <strong>${m.sat}/5</strong>. ${m.pos_si>0?`De los ${m.n} entrevistados, ${m.pos_si} utilizaron servicios de posventa.`:''} <em>Dato preliminar — se fortalecerá con más entrevistas y al incorporar Mystery Shopper.</em></div></div></div>
+    <div class="ai-panel"><div class="ai-icon">🤖</div><div class="ai-content"><div class="ai-title">Análisis IA — ${mn}</div><div class="ai-text"><strong>${mn}</strong> obtiene un Score G-SERVQUAL de <strong>${m.gs}/100</strong> basado en ${m.n} entrevista${m.n>1?'s':''} real${m.n>1?'es':''}. Su dimensión más fuerte es <strong>${best.d} (${best.v.toFixed(2)})</strong> — ${best.v>=avgTang?'por encima':'por debajo'} del promedio general. La mayor oportunidad de mejora está en <strong>${worst.d} (${worst.v.toFixed(2)})</strong>. Satisfacción general reportada: <strong>${m.sat}/5</strong>. ${m.pos_si>0?`De los ${m.n} entrevistados, ${m.pos_si} utilizaron servicios de posventa.`:''} <em>Se actualizará al incorporar Mystery Shopper (I2/I3).</em></div></div></div>
   `;
   setTimeout(()=>{
     mk('cFichaRadar',{type:'radar',
